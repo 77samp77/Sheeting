@@ -97,8 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb24f634afacc24393150a835af7186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 5515539654094211844}
-  text: {fileID: 5515539653559258676}
+  textObject: {fileID: 5515539653559258676}
   mark: {fileID: 5515539654062613687}
   v: -0.3
   isMarked: 0
@@ -126,7 +125,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20, y: 7}
+  m_Size: {x: 20, y: 8}
   m_EdgeRadius: 0
 --- !u!1 &5515539653559258676
 GameObject:

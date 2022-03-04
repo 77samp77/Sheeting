@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2574c01a4e880438bfb9d2ffc36a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wordsCSV: {fileID: 4900000, guid: 115914d2ea38cff4f9f69d207ea911f5, type: 3}
   wordPrefab: {fileID: 5515539653220160393, guid: 222b2f9bf4a51f748bc5a017ce8c1e31, type: 3}
   words: {fileID: 978571425}
   gen_interval: 150
