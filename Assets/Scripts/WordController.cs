@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WordController : MonoBehaviour
 {
-    public GameObject text, mark;
+    public GameObject /*canvas, */text, mark;
     public float v;
     Vector3 pos;
     public bool isMarked;
@@ -12,7 +12,8 @@ public class WordController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        // canvas = transform.Find("Canvas").gameObject;
+        // canvas.GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -20,6 +21,7 @@ public class WordController : MonoBehaviour
     {
         pos = transform.localPosition;
         Move();
+        if(pos.x < -Screen.width / 2) Destroy(this.gameObject);
     }
 
     void Move(){
