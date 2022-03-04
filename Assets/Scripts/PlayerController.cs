@@ -5,17 +5,18 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Sprite spr;
-    public GameObject playerShotPrefab;
+    public GameObject playerShotPrefab, playerShots;
 
     Vector3 pos;
     Vector2 spr_scl;
 
     public float v = 1.0f;
+    public int shoot_interval = 12; // 連続で弾を撃つときの間隔(フレーム数) 
+    int frame_shot; // 弾を撃ったときのフレーム
 
     void Start()
     {
         InitVariables();
-        Debug.Log(Screen.width);
     }
 
     void InitVariables(){
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour
     {
         pos = transform.localPosition;
         Move();
-        if(Input.GetKey(KeyCode.Space)) Shoot();
+        if(Input.GetKey(KeyCode.Space) && Time.frameCount - frame_shot > shoot_interval) Shoot();
     }
 
     void Move(){
@@ -42,6 +43,10 @@ public class PlayerController : MonoBehaviour
         GameObject pShot = Instantiate(playerShotPrefab, 
                                        new Vector3(pos.x + spr_scl.x / 2, pos.y - spr_scl.y / 5, 0), 
                                        Quaternion.identity);
+        pShot.name = playerShotPrefab.name;
+        pShot.transform.SetParent(playerShots.transform);
+
+        frame_shot = Time.frameCount;
     }
 
     Vector3 cashPos;

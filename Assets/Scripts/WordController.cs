@@ -2,33 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShotController : MonoBehaviour
+public class WordController : MonoBehaviour
 {
-    public float vx = 2f;
+    public GameObject text;
+    public float v;
     Vector3 pos;
 
+    // Start is called before the first frame update
     void Start()
     {
+        
     }
 
+    // Update is called once per frame
     void Update()
     {
         pos = transform.localPosition;
         Move();
-        if(pos.x > Screen.width / 2) Destroy(this.gameObject);
     }
 
     void Move(){
-        pos.x += vx;
+        pos.x += v;
         transform.localPosition = pos;
     }
-    
-    Vector3 cashPos;
+
+    Vector3 cashPos, t_cashPos;
     void LateUpdate(){
         cashPos = transform.localPosition;
         transform.localPosition = new Vector3(Mathf.RoundToInt(cashPos.x),
                                               Mathf.RoundToInt(cashPos.y),
                                               Mathf.RoundToInt(cashPos.z));
+        pos = transform.localPosition;
+        text.transform.localPosition = new Vector3(pos.x + 79, pos.y - 12, pos.z);
     }
 
     void OnRenderObject(){
