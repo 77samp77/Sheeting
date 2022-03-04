@@ -18,7 +18,9 @@ public class WordController : MonoBehaviour
     public void BeSetWord(string wordStr){
         textObject.GetComponent<Text>().text = wordStr;
         int colWidth = 5 * wordStr.Length;
-        GetComponent<BoxCollider2D>().size = new Vector2(colWidth, 8);
+        BoxCollider2D bc2d = GetComponent<BoxCollider2D>();
+        bc2d.offset = new Vector2(colWidth / 2 - 1, -2.5f);
+        bc2d.size = new Vector2(colWidth, 8);
         mark.GetComponent<RectTransform>().sizeDelta = new Vector2(colWidth, 7);
     }
 
