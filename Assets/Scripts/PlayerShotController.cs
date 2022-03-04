@@ -7,6 +7,8 @@ public class PlayerShotController : MonoBehaviour
     public float vx = 2f;
     Vector3 pos;
 
+    List<GameObject> colliders = new List<GameObject>();
+
     void Start()
     {
     }
@@ -22,7 +24,19 @@ public class PlayerShotController : MonoBehaviour
         pos.x += vx;
         transform.localPosition = pos;
     }
-    
+
+    void OnTriggerEnter2D(Collider2D collider){
+        if(collider.gameObject.name == "Word") Mark(collider.gameObject);
+    }
+
+    void Mark(GameObject word){
+        WordController wcs = word.GetComponent<WordController>();
+        wcs.isMarked = true;
+        wcs.mark.SetActive(true);
+        Destroy(this.gameObject);
+    }
+
+    /*=描画用===================================================================*/
     Vector3 cashPos;
     void LateUpdate(){
         cashPos = transform.localPosition;

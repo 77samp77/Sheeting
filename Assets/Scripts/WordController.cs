@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class WordController : MonoBehaviour
 {
-    public GameObject text;
+    public GameObject text, mark;
     public float v;
     Vector3 pos;
+    public bool isMarked;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +35,7 @@ public class WordController : MonoBehaviour
                                               Mathf.RoundToInt(cashPos.z));
         pos = transform.localPosition;
         text.transform.localPosition = new Vector3(pos.x + 79, pos.y - 12, pos.z);
+        if(isMarked) mark.transform.localPosition = new Vector3(pos.x - 1, pos.y + 1, pos.z);
     }
 
     void OnRenderObject(){
