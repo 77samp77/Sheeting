@@ -58,6 +58,7 @@ public class SheetController : MonoBehaviour
         transform.localPosition = pos;
     }
 
+    /*=描画用===================================================================*/
     Vector3 cashPos;
     void LateUpdate(){
         cashPos = transform.localPosition;

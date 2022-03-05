@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
         frame_shot = Time.frameCount;
     }
 
+    /*=描画用===================================================================*/
     Vector3 cashPos;
     void LateUpdate(){
         cashPos = transform.localPosition;
