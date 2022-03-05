@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class WordController : MonoBehaviour
 {
+    GameObject gameManager;
+    GameManagerScript gms;
+
     public Rigidbody2D rb2d;
     public GameObject canvas, textObject, mark, mark_c;
     public float v;
@@ -23,6 +26,8 @@ public class WordController : MonoBehaviour
     }
     
     void InitVariables(){
+        gameManager = GameObject.Find("GameManager");
+        gms = gameManager.GetComponent<GameManagerScript>();
         sheet = GameObject.Find("Sheet");
         scs = sheet.GetComponent<SheetController>();
     }
@@ -44,7 +49,7 @@ public class WordController : MonoBehaviour
         Move();
         if(pos.y < scs.pos.y && isMarked) BeCovered();
 
-        if(pos.y < scs.bottom) Destroy(this.gameObject);
+        if(pos.y < scs.bottom) BeGained();
         if(pos.x + colWidth < -Screen.width / 2) Destroy(this.gameObject);
     }
 
@@ -57,6 +62,14 @@ public class WordController : MonoBehaviour
         isCovered = true;
         mark_c.SetActive(true);
         rb2d.bodyType = RigidbodyType2D.Dynamic;
+    }
+
+    void BeGained(){
+        gms.gain_words++;
+        gms.score += Mathf.FloorToInt(100 * Mathf.Pow(2, gms.gain_combo));
+        gms.gain_combo++;
+        Debug.Log(gms.score);
+        Destroy(this.gameObject);
     }
 
     /*=描画用===================================================================*/

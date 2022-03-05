@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SheetController : MonoBehaviour
 {
+    public GameObject gameManager;
+    GameManagerScript gms;
+
     public int top, bottom, v;
     bool isCovering, toCover, toUncover;
 
@@ -12,7 +15,11 @@ public class SheetController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        InitVariables();
+    }
+
+    void InitVariables(){
+        gms = gameManager.GetComponent<GameManagerScript>();
     }
 
     // Update is called once per frame
@@ -53,6 +60,7 @@ public class SheetController : MonoBehaviour
         if(pos.y > bottom) pos.y -= v;
         else{
             toUncover = false;
+            gms.gain_combo = 0;
             pos.y = bottom;
         }
         transform.localPosition = pos;

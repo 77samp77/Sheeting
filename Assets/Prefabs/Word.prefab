@@ -178,7 +178,7 @@ MonoBehaviour:
   textObject: {fileID: 5515539653559258676}
   mark: {fileID: 5515539654062613687}
   mark_c: {fileID: 4725440267802296629}
-  v: -0.3
+  v: -0.5
   isMarked: 0
   isCovered: 0
 --- !u!61 &5515539653220160437
