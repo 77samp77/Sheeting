@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Sprite spr;
+    Sprite spr;
     public GameObject playerShotPrefab, playerShots;
 
     Vector3 pos;
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
     void Shoot(){
         GameObject pShot = Instantiate(playerShotPrefab, 
-                                       new Vector3(pos.x + spr_scl.x / 2, pos.y - spr_scl.y / 5, 0), 
+                                       new Vector3(pos.x + spr_scl.x * 0.8f, pos.y - spr_scl.y / 2, 0), 
                                        Quaternion.identity);
         pShot.name = playerShotPrefab.name;
         pShot.transform.SetParent(playerShots.transform);

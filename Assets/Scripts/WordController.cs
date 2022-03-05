@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class WordController : MonoBehaviour
 {
-    public GameObject textObject, mark;
+    public GameObject canvas, textObject, mark;
     public float v;
     Vector3 pos;
     public bool isMarked;
@@ -13,6 +13,7 @@ public class WordController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        canvas.GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
     public void BeSetWord(string wordStr){
@@ -37,7 +38,7 @@ public class WordController : MonoBehaviour
         transform.localPosition = pos;
     }
 
-    Vector3 cashPos, t_cashPos;
+    Vector3 cashPos;
     void LateUpdate(){
         cashPos = transform.localPosition;
         transform.localPosition = new Vector3(Mathf.RoundToInt(cashPos.x),
