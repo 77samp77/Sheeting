@@ -7,6 +7,9 @@ public class WordController : MonoBehaviour
 {
     GameObject gameManager;
     GameManagerScript gms;
+    
+    GameObject UIManager;
+    UIManager UIms;
 
     public Rigidbody2D rb2d;
     public GameObject canvas, textObject, mark, mark_c;
@@ -28,6 +31,8 @@ public class WordController : MonoBehaviour
     void InitVariables(){
         gameManager = GameObject.Find("GameManager");
         gms = gameManager.GetComponent<GameManagerScript>();
+        UIManager = GameObject.Find("UIManager");
+        UIms = UIManager.GetComponent<UIManager>();
         sheet = GameObject.Find("Sheet");
         scs = sheet.GetComponent<SheetController>();
     }
@@ -68,7 +73,8 @@ public class WordController : MonoBehaviour
         gms.gain_words++;
         gms.score += Mathf.FloorToInt(100 * Mathf.Pow(2, gms.gain_combo));
         gms.gain_combo++;
-        Debug.Log(gms.score);
+        UIms.SetWordCountUI(gms.gain_words, gms.quota_words);
+        UIms.SetScoreUI(gms.score);
         Destroy(this.gameObject);
     }
 
