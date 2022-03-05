@@ -170,6 +170,7 @@ MonoBehaviour:
   wordPrefab: {fileID: 5515539653220160393, guid: 222b2f9bf4a51f748bc5a017ce8c1e31, type: 3}
   words: {fileID: 978571425}
   gen_interval: 150
+  sheet: {fileID: 1101213207}
 --- !u!1 &226769923
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,6 +577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerShotPrefab: {fileID: 1495783610244370054, guid: 5a6da87f435edf44cb6936c1356f4a3d, type: 3}
   playerShots: {fileID: 1939982089}
+  sheet: {fileID: 1101213207}
   v: 1
   shoot_interval: 12
 --- !u!1 &1582284871

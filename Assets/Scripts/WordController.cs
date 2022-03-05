@@ -8,6 +8,7 @@ public class WordController : MonoBehaviour
     public GameObject canvas, textObject, mark;
     public float v;
     Vector3 pos;
+    int colWidth;
     public bool isMarked;
 
     // Start is called before the first frame update
@@ -18,7 +19,7 @@ public class WordController : MonoBehaviour
 
     public void BeSetWord(string wordStr){
         textObject.GetComponent<Text>().text = wordStr;
-        int colWidth = 5 * wordStr.Length;
+        colWidth = 5 * wordStr.Length;
         BoxCollider2D bc2d = GetComponent<BoxCollider2D>();
         bc2d.offset = new Vector2(colWidth / 2 - 1, -2.5f);
         bc2d.size = new Vector2(colWidth, 8);
@@ -30,7 +31,7 @@ public class WordController : MonoBehaviour
     {
         pos = transform.localPosition;
         Move();
-        if(pos.x < -Screen.width / 2) Destroy(this.gameObject);
+        if(pos.x + colWidth < -Screen.width / 2) Destroy(this.gameObject);
     }
 
     void Move(){

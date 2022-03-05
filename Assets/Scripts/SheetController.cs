@@ -7,7 +7,7 @@ public class SheetController : MonoBehaviour
     public int top, bottom, v;
     bool isCovering, toCover, toUncover;
 
-    Vector3 pos;
+    public Vector3 pos;
 
     // Start is called before the first frame update
     void Start()

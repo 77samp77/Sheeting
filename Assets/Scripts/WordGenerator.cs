@@ -11,15 +11,22 @@ public class WordGenerator : MonoBehaviour
     int wordLen_max, wordNo_max;
     string[,] wordStr;
 
-
     public GameObject wordPrefab, words;
     public int gen_interval;  // 生成間隔(フレーム数)
     int frame_gen;  // 生成時のフレーム
 
+    public GameObject sheet;
+    SheetController scs;
+
     // Start is called before the first frame update
     void Start()
     {
+        InitVariables();
         ReadWordsCSV();
+    }
+
+    void InitVariables(){
+        scs = sheet.GetComponent<SheetController>();
     }
 
     void ReadWordsCSV(){
@@ -48,7 +55,7 @@ public class WordGenerator : MonoBehaviour
     }
 
     void Generate(){
-        int gen_y = Random.Range(-Screen.height / 2, Screen.height / 2);
+        int gen_y = Random.Range(scs.bottom + 6, Screen.height / 2 - 1);
         GameObject word = Instantiate(wordPrefab,
                                       new Vector3(Screen.width / 2, gen_y, 0),
                                       Quaternion.identity);
