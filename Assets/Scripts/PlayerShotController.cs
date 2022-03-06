@@ -26,11 +26,13 @@ public class PlayerShotController : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collider){
-        if(collider.gameObject.name == "Word") Mark(collider.gameObject);
+        if(collider.gameObject.tag == "Word") Mark(collider.gameObject);
     }
 
     void Mark(GameObject word){
-        WordController wcs = word.GetComponent<WordController>();
+        WordController wcs;
+        if(word.name == "Word_Hor") wcs = word.GetComponent<WordHorController>();
+        else wcs = word.GetComponent<WordVerController>();
         wcs.isMarked = true;
         wcs.mark.SetActive(true);
         Destroy(this.gameObject);

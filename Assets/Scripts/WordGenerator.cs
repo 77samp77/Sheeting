@@ -55,10 +55,7 @@ public class WordGenerator : MonoBehaviour
     }
 
     void Generate(){
-        int gen_y = Random.Range(scs.bottom + 6, Screen.height / 2 - 1);
-        GameObject word = Instantiate(wordPrefab,
-                                      new Vector3(Screen.width / 2, gen_y, 0),
-                                      Quaternion.identity);
+        GameObject word = Instantiate(wordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         word.name = wordPrefab.name;
         word.transform.SetParent(words.transform);
         frame_gen = Time.frameCount;

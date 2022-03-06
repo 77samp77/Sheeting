@@ -5,30 +5,36 @@ using UnityEngine.UI;
 
 public class WordController : MonoBehaviour
 {
-    GameObject gameManager;
-    GameManagerScript gms;
+    [System.NonSerialized] public GameObject gameManager;
+    [System.NonSerialized] public GameManagerScript gms;
+    [System.NonSerialized] public bool readyToSetPos;
     
-    GameObject UIManager;
-    UIManager UIms;
+    [System.NonSerialized] public GameObject UIManager;
+    [System.NonSerialized] public UIManager UIms;
 
     public Rigidbody2D rb2d;
     public GameObject canvas, textObject, mark, mark_c;
     public float v;
-    Vector3 pos;
-    int colWidth;
+    [System.NonSerialized] public Vector3 pos;
+    [System.NonSerialized] public int colWidth;
     public bool isMarked, isCovered;
 
-    GameObject sheet;
-    SheetController scs;
+    [System.NonSerialized] public GameObject sheet;
+    [System.NonSerialized] public SheetController scs;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
+        textObject.SetActive(false);
         InitVariables();
         canvas.GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
+
+    public virtual void SetFirstPosition(){
+
+    }
     
-    void InitVariables(){
+    public virtual void InitVariables(){
         gameManager = GameObject.Find("GameManager");
         gms = gameManager.GetComponent<GameManagerScript>();
         UIManager = GameObject.Find("UIManager");
@@ -37,7 +43,7 @@ public class WordController : MonoBehaviour
         scs = sheet.GetComponent<SheetController>();
     }
 
-    public void BeSetWord(string wordStr){
+    public virtual void BeSetWord(string wordStr){
         textObject.GetComponent<Text>().text = wordStr;
         colWidth = 5 * wordStr.Length;
         BoxCollider2D bc2d = GetComponent<BoxCollider2D>();
@@ -45,31 +51,55 @@ public class WordController : MonoBehaviour
         bc2d.size = new Vector2(colWidth, 8);
         mark.GetComponent<RectTransform>().sizeDelta = new Vector2(colWidth, 7);
         mark_c.GetComponent<RectTransform>().sizeDelta = new Vector2(colWidth, 7);
+        readyToSetPos = true;
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
+        if(readyToSetPos) SetFirstPosition();
+
         pos = transform.localPosition;
         Move();
-        if(pos.y < scs.pos.y && isMarked) BeCovered();
-
-        if(pos.y < scs.bottom) BeGained();
-        if(pos.x + colWidth < -Screen.width / 2) Destroy(this.gameObject);
+        if(readyToCover()) BeCovered();
+        
+        if(readyToGain()) BeGained();
+        if(readyToDestroy()){
+            Debug.Log(pos);
+            Destroy(this.gameObject);
+        }
     }
 
-    void Move(){
+    public virtual bool readyToCover(){
+        if(!isMarked) return false;
+        if(!scs.isCovering) return false;
+        if(!scs.toCover) return true;
+        if(pos.y >= scs.pos.y) return false;
+        return true;
+    }
+
+    public virtual bool readyToGain(){
+        if(pos.y >= scs.bottom) return false;
+        if(!isCovered) return false;
+        return true;
+    }
+
+    public virtual bool readyToDestroy(){
+        return false;
+    }
+
+    public virtual void Move(){
         pos.x += v;
         transform.localPosition = pos;
     }
 
-    void BeCovered(){
+    public virtual void BeCovered(){
         isCovered = true;
         mark_c.SetActive(true);
         rb2d.bodyType = RigidbodyType2D.Dynamic;
     }
 
-    void BeGained(){
+    public virtual void BeGained(){
         gms.gain_words++;
         gms.score += Mathf.FloorToInt(100 * Mathf.Pow(2, gms.gain_combo));
         gms.gain_combo++;
@@ -79,8 +109,8 @@ public class WordController : MonoBehaviour
     }
 
     /*=描画用===================================================================*/
-    Vector3 cashPos;
-    void LateUpdate(){
+    [System.NonSerialized] public Vector3 cashPos;
+    public virtual void LateUpdate(){
         cashPos = transform.localPosition;
         transform.localPosition = new Vector3(Mathf.RoundToInt(cashPos.x),
                                               Mathf.RoundToInt(cashPos.y),
@@ -91,7 +121,7 @@ public class WordController : MonoBehaviour
         if(isCovered) mark_c.transform.localPosition = new Vector3(pos.x - 1, pos.y - 6, pos.z);
     }
 
-    void OnRenderObject(){
+    public virtual void OnRenderObject(){
         transform.localPosition = cashPos;
     }
 }

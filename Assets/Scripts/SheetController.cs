@@ -8,7 +8,8 @@ public class SheetController : MonoBehaviour
     GameManagerScript gms;
 
     public int top, bottom, v;
-    bool isCovering, toCover, toUncover;
+    public bool isCovering;
+    public bool toCover, toUncover;
 
     public Vector3 pos;
 
