@@ -268,9 +268,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wordsCSV: {fileID: 4900000, guid: 115914d2ea38cff4f9f69d207ea911f5, type: 3}
-  wordPrefab: {fileID: 1866698549238306569, guid: 2129710bca8346c468c9ff061777cc8f, type: 3}
+  wordHorPrefab: {fileID: 1252543742244952945, guid: d7eac39cc46db2d44be28d4b6d70651f, type: 3}
+  wordVerPrefab: {fileID: 1866698549238306569, guid: 2129710bca8346c468c9ff061777cc8f, type: 3}
   words: {fileID: 978571425}
-  gen_interval: 120
+  gen_interval: 70
   sheet: {fileID: 1101213207}
 --- !u!1 &226769923
 GameObject:

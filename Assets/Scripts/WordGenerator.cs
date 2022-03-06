@@ -11,7 +11,7 @@ public class WordGenerator : MonoBehaviour
     int wordLen_max, wordNo_max;
     string[,] wordStr;
 
-    public GameObject wordPrefab, words;
+    public GameObject wordHorPrefab, wordVerPrefab, words;
     public int gen_interval;  // 生成間隔(フレーム数)
     int frame_gen;  // 生成時のフレーム
 
@@ -51,17 +51,20 @@ public class WordGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Time.frameCount - frame_gen > gen_interval) Generate();
+        if(Time.frameCount - frame_gen > gen_interval){
+            if(Random.value < 0.5f) Generate(wordHorPrefab);
+            else Generate(wordVerPrefab);
+        }
     }
 
-    void Generate(){
+    void Generate(GameObject wordPrefab){
         GameObject word = Instantiate(wordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         word.name = wordPrefab.name;
         word.transform.SetParent(words.transform);
         frame_gen = Time.frameCount;
         SetWord(word, Random.Range(3, wordLen_max + 1), Random.Range(0, wordNo_max + 1));
     }
-
+    
     void SetWord(GameObject word, int len, int no){
         WordController wcs = word.GetComponent<WordController>();
         wcs.BeSetWord(wordStr[len, no]);

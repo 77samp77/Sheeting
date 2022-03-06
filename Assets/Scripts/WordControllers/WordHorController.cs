@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class WordHorController : WordController
 {
+    public override void Start()
+    {
+        base.Start();
+        readyToSetPos = true;
+    }
+
     public override void SetFirstPosition()
     {
         int fy = Random.Range(scs.bottom + 6, Screen.height / 2 - 1);

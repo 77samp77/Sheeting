@@ -64,10 +64,7 @@ public class WordController : MonoBehaviour
         if(readyToCover()) BeCovered();
         
         if(readyToGain()) BeGained();
-        if(readyToDestroy()){
-            Debug.Log(pos);
-            Destroy(this.gameObject);
-        }
+        if(readyToDestroy()) Destroy(this.gameObject);
     }
 
     public virtual bool readyToCover(){
