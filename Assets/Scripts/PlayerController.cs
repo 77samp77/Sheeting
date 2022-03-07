@@ -12,8 +12,8 @@ public class PlayerController : MonoBehaviour
     Vector3 pos;
     Vector2 spr_scl;
 
-    public float v = 1.0f;
-    public int shoot_interval = 12; // 連続で弾を撃つときの間隔(フレーム数) 
+    public float v;
+    public int shoot_interval; // 連続で弾を撃つときの間隔(フレーム数) 
     int frame_shot; // 弾を撃ったときのフレーム
 
     void Start()
