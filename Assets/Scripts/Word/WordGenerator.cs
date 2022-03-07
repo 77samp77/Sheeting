@@ -52,9 +52,8 @@ public class WordGenerator : MonoBehaviour
     void Update()
     {
         if(Time.frameCount - frame_gen > gen_interval){
-            // if(Random.value < 0.5f) Generate(wordHorPrefab);
-            // else Generate(wordVerPrefab);
-            Generate(wordHorPrefab);
+            if(Random.value < 0.5f) Generate(wordHorPrefab);
+            else Generate(wordVerPrefab);
         }
     }
 

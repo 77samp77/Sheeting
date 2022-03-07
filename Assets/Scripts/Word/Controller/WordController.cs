@@ -96,11 +96,10 @@ public class WordController : MonoBehaviour
     }
 
     public virtual void BeGained(){
-        gms.gain_words++;
-        gms.score += Mathf.FloorToInt(100 * Mathf.Pow(2, gms.gain_combo));
         gms.gain_combo++;
+        gms.gain_words++;
         UIms.SetWordCountUI(gms.gain_words, gms.quota_words);
-        UIms.SetScoreUI(gms.score);
+        gms.IncreaseScore(Mathf.FloorToInt(100 * Mathf.Pow(2, gms.gain_combo - 1)));
         Destroy(this.gameObject);
     }
 

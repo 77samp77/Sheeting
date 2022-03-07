@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameManagerScript : MonoBehaviour
 {
+    public GameObject UIManager;
+    UIManager UIms;
+
     public int gain_words, gain_combo, score;
     public int quota_words;
 
@@ -13,11 +16,20 @@ public class GameManagerScript : MonoBehaviour
 
     void Start()
     {
-        
+        InitVariables();
+    }
+
+    void InitVariables(){
+        UIms = UIManager.GetComponent<UIManager>();
     }
 
     void Update()
     {
         
+    }
+
+    public void IncreaseScore(int plusScore){
+        score += plusScore;
+        UIms.SetScoreUI(score);
     }
 }
