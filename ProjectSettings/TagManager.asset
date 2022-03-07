@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Word
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -44,6 +45,9 @@ TagManager:
     locked: 0
   - name: Word
     uniqueID: 516446117
+    locked: 0
+  - name: EnemyShot
+    uniqueID: 3600933609
     locked: 0
   - name: Enemy
     uniqueID: 1272983661

@@ -15,18 +15,10 @@ public class WordGenerator : MonoBehaviour
     public int gen_interval;  // 生成間隔(フレーム数)
     int frame_gen;  // 生成時のフレーム
 
-    public GameObject sheet;
-    SheetController scs;
-
     // Start is called before the first frame update
     void Start()
     {
-        InitVariables();
         ReadWordsCSV();
-    }
-
-    void InitVariables(){
-        scs = sheet.GetComponent<SheetController>();
     }
 
     void ReadWordsCSV(){
@@ -52,9 +44,8 @@ public class WordGenerator : MonoBehaviour
     void Update()
     {
         if(Time.frameCount - frame_gen > gen_interval){
-            // if(Random.value < 0.5f) Generate(wordHorPrefab);
-            // else Generate(wordVerPrefab);
-            Generate(wordHorPrefab);
+            if(Random.value < 0.5f) Generate(wordHorPrefab);
+            else Generate(wordVerPrefab);
         }
     }
 

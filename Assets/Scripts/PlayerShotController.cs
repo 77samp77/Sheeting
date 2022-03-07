@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerShotController : MonoBehaviour
 {
+    GameObject gameManager;
+    GameManagerScript gms;
+
     public float vx = 2f;
     Vector3 pos;
 
@@ -11,6 +14,12 @@ public class PlayerShotController : MonoBehaviour
 
     void Start()
     {
+        InitVariables();
+    }
+
+    void InitVariables(){
+        gameManager = GameObject.Find("GameManager");
+        gms = gameManager.GetComponent<GameManagerScript>();
     }
 
     void Update()
@@ -26,18 +35,30 @@ public class PlayerShotController : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collider){
-        GameObject word = collider.gameObject;
-        if(word.tag == "Word"){
+        GameObject colObject = collider.gameObject;
+        if(colObject.tag == "Word"){
             WordController wcs;
-            if(word.name == "Word_Hor") wcs = word.GetComponent<WordHorController>();
-            else wcs = word.GetComponent<WordVerController>();
-            if(wcs.textObject.activeSelf) Mark(word, wcs);
+            if(colObject.name == "Word_Hor") wcs = colObject.GetComponent<WordHorController>();
+            else wcs = colObject.GetComponent<WordVerController>();
+            if(wcs.textObject.activeSelf) Mark(colObject, wcs);
+        }
+        else if(colObject.tag == "Enemy"){
+            EnemyController ecs;
+            if(colObject.name == "EnemyA") ecs = colObject.GetComponent<EnemyAController>();
+            else ecs = colObject.GetComponent<EnemyController>();
+            HitEnemy(colObject, ecs);
         }
     }
 
     void Mark(GameObject word, WordController wcs){
         wcs.isMarked = true;
         wcs.mark.SetActive(true);
+        Destroy(this.gameObject);
+    }
+
+    void HitEnemy(GameObject enemy, EnemyController ecs){
+        gms.IncreaseScore(ecs.score);
+        Destroy(enemy);
         Destroy(this.gameObject);
     }
 
