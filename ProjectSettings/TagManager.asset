@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Word
   layers:
   - Default
   - TransparentFX
@@ -41,9 +42,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Word
+    uniqueID: 516446117
+    locked: 0
+  - name: Enemy
+    uniqueID: 1272983661
+    locked: 0
   - name: PlayerShot
     uniqueID: 85350753
     locked: 0
+  - name: Sheet
+    uniqueID: 1579576227
+    locked: 0
   - name: Player
     uniqueID: 1230622043
+    locked: 0
+  - name: UI
+    uniqueID: 2785311417
     locked: 0
