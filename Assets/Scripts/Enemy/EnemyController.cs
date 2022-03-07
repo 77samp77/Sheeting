@@ -15,6 +15,10 @@ public class EnemyController : MonoBehaviour
     public float v;
     public int score;
 
+    [System.NonSerialized] public GameObject enemyShotPrefab, enemyShots;
+    public int shoot_interval; // 連続で弾を撃つときの間隔(フレーム数) 
+    [System.NonSerialized] public int frame_shot; // 弾を撃ったときのフレーム
+
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -24,6 +28,7 @@ public class EnemyController : MonoBehaviour
     public virtual void InitVariables(){
         sheet = GameObject.Find("Sheet");
         scs = sheet.GetComponent<SheetController>();
+        enemyShots = GameObject.Find("EnemyShots");
     }
 
     // Update is called once per frame
@@ -31,7 +36,7 @@ public class EnemyController : MonoBehaviour
     {
         pos = transform.localPosition;
         Move();
-        Shoot();
+        if(readyToShoot()) Shoot();
         IsCoveredSwitch();
     }
 
@@ -52,8 +57,22 @@ public class EnemyController : MonoBehaviour
 
     }
 
-    public virtual void Shoot(){
+    public virtual bool readyToShoot(){
+        return false;
+    }
 
+    public virtual void Shoot(){
+        GameObject eShot = Instantiate(enemyShotPrefab, 
+                                       new Vector3(pos.x, pos.y, 0), 
+                                       Quaternion.identity);
+        PositionShot(eShot);
+        eShot.name = enemyShotPrefab.name;
+        eShot.transform.SetParent(enemyShots.transform);
+        frame_shot = Time.frameCount;
+    }
+
+    public virtual void PositionShot(GameObject eShot){
+        
     }
 
     /*=描画用===================================================================*/

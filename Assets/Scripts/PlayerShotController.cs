@@ -44,7 +44,7 @@ public class PlayerShotController : MonoBehaviour
         }
         else if(colObject.tag == "Enemy"){
             EnemyController ecs;
-            if(colObject.name == "Enemy_A") ecs = colObject.GetComponent<EnemyAController>();
+            if(colObject.name == "EnemyA") ecs = colObject.GetComponent<EnemyAController>();
             else ecs = colObject.GetComponent<EnemyController>();
             HitEnemy(colObject, ecs);
         }

@@ -66,6 +66,10 @@ public class PlayerController : MonoBehaviour
         frame_shot = Time.frameCount;
     }
 
+    public void Damage(){
+        Debug.Log("Damage()");
+    }
+
     /*=描画用===================================================================*/
     Vector3 cashPos;
     void LateUpdate(){
