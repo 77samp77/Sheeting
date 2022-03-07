@@ -31,7 +31,6 @@ public class WordController : MonoBehaviour
     }
 
     public virtual void SetFirstPosition(){
-
     }
     
     public virtual void InitVariables(){
@@ -46,9 +45,6 @@ public class WordController : MonoBehaviour
     public virtual void BeSetWord(string wordStr){
         textObject.GetComponent<Text>().text = wordStr;
         colWidth = 5 * wordStr.Length;
-        BoxCollider2D bc2d = GetComponent<BoxCollider2D>();
-        bc2d.offset = new Vector2(colWidth / 2 - 1, -2.5f);
-        bc2d.size = new Vector2(colWidth, 8);
         mark.GetComponent<RectTransform>().sizeDelta = new Vector2(colWidth, 7);
         mark_c.GetComponent<RectTransform>().sizeDelta = new Vector2(colWidth, 7);
         readyToSetPos = true;
@@ -57,7 +53,10 @@ public class WordController : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-        if(readyToSetPos) SetFirstPosition();
+        if(readyToSetPos){
+            SetFirstPosition();
+            textObject.SetActive(true);
+        }
 
         pos = transform.localPosition;
         Move();
@@ -113,9 +112,6 @@ public class WordController : MonoBehaviour
                                               Mathf.RoundToInt(cashPos.y),
                                               Mathf.RoundToInt(cashPos.z));
         pos = transform.localPosition;
-        textObject.transform.localPosition = new Vector3(pos.x + 79, pos.y - 12, pos.z);
-        if(isMarked) mark.transform.localPosition = new Vector3(pos.x - 1, pos.y - 6, pos.z);
-        if(isCovered) mark_c.transform.localPosition = new Vector3(pos.x - 1, pos.y - 6, pos.z);
     }
 
     public virtual void OnRenderObject(){

@@ -52,8 +52,9 @@ public class WordGenerator : MonoBehaviour
     void Update()
     {
         if(Time.frameCount - frame_gen > gen_interval){
-            if(Random.value < 0.5f) Generate(wordHorPrefab);
-            else Generate(wordVerPrefab);
+            // if(Random.value < 0.5f) Generate(wordHorPrefab);
+            // else Generate(wordVerPrefab);
+            Generate(wordHorPrefab);
         }
     }
 
@@ -66,7 +67,9 @@ public class WordGenerator : MonoBehaviour
     }
     
     void SetWord(GameObject word, int len, int no){
-        WordController wcs = word.GetComponent<WordController>();
+        WordController wcs;
+        if(word.name == "Word_Hor") wcs = word.GetComponent<WordHorController>();
+        else wcs = word.GetComponent<WordVerController>();
         wcs.BeSetWord(wordStr[len, no]);
     }
 }

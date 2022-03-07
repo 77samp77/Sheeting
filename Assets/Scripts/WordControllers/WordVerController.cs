@@ -16,18 +16,13 @@ public class WordVerController : WordController
         else pos.y = 110 + colWidth;
         transform.localPosition = pos;
         readyToSetPos = false;
-        textObject.SetActive(true);
     }
 
     public override void BeSetWord(string wordStr){
-        textObject.GetComponent<Text>().text = wordStr;
-        colWidth = 5 * wordStr.Length;
+        base.BeSetWord(wordStr);
         BoxCollider2D bc2d = GetComponent<BoxCollider2D>();
         bc2d.offset = new Vector2(-46.5f, -22 - colWidth / 2);
         bc2d.size = new Vector2(7, colWidth);
-        mark.GetComponent<RectTransform>().sizeDelta = new Vector2(colWidth, 7);
-        mark_c.GetComponent<RectTransform>().sizeDelta = new Vector2(colWidth, 7);
-        readyToSetPos = true;
     }
 
     public override void Move(){
@@ -48,11 +43,7 @@ public class WordVerController : WordController
     }
 
     public override void LateUpdate(){
-        cashPos = transform.localPosition;
-        transform.localPosition = new Vector3(Mathf.RoundToInt(cashPos.x),
-                                              Mathf.RoundToInt(cashPos.y),
-                                              Mathf.RoundToInt(cashPos.z));
-        pos = transform.localPosition;
+        base.LateUpdate();
         textObject.transform.localPosition = new Vector3(pos.x - 41, pos.y - 22, pos.z);
         if(isMarked) mark.transform.localPosition = new Vector3(pos.x - 50, pos.y - 22, pos.z);
         if(isCovered) mark_c.transform.localPosition = new Vector3(pos.x - 50, pos.y - 22, pos.z);
