@@ -272,7 +272,6 @@ MonoBehaviour:
   wordVerPrefab: {fileID: 1866698549238306569, guid: 2129710bca8346c468c9ff061777cc8f, type: 3}
   words: {fileID: 978571425}
   gen_interval: 70
-  sheet: {fileID: 1101213207}
 --- !u!1 &226769923
 GameObject:
   m_ObjectHideFlags: 0
@@ -1083,6 +1082,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1387590994}
+  - component: {fileID: 1387590995}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -1104,6 +1104,21 @@ Transform:
   m_Father: {fileID: 520554618}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1387590995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387590993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cc3958cf4dbd3448d0f563e6b85754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyAPrefab: {fileID: 3211919172614761667, guid: c16aa378cae6de7449fe670153165628, type: 3}
+  enemies: {fileID: 1628317941}
+  gen_interval: 800
 --- !u!1 &1582284871
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,12 +23,17 @@ public class EnemyController : MonoBehaviour
     public virtual void Start()
     {
         InitVariables();
+        SetFirstPosition();
     }
 
     public virtual void InitVariables(){
         sheet = GameObject.Find("Sheet");
         scs = sheet.GetComponent<SheetController>();
         enemyShots = GameObject.Find("EnemyShots");
+    }
+
+    public virtual void SetFirstPosition(){
+
     }
 
     // Update is called once per frame
@@ -72,7 +77,16 @@ public class EnemyController : MonoBehaviour
     }
 
     public virtual void PositionShot(GameObject eShot){
-        
+
+    }
+    
+    public virtual void OnTriggerStay2D(Collider2D collider){
+        if(!sprite.activeSelf) return;
+        GameObject colObject = collider.gameObject;
+        if(colObject.tag == "Player"){
+            PlayerController pcs = colObject.GetComponent<PlayerController>();
+            pcs.Damage();
+        }
     }
 
     /*=描画用===================================================================*/

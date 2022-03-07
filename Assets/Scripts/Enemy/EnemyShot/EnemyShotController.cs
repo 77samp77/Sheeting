@@ -45,7 +45,8 @@ public class EnemyShotController : MonoBehaviour
         return false;
     }
 
-    public virtual void OnTriggerEnter2D(Collider2D collider){
+    public virtual void OnTriggerStay2D(Collider2D collider){
+        if(!sprite.activeSelf) return;
         GameObject colObject = collider.gameObject;
         if(colObject.tag == "Player"){
             PlayerController pcs = colObject.GetComponent<PlayerController>();
