@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     TextManager tms;
 
     public GameObject scoreUI, wordCountUI;
+    public GameObject[] lifeSprites = new GameObject[6];
 
     // Start is called before the first frame update
     void Start()

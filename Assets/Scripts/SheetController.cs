@@ -26,6 +26,7 @@ public class SheetController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(gms.gameIsStop) return;
         pos = transform.localPosition;
         Controll();
         Move();

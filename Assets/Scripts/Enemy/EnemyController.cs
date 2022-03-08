@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    [System.NonSerialized] public GameObject gameManager;
+    [System.NonSerialized] public GameManagerScript gms;
+
     [System.NonSerialized] public GameObject sheet;
     [System.NonSerialized] public SheetController scs;
 
@@ -27,6 +30,8 @@ public class EnemyController : MonoBehaviour
     }
 
     public virtual void InitVariables(){
+        gameManager = GameObject.Find("GameManager");
+        gms = gameManager.GetComponent<GameManagerScript>();
         sheet = GameObject.Find("Sheet");
         scs = sheet.GetComponent<SheetController>();
         enemyShots = GameObject.Find("EnemyShots");
@@ -39,6 +44,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
+        if(gms.gameIsStop) return;
         pos = transform.localPosition;
         Move();
         if(readyToShoot()) Shoot();
