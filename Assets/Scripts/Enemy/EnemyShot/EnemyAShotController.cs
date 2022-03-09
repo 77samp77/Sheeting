@@ -6,7 +6,7 @@ public class EnemyAShotController : EnemyShotController
 {
     public override void Move()
     {
-        pos.x -= vx;
+        pos.x -= v;
         transform.localPosition = pos;
     }
 

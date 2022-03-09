@@ -18,14 +18,33 @@ public class EnemyBController : EnemyController
         base.InitVariables();
         player = GameObject.Find("Player");
         pcs = player.GetComponent<PlayerController>();
+        enemyShotPrefab = (GameObject)Resources.Load("Prefabs/Enemy/EnemyB_Shot");
         sprite_ren = sprite.GetComponent<SpriteRenderer>();
         sprite_f_ren = sprite_f.GetComponent<SpriteRenderer>();
     }
 
+    public override void SetFirstPosition()
+    {
+        transform.localPosition = new Vector3(Screen.width / 2 + 6, -44, 0);
+    }
+
     public override void Update(){
         base.Update();
-        // if(readyToShoot()) Shoot();
+        if(readyToShoot()) Shoot();
         SwitchAngle();
+        if(pos.x + 6 < -Screen.width / 2) Destroy(this.gameObject);
+    }
+
+    public override void Move()
+    {
+        p_pos = player.transform.localPosition;
+        pos.x -= gms.gameSpeed;
+        transform.localPosition = pos;
+    }
+    
+    public override bool readyToShoot()
+    {
+        return Time.frameCount - frame_shot > shoot_interval;
     }
 
     void SwitchAngle(){
@@ -43,6 +62,10 @@ public class EnemyBController : EnemyController
             sprite_ren.sprite = sprites[angle];
             sprite_f_ren.sprite = sprites_f[angle];
         }
+    }
 
+    public override void Shoot(){
+        base.Shoot();
+        eShot.GetComponent<EnemyBShotController>().SetAngle(angle);
     }
 }

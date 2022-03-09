@@ -71,8 +71,9 @@ public class EnemyController : MonoBehaviour
         return false;
     }
 
+    [System.NonSerialized] public GameObject eShot;
     public virtual void Shoot(){
-        GameObject eShot = Instantiate(enemyShotPrefab, 
+        eShot = Instantiate(enemyShotPrefab, 
                                        new Vector3(pos.x, pos.y, 0), 
                                        Quaternion.identity);
         PositionShot(eShot);

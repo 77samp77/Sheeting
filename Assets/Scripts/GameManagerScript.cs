@@ -16,6 +16,8 @@ public class GameManagerScript : MonoBehaviour
     [System.NonSerialized] public int life;
     public int life_max;
 
+    public float gameSpeed;
+
     void Awake(){
         Application.targetFrameRate = 60;
     }

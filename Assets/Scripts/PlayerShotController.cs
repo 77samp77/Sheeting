@@ -56,7 +56,7 @@ public class PlayerShotController : MonoBehaviour
         wcs.mark.SetActive(true);
         Destroy(this.gameObject);
     }
-
+    
     void HitEnemy(GameObject enemy, EnemyController ecs){
         gms.IncreaseScore(ecs.score);
         Destroy(enemy);

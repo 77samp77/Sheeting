@@ -7,7 +7,7 @@ public class EnemyGenerator : MonoBehaviour
     public GameObject gameManager;
     GameManagerScript gms;
 
-    public GameObject enemyAPrefab, enemies;
+    public GameObject enemyAPrefab, enemyBPrefab, enemies;
     public int gen_interval;  // 生成間隔(フレーム数)
     int frame_gen;  // 生成時のフレーム
 
@@ -25,7 +25,7 @@ public class EnemyGenerator : MonoBehaviour
     void Update()
     {
         if(gms.gameIsStop) return;
-        if(Time.frameCount - frame_gen > gen_interval) Generate(enemyAPrefab);
+        if(Time.frameCount - frame_gen > gen_interval) Generate(enemyBPrefab);
     }
 
     void Generate(GameObject enemyPrefab){
