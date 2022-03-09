@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyGenerator : MonoBehaviour
 {
+    public GameObject gameManager;
+    GameManagerScript gms;
+
     public GameObject enemyAPrefab, enemies;
     public int gen_interval;  // 生成間隔(フレーム数)
     int frame_gen;  // 生成時のフレーム
@@ -11,12 +14,17 @@ public class EnemyGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        InitVariables();
+    }
+
+    void InitVariables(){
+        gms = gameManager.GetComponent<GameManagerScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(gms.gameIsStop) return;
         if(Time.frameCount - frame_gen > gen_interval) Generate(enemyAPrefab);
     }
 

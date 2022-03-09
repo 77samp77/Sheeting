@@ -5,6 +5,9 @@ using System.IO;
 
 public class WordGenerator : MonoBehaviour
 {
+    public GameObject gameManager;
+    GameManagerScript gms;
+
     public TextAsset wordsCSV;
     List<string[]> wordsData = new List<string[]>();
     int[] wordLen, wordNo;
@@ -18,7 +21,12 @@ public class WordGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InitVariables();
         ReadWordsCSV();
+    }
+
+    void InitVariables(){
+        gms = gameManager.GetComponent<GameManagerScript>();
     }
 
     void ReadWordsCSV(){
@@ -43,6 +51,7 @@ public class WordGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(gms.gameIsStop) return;
         if(Time.frameCount - frame_gen > gen_interval){
             if(Random.value < 0.5f) Generate(wordHorPrefab);
             else Generate(wordVerPrefab);

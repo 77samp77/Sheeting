@@ -58,6 +58,7 @@ public class WordController : MonoBehaviour
             textObject.SetActive(true);
         }
 
+        if(gms.gameIsStop) return;
         pos = transform.localPosition;
         Move();
         if(readyToCover()) BeCovered();
