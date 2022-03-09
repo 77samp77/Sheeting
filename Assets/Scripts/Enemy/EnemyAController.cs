@@ -30,6 +30,7 @@ public class EnemyAController : EnemyController
     
     public override void Update(){
         base.Update();
+        if(readyToShoot()) Shoot();
         isShootMode = isStartShoot && Time.frameCount - frame_startedShoot < stayFrame;
     }
 

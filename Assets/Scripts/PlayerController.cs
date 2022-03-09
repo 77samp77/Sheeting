@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     SheetController scs;
 
     Vector3 pos;
-    Vector2 spr_scl;
+    [System.NonSerialized] public Vector2 spr_scl;
 
     public float v;
     public int shoot_interval; // 連続で弾を撃つときの間隔(フレーム数) 

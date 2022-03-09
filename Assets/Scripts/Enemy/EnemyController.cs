@@ -47,11 +47,10 @@ public class EnemyController : MonoBehaviour
         if(gms.gameIsStop) return;
         pos = transform.localPosition;
         Move();
-        if(readyToShoot()) Shoot();
-        IsCoveredSwitch();
+        SwitchIsCovered();
     }
 
-    public virtual void IsCoveredSwitch(){
+    public virtual void SwitchIsCovered(){
         if(sprite.activeSelf){
             if(pos.y < scs.pos.y){
                 sprite.SetActive(false);
