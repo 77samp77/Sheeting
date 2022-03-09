@@ -1544,7 +1544,7 @@ MonoBehaviour:
   enemyAPrefab: {fileID: 3211919172614761667, guid: c16aa378cae6de7449fe670153165628, type: 3}
   enemyBPrefab: {fileID: 6092696275138139963, guid: dfefc8c7e8dd7104f853b6206d80004b, type: 3}
   enemies: {fileID: 1628317941}
-  gen_interval: 120
+  gen_interval: 800
 --- !u!1 &1582284871
 GameObject:
   m_ObjectHideFlags: 0

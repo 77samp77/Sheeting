@@ -35,6 +35,7 @@ public class EnemyController : MonoBehaviour
         sheet = GameObject.Find("Sheet");
         scs = sheet.GetComponent<SheetController>();
         enemyShots = GameObject.Find("EnemyShots");
+        frame_shot = Time.frameCount;
     }
 
     public virtual void SetFirstPosition(){

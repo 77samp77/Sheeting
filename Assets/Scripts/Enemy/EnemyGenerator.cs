@@ -33,5 +33,9 @@ public class EnemyGenerator : MonoBehaviour
         enemy.name = enemyPrefab.name;
         enemy.transform.SetParent(enemies.transform);
         frame_gen = Time.frameCount;
+
+        EnemyBController ebcs = enemy.GetComponent<EnemyBController>();
+        if(enemy.name == "EnemyB" && Random.value < 0.5f) ebcs.Flip();
+        else ebcs.toSetFirstPosition = true;
     }
 }

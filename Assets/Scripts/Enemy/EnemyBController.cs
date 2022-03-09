@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyBController : EnemyController
 {
+    public GameObject sprite_b, sprite_all;
+    bool isFlip;
+    [System.NonSerialized] public bool toSetFirstPosition;
     GameObject player;
     PlayerController pcs;
     Vector3 p_pos;
@@ -12,6 +15,11 @@ public class EnemyBController : EnemyController
     SpriteRenderer sprite_ren, sprite_f_ren;
     public Sprite[] sprites = new Sprite[3];
     public Sprite[] sprites_f = new Sprite[3];
+
+    public override void Start()
+    {
+        InitVariables();
+    }
 
     public override void InitVariables()
     {
@@ -23,16 +31,28 @@ public class EnemyBController : EnemyController
         sprite_f_ren = sprite_f.GetComponent<SpriteRenderer>();
     }
 
-    public override void SetFirstPosition()
-    {
-        transform.localPosition = new Vector3(Screen.width / 2 + 6, -44, 0);
+    public void Flip(){
+        sprite.GetComponent<SpriteRenderer>().flipY = true;
+        sprite_f.GetComponent<SpriteRenderer>().flipY = true;
+        sprite_b.SetActive(false);
+        isFlip = toSetFirstPosition = true;
     }
 
     public override void Update(){
         base.Update();
+        if(toSetFirstPosition) SetFirstPosition();
         if(readyToShoot()) Shoot();
         SwitchAngle();
         if(pos.x + 6 < -Screen.width / 2) Destroy(this.gameObject);
+    }
+
+    public override void SetFirstPosition()
+    {
+        float f_pos_y = -44;
+        if(isFlip) f_pos_y = Screen.height / 2 - 6;
+        transform.localPosition = new Vector3(Screen.width / 2 + 6, f_pos_y, 0);
+        toSetFirstPosition = false;
+        sprite_all.SetActive(true);
     }
 
     public override void Move()
@@ -51,7 +71,7 @@ public class EnemyBController : EnemyController
         p_pos = player.transform.localPosition;
         float dx = p_pos.x + 17 - pos.x;
         float dy = p_pos.y + 4 - pos.y;
-        float deg = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
+        float deg = Mathf.Abs(Mathf.Atan2(dy, dx) * Mathf.Rad2Deg);
 
         int pre_angle = angle;
         if(112.5f < deg) angle = 0;
@@ -66,6 +86,8 @@ public class EnemyBController : EnemyController
 
     public override void Shoot(){
         base.Shoot();
-        eShot.GetComponent<EnemyBShotController>().SetAngle(angle);
+        EnemyBShotController ebscs = eShot.GetComponent<EnemyBShotController>();
+        if(isFlip) ebscs.Flip();
+        ebscs.SetAngle(angle);
     }
 }
