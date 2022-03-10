@@ -26,4 +26,43 @@ public class TextManager : MonoBehaviour
         else gain_color = "#C80000";
         return "<color=" + gain_color + ">" + gain + "</color>/" + quota;
     }
+
+    public string finishText(bool isGameOver){
+        if(isGameOver) return "GAME OVER...";
+        else return "FINISH!!";
+    }
+
+    public string resultSFText(bool isSuccess){
+        string SF_color = "";
+        if(isSuccess){
+            SF_color = "#FF6464";
+            return "<color=" + SF_color + ">SUCCESS!</color>";
+        }
+        else{
+            SF_color = "#6464FF";
+            return "<color=" + SF_color + ">FAILURE..</color>";
+        }
+    }
+
+    public string resultScoreText(int score){
+        string scoreText = "SCORE ";
+        string scoreToString = score.ToString();
+        int digitCount = scoreToString.Length;
+        for(int i = 0; i < 8 - digitCount; i++) scoreText += " ";
+        scoreText += scoreToString;
+        return scoreText;
+    }
+    
+    public string resultLifeBonusText(int lifeBonus){
+        string lifeBonusText = "LIFE  +  ";
+        string lifeBonusToString = lifeBonus.ToString();
+        int digitCount = lifeBonusToString.Length;
+        for(int i = 0; i < 4 - digitCount; i++) lifeBonusText += " ";
+        lifeBonusText += lifeBonusToString;
+        return lifeBonusText;
+    }
+
+    public string resultTotalScoreText(int total_score){
+        return total_score.ToString("00000000");
+    }
 }

@@ -12,9 +12,9 @@ public class WordController : MonoBehaviour
     [System.NonSerialized] public GameObject UIManager;
     [System.NonSerialized] public UIManager UIms;
 
-    public Rigidbody2D rb2d;
     public GameObject canvas, textObject, mark, mark_c;
     public float v;
+    [System.NonSerialized] public float vy = 0;
     [System.NonSerialized] public Vector3 pos;
     [System.NonSerialized] public int colWidth;
     public bool isMarked, isCovered;
@@ -86,14 +86,15 @@ public class WordController : MonoBehaviour
     }
 
     public virtual void Move(){
-        pos.x += v;
-        transform.localPosition = pos;
+        if(isCovered){
+            vy += 0.5f;
+            pos.y -= vy;
+        }
     }
 
     public virtual void BeCovered(){
         isCovered = true;
         mark_c.SetActive(true);
-        rb2d.bodyType = RigidbodyType2D.Dynamic;
     }
 
     public virtual void BeGained(){
