@@ -44,9 +44,10 @@ public class PlayerShotController : MonoBehaviour
         }
         else if(colObject.tag == "Enemy"){
             EnemyController ecs;
-            if(colObject.name == "EnemyA") ecs = colObject.GetComponent<EnemyAController>();
-            else if(colObject.name == "EnemyB") ecs = colObject.GetComponent<EnemyBController>();
-            else ecs = colObject.GetComponent<EnemyController>();
+            // if(colObject.name == "EnemyA") ecs = colObject.GetComponent<EnemyAController>();
+            // else if(colObject.name == "EnemyB") ecs = colObject.GetComponent<EnemyBController>();
+            // else ecs = colObject.GetComponent<EnemyController>();
+            ecs = colObject.GetComponent<EnemyController>();
             HitEnemy(colObject, ecs);
         }
     }
