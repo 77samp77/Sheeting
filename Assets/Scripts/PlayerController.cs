@@ -95,8 +95,7 @@ public class PlayerController : MonoBehaviour
 
     void GameOver(){
         this.gameObject.SetActive(false);
-        gms.isGameOver = true;
-        Debug.Log("GameOver");
+        gms.GameOver();
     }
 
     /*=描画用===================================================================*/

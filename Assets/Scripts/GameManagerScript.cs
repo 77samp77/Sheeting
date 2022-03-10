@@ -6,6 +6,7 @@ public class GameManagerScript : MonoBehaviour
 {
     [System.NonSerialized] public bool gameIsStop;
     [System.NonSerialized] public bool isGameOver;
+    bool isPause, isFinish;
 
     public GameObject UIManager;
     UIManager UIms;
@@ -17,6 +18,9 @@ public class GameManagerScript : MonoBehaviour
     public int life_max;
 
     public float gameSpeed;
+
+    public int timeLimit;    // 制限時間(フレーム)
+    int progress;
 
     void Awake(){
         Application.targetFrameRate = 60;
@@ -34,12 +38,31 @@ public class GameManagerScript : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.P)) SwitchPause();
         gameIsStop = JudgeGameStop();
+
+        if(gameIsStop) return;
+        progress++;
+        UIms.SetProgressBarUI(progress, timeLimit);
+
+        if(progress == timeLimit) GameFinish();
     }
 
     bool JudgeGameStop(){
+        if(isPause) return true;
         if(isGameOver) return true;
+        if(isFinish) return true;
         return false;
+    }
+
+    void SwitchPause(){
+        isPause = !isPause;
+        UIms.pauseUI.SetActive(isPause);
+    }
+
+    void GameFinish(){
+        isFinish = true;
+        Debug.Log("GameFinish");
     }
 
     public void IncreaseScore(int plusScore){
@@ -50,5 +73,10 @@ public class GameManagerScript : MonoBehaviour
     public void DecreaseLife(){
         life--;
         UIms.lifeSprites[life].SetActive(false);
+    }
+
+    public void GameOver(){
+        isGameOver = true;
+        Debug.Log("GameOver");
     }
 }
