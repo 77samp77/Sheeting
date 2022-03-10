@@ -29,7 +29,7 @@ public class EnemyGenerator : MonoBehaviour
     void Update()
     {
         if(gms.gameIsStop) return;
-        if(Time.frameCount - frame_gen > gen_interval) Generate(enemyCPrefab);
+        if(gms.progress - frame_gen > gen_interval) Generate(enemyCPrefab);
     }
 
     void Generate(GameObject enemyPrefab){
@@ -41,12 +41,16 @@ public class EnemyGenerator : MonoBehaviour
         GameObject enemy = Instantiate(enemyPrefab, new Vector3(e_pos_x, e_pos_y, 0), Quaternion.identity);
         enemy.name = enemyPrefab.name;
         enemy.transform.SetParent(enemies.transform);
-        frame_gen = Time.frameCount;
+        frame_gen = gms.progress;
 
         if(enemy.name == "EnemyB"){
             EnemyBController ebcs = enemy.GetComponent<EnemyBController>();
             if(Random.value < 0.5f) ebcs.Flip();
             else ebcs.toSetFirstPosition = true;
         }
+    }
+
+    public void ResetVariables(){
+        frame_gen = 0;
     }
 }

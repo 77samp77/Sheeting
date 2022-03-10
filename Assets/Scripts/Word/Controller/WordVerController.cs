@@ -26,9 +26,12 @@ public class WordVerController : WordController
     }
 
     public override void Move(){
+        base.Move();
         pos.x -= gms.gameSpeed;
-        if(isUp) pos.y += v;
-        else pos.y -= v;
+        if(!isCovered){
+            if(isUp) pos.y += v;
+            else pos.y -= v;
+        }
         transform.localPosition = pos;
     }
 

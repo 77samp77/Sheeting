@@ -31,7 +31,7 @@ public class EnemyAController : EnemyController
     public override void Update(){
         base.Update();
         if(readyToShoot()) Shoot();
-        isShootMode = isStartShoot && Time.frameCount - frame_startedShoot < stayFrame;
+        isShootMode = isStartShoot && gms.progress - frame_startedShoot < stayFrame;
     }
 
     public override void Move()
@@ -53,7 +53,7 @@ public class EnemyAController : EnemyController
                 pos.x = 90;
                 isShootMode = isStartShoot = true;
                 shoot_con_count = shoot_con_max;
-                frame_startedShoot = frame_shot = Time.frameCount;
+                frame_startedShoot = frame_shot = gms.progress;
             }
         }
         else{
@@ -65,8 +65,8 @@ public class EnemyAController : EnemyController
     public override bool readyToShoot()
     {
         if(!isShootMode) return false;
-        if(shoot_con_count < shoot_con_max) return Time.frameCount - frame_shot > shoot_interval_con;
-        else return Time.frameCount - frame_shot > shoot_interval;
+        if(shoot_con_count < shoot_con_max) return gms.progress - frame_shot > shoot_interval_con;
+        else return gms.progress - frame_shot > shoot_interval;
     }
 
     public override void Shoot()

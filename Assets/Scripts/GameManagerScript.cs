@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class GameManagerScript : MonoBehaviour
 {
+    public GameObject player, sheet, wordManager, enemyManager;
+    PlayerController pcs;
+    SheetController scs;
+    WordGenerator wgs;
+    EnemyGenerator egs;
+
+    public GameObject words, enemyShots, enemies, playerShots;
+
     [System.NonSerialized] public bool gameIsStop;
     [System.NonSerialized] public bool isGameOver;
     bool isPause, isFinish;
@@ -19,8 +27,7 @@ public class GameManagerScript : MonoBehaviour
 
     public float gameSpeed;
 
-    public int timeLimit;    // 制限時間(フレーム)
-    int progress;
+    public int timeLimit, progress;    // 制限時間(フレーム)、経過フレーム数
 
     int choosing;
 
@@ -34,22 +41,28 @@ public class GameManagerScript : MonoBehaviour
     }
 
     void InitVariables(){
+        pcs = player.GetComponent<PlayerController>();
+        scs = sheet.GetComponent<SheetController>();
+        wgs = wordManager.GetComponent<WordGenerator>();
+        egs = enemyManager.GetComponent<EnemyGenerator>();
         UIms = UIManager.GetComponent<UIManager>();
         life = life_max;
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P)) SwitchPause();
+        if(Input.GetKeyDown(KeyCode.P)) SwitchPause(!isPause);
+        if(Input.GetKeyDown(KeyCode.R)) ResetGame();
         if(isPause) ControllPause();
 
         gameIsStop = JudgeGameStop();
 
         if(gameIsStop) return;
-        progress++;
         UIms.SetProgressBarUI(progress, timeLimit);
 
         if(progress == timeLimit) GameFinish();
+
+        progress++;
     }
 
     bool JudgeGameStop(){
@@ -59,10 +72,13 @@ public class GameManagerScript : MonoBehaviour
         return false;
     }
 
-    void SwitchPause(){
-        isPause = !isPause;
+    void SwitchPause(bool status){
+        isPause = status;
         UIms.pauseUI.SetActive(isPause);
-        choosing = 0;
+        if(isPause){
+            UIms.SetPauseChoosingUI(choosing, 0);
+            choosing = 0;
+        }
     }
 
     void ControllPause(){
@@ -72,7 +88,8 @@ public class GameManagerScript : MonoBehaviour
         if(choosing != pre_choosing) UIms.SetPauseChoosingUI(pre_choosing, choosing);
 
         if(Input.GetKeyDown(KeyCode.Space)){
-            if(choosing == 0) SwitchPause();
+            if(choosing == 0) SwitchPause(false);
+            else if(choosing == 1) ResetGame();
         }
     }
 
@@ -94,5 +111,27 @@ public class GameManagerScript : MonoBehaviour
     public void GameOver(){
         isGameOver = true;
         Debug.Log("GameOver");
+    }
+
+    void ResetGame(){
+        ResetVariables();
+        pcs.ResetVariables();
+        scs.ResetVariables();
+        wgs.ResetVariables();
+        egs.ResetVariables();
+        foreach(Transform word in words.transform) Destroy(word.gameObject);
+        foreach(Transform enemyShot in enemyShots.transform) Destroy(enemyShot.gameObject);
+        foreach(Transform enemy in enemies.transform) Destroy(enemy.gameObject);
+        foreach(Transform playerShot in playerShots.transform) Destroy(playerShot.gameObject);
+    }
+
+    void ResetVariables(){
+        life = life_max;
+        for(int i = 0; i < life_max; i++) UIms.lifeSprites[i].SetActive(true);
+        progress = 0;
+        IncreaseScore(-score);
+        gain_words = gain_combo = 0;
+        SwitchPause(false);
+        isGameOver = isFinish = false;
     }
 }

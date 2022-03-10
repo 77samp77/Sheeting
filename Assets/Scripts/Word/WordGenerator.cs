@@ -52,7 +52,7 @@ public class WordGenerator : MonoBehaviour
     void Update()
     {
         if(gms.gameIsStop) return;
-        if(Time.frameCount - frame_gen > gen_interval){
+        if(gms.progress - frame_gen > gen_interval){
             if(Random.value < 0.5f) Generate(wordHorPrefab);
             else Generate(wordVerPrefab);
         }
@@ -62,7 +62,7 @@ public class WordGenerator : MonoBehaviour
         GameObject word = Instantiate(wordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         word.name = wordPrefab.name;
         word.transform.SetParent(words.transform);
-        frame_gen = Time.frameCount;
+        frame_gen = gms.progress;
         SetWord(word, Random.Range(3, wordLen_max + 1), Random.Range(0, wordNo_max + 1));
     }
     
@@ -71,5 +71,9 @@ public class WordGenerator : MonoBehaviour
         if(word.name == "Word_Hor") wcs = word.GetComponent<WordHorController>();
         else wcs = word.GetComponent<WordVerController>();
         wcs.BeSetWord(wordStr[len, no]);
+    }
+
+    public void ResetVariables(){
+        frame_gen = 0;
     }
 }

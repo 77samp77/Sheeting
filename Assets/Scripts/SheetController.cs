@@ -68,6 +68,12 @@ public class SheetController : MonoBehaviour
         transform.localPosition = pos;
     }
 
+    public void ResetVariables(){
+        pos.y = bottom;
+        transform.localPosition = pos;
+        isCovering = toCover = toUncover = false;
+    }
+
     /*=描画用===================================================================*/
     Vector3 cashPos;
     void LateUpdate(){

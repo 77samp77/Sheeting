@@ -2737,11 +2737,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761ef3a94115f654191a4ae564007f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1342664789}
+  sheet: {fileID: 1101213207}
+  wordManager: {fileID: 85385635}
+  enemyManager: {fileID: 1387590993}
+  words: {fileID: 978571425}
+  enemyShots: {fileID: 1003213898}
+  enemies: {fileID: 1628317941}
+  playerShots: {fileID: 1939982089}
   UIManager: {fileID: 599143814}
   quota_words: 10
   life_max: 6
   gameSpeed: 0.2
   timeLimit: 5400
+  progress: 0
 --- !u!1 &1628317941
 GameObject:
   m_ObjectHideFlags: 0

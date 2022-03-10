@@ -37,16 +37,16 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if(gms.gameIsStop) return;
-        if(Time.frameCount - frame_damaged <= damage_interval) DamageAnimation();
+        if(gms.progress - frame_damaged <= damage_interval) DamageAnimation();
         pos = transform.localPosition;
         Move();
         if(Input.GetKey(KeyCode.Space)){
-            if(Time.frameCount - frame_shot > shoot_interval && pos.y > scs.pos.y) Shoot();
+            if(gms.progress - frame_shot > shoot_interval && pos.y > scs.pos.y) Shoot();
         }
     }
 
     void DamageAnimation(){
-        int eFrame = Time.frameCount - frame_damaged;
+        int eFrame = gms.progress - frame_damaged;
         Color sprite_color = GetComponent<SpriteRenderer>().color;
         if(eFrame == damage_interval) sprite_color.a = 1;
         else if(eFrame % 10 == 0){
@@ -83,19 +83,30 @@ public class PlayerController : MonoBehaviour
         pShot.name = playerShotPrefab.name;
         pShot.transform.SetParent(playerShots.transform);
 
-        frame_shot = Time.frameCount;
+        frame_shot = gms.progress;
     }
 
     public void Damage(){
-        if(Time.frameCount - frame_damaged < damage_interval) return;
+        if(gms.progress - frame_damaged < damage_interval) return;
         gms.DecreaseLife();
         if(gms.life == 0) GameOver();
-        else frame_damaged = Time.frameCount;
+        else frame_damaged = gms.progress;
     }
 
     void GameOver(){
         this.gameObject.SetActive(false);
         gms.GameOver();
+    }
+
+    public void ResetVariables(){
+        pos.x = -100;
+        pos.y = 20;
+        transform.localPosition = pos;
+        frame_shot = -1000;
+        frame_damaged = -1000;
+        Color sprite_color = GetComponent<SpriteRenderer>().color;
+        sprite_color.a = 1;
+        GetComponent<SpriteRenderer>().color = sprite_color;
     }
 
     /*=描画用===================================================================*/

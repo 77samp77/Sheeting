@@ -27,6 +27,7 @@ public class WordHorController : WordController
     }
 
     public override void Move(){
+        base.Move();
         pos.x += v;
         transform.localPosition = pos;
     }

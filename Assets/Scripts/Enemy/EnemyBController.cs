@@ -64,7 +64,7 @@ public class EnemyBController : EnemyController
     
     public override bool readyToShoot()
     {
-        return Time.frameCount - frame_shot > shoot_interval;
+        return gms.progress - frame_shot > shoot_interval;
     }
 
     void SwitchAngle(){
