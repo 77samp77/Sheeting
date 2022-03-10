@@ -5,7 +5,8 @@ using UnityEngine;
 public class GameManagerScript : MonoBehaviour
 {
     [System.NonSerialized] public bool gameIsStop;
-    [System.NonSerialized] public bool isGameOver, isFinish;
+    [System.NonSerialized] public bool isGameOver;
+    bool isPause, isFinish;
 
     public GameObject UIManager;
     UIManager UIms;
@@ -37,8 +38,10 @@ public class GameManagerScript : MonoBehaviour
 
     void Update()
     {
-        if(gameIsStop) return;
+        if(Input.GetKeyDown(KeyCode.P)) SwitchPause();
         gameIsStop = JudgeGameStop();
+
+        if(gameIsStop) return;
         progress++;
         UIms.SetProgressBarUI(progress, timeLimit);
 
@@ -46,9 +49,20 @@ public class GameManagerScript : MonoBehaviour
     }
 
     bool JudgeGameStop(){
+        if(isPause) return true;
         if(isGameOver) return true;
         if(isFinish) return true;
         return false;
+    }
+
+    void SwitchPause(){
+        isPause = !isPause;
+        UIms.pauseUI.SetActive(isPause);
+    }
+
+    void GameFinish(){
+        isFinish = true;
+        Debug.Log("GameFinish");
     }
 
     public void IncreaseScore(int plusScore){
@@ -64,10 +78,5 @@ public class GameManagerScript : MonoBehaviour
     public void GameOver(){
         isGameOver = true;
         Debug.Log("GameOver");
-    }
-
-    void GameFinish(){
-        isFinish = true;
-        Debug.Log("GameFinish");
     }
 }

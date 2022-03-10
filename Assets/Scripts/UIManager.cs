@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public GameObject scoreUI, wordCountUI;
     public GameObject[] lifeSprites = new GameObject[6];
     public GameObject progressBar;
+    public GameObject pauseUI;
 
     // Start is called before the first frame update
     void Start()
