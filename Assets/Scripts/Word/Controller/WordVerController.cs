@@ -10,7 +10,7 @@ public class WordVerController : WordController
     public override void SetFirstPosition()
     {
         isUp = Random.value < 0.5f;
-        int fx = Random.Range(Screen.width / 4, Screen.width / 2 - 8);
+        int fx = Random.Range(Screen.width / 2 - 10, Screen.width / 2 + 40);
         pos.x = fx;
         if(isUp) pos.y = scs.bottom + 20;
         else pos.y = 110 + colWidth;
@@ -26,6 +26,7 @@ public class WordVerController : WordController
     }
 
     public override void Move(){
+        pos.x -= gms.gameSpeed;
         if(isUp) pos.y += v;
         else pos.y -= v;
         transform.localPosition = pos;

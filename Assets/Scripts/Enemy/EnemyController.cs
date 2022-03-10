@@ -35,6 +35,7 @@ public class EnemyController : MonoBehaviour
         sheet = GameObject.Find("Sheet");
         scs = sheet.GetComponent<SheetController>();
         enemyShots = GameObject.Find("EnemyShots");
+        frame_shot = Time.frameCount;
     }
 
     public virtual void SetFirstPosition(){
@@ -71,8 +72,9 @@ public class EnemyController : MonoBehaviour
         return false;
     }
 
+    [System.NonSerialized] public GameObject eShot;
     public virtual void Shoot(){
-        GameObject eShot = Instantiate(enemyShotPrefab, 
+        eShot = Instantiate(enemyShotPrefab, 
                                        new Vector3(pos.x, pos.y, 0), 
                                        Quaternion.identity);
         PositionShot(eShot);

@@ -11,7 +11,7 @@ public class EnemyShotController : MonoBehaviour
     [System.NonSerialized] public SheetController scs;
     public GameObject sprite;
 
-    public float vx;
+    public float v;
     [System.NonSerialized] public Vector3 pos;
 
     // Start is called before the first frame update
