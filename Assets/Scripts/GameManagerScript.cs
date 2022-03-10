@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManagerScript : MonoBehaviour
 {
     [System.NonSerialized] public bool gameIsStop;
-    [System.NonSerialized] public bool isGameOver;
+    [System.NonSerialized] public bool isGameOver, isFinish;
 
     public GameObject UIManager;
     UIManager UIms;
@@ -17,6 +17,9 @@ public class GameManagerScript : MonoBehaviour
     public int life_max;
 
     public float gameSpeed;
+
+    public int timeLimit;    // 制限時間(フレーム)
+    int progress;
 
     void Awake(){
         Application.targetFrameRate = 60;
@@ -34,11 +37,17 @@ public class GameManagerScript : MonoBehaviour
 
     void Update()
     {
+        if(gameIsStop) return;
         gameIsStop = JudgeGameStop();
+        progress++;
+        UIms.SetProgressBarUI(progress, timeLimit);
+
+        if(progress == timeLimit) GameFinish();
     }
 
     bool JudgeGameStop(){
         if(isGameOver) return true;
+        if(isFinish) return true;
         return false;
     }
 
@@ -50,5 +59,15 @@ public class GameManagerScript : MonoBehaviour
     public void DecreaseLife(){
         life--;
         UIms.lifeSprites[life].SetActive(false);
+    }
+
+    public void GameOver(){
+        isGameOver = true;
+        Debug.Log("GameOver");
+    }
+
+    void GameFinish(){
+        isFinish = true;
+        Debug.Log("GameFinish");
     }
 }

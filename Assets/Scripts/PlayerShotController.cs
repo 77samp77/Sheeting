@@ -24,6 +24,7 @@ public class PlayerShotController : MonoBehaviour
 
     void Update()
     {
+        if(gms.gameIsStop) return;
         pos = transform.localPosition;
         Move();
         if(pos.x > Screen.width / 2) Destroy(this.gameObject);
@@ -43,11 +44,7 @@ public class PlayerShotController : MonoBehaviour
             if(wcs.textObject.activeSelf) Mark(colObject, wcs);
         }
         else if(colObject.tag == "Enemy"){
-            EnemyController ecs;
-            // if(colObject.name == "EnemyA") ecs = colObject.GetComponent<EnemyAController>();
-            // else if(colObject.name == "EnemyB") ecs = colObject.GetComponent<EnemyBController>();
-            // else ecs = colObject.GetComponent<EnemyController>();
-            ecs = colObject.GetComponent<EnemyController>();
+            EnemyController ecs = colObject.GetComponent<EnemyController>();
             HitEnemy(colObject, ecs);
         }
     }
