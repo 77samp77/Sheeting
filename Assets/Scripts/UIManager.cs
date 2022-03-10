@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public GameObject gameManager;
+    GameManagerScript gms;
+
     public GameObject textManager;
     TextManager tms;
 
@@ -15,6 +18,10 @@ public class UIManager : MonoBehaviour
     public GameObject pauseUI;
     public GameObject[] pauseUI_choosing = new GameObject[3];
 
+    public GameObject resultUI;
+    public GameObject finishText, resultPaper;
+    public GameObject[] resultUI_choosing = new GameObject[2];
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +29,7 @@ public class UIManager : MonoBehaviour
     }
 
     void InitVariables(){
+        gms = gameManager.GetComponent<GameManagerScript>();
         tms = textManager.GetComponent<TextManager>();
     }
 
@@ -29,6 +37,30 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    float r_vy = 3;
+    public void ResultMotion(){
+        if(finishText.activeSelf){
+            r_vy -= 0.05f;
+            Vector2 ft_pos = finishText.transform.localPosition;
+            ft_pos.y -= r_vy;
+            finishText.transform.localPosition = ft_pos;
+            if(ft_pos.y > 110){
+                finishText.SetActive(false);
+                resultPaper.SetActive(true);
+                r_vy = 3;
+            }
+        }
+        else{
+            Vector2 rp_pos = resultPaper.transform.localPosition;
+            if(r_vy > 0){
+                if(rp_pos.y < 90) r_vy -= 0.05f;
+            }
+            else gms.canControllUI = true;
+            rp_pos.y -= r_vy;
+            resultPaper.transform.localPosition = rp_pos;
+        }
     }
 
     public void SetScoreUI(int score){
@@ -45,8 +77,21 @@ public class UIManager : MonoBehaviour
         progressBar.transform.localScale = bar_scl;
     }
 
-    public void SetPauseChoosingUI(int prev, int now){
-        pauseUI_choosing[prev].SetActive(false);
-        pauseUI_choosing[now].SetActive(true);
+    public void SetChoosingUI(GameObject[] cUI, int prev, int now){
+        cUI[prev].SetActive(false);
+        cUI[now].SetActive(true);
+    }
+
+    public void ResetResultUI(){
+        r_vy = 3;
+        Vector2 ft_pos = finishText.transform.localPosition;
+        ft_pos.y = 102;
+        finishText.transform.localPosition = ft_pos;
+        finishText.SetActive(true);
+        Vector2 rp_pos = resultPaper.transform.localPosition;
+        rp_pos.y = 170;
+        resultPaper.transform.localPosition = rp_pos;
+        resultPaper.SetActive(false);
+        resultUI.SetActive(false);
     }
 }

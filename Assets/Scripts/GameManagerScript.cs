@@ -30,6 +30,7 @@ public class GameManagerScript : MonoBehaviour
     public int timeLimit, progress;    // 制限時間(フレーム)、経過フレーム数
 
     int choosing;
+    [System.NonSerialized] public bool canControllUI;
 
     void Awake(){
         Application.targetFrameRate = 60;
@@ -54,10 +55,15 @@ public class GameManagerScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.P)) SwitchPause(!isPause);
         if(Input.GetKeyDown(KeyCode.R)) ResetGame();
         if(isPause) ControllPause();
+        if(isFinish){
+            if(!canControllUI) UIms.ResultMotion();
+            else ControllResult();
+        }
 
         gameIsStop = JudgeGameStop();
 
         if(gameIsStop) return;
+        if(Input.GetKeyDown(KeyCode.F)) GameFinish();
         UIms.SetProgressBarUI(progress, timeLimit);
 
         if(progress == timeLimit) GameFinish();
@@ -76,7 +82,7 @@ public class GameManagerScript : MonoBehaviour
         isPause = status;
         UIms.pauseUI.SetActive(isPause);
         if(isPause){
-            UIms.SetPauseChoosingUI(choosing, 0);
+            UIms.SetChoosingUI(UIms.pauseUI_choosing, choosing, 0);
             choosing = 0;
         }
     }
@@ -85,7 +91,7 @@ public class GameManagerScript : MonoBehaviour
         int pre_choosing = choosing;
         if(Input.GetKeyDown(KeyCode.W) && choosing > 0) choosing--;
         if(Input.GetKeyDown(KeyCode.S) && choosing < 2) choosing++;
-        if(choosing != pre_choosing) UIms.SetPauseChoosingUI(pre_choosing, choosing);
+        if(choosing != pre_choosing) UIms.SetChoosingUI(UIms.pauseUI_choosing, pre_choosing, choosing);
 
         if(Input.GetKeyDown(KeyCode.Space)){
             if(choosing == 0) SwitchPause(false);
@@ -93,9 +99,22 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
+    void ControllResult(){
+        int pre_choosing = choosing;
+        if(Input.GetKeyDown(KeyCode.D) && choosing == 0) choosing++;
+        if(Input.GetKeyDown(KeyCode.A) && choosing == 1) choosing--;
+        if(choosing != pre_choosing) UIms.SetChoosingUI(UIms.resultUI_choosing, pre_choosing, choosing);
+
+        if(Input.GetKeyDown(KeyCode.Space)){
+            if(choosing == 0) ResetGame();
+        }
+    }
+
     void GameFinish(){
         isFinish = true;
         Debug.Log("GameFinish");
+
+        UIms.resultUI.SetActive(true);
     }
 
     public void IncreaseScore(int plusScore){
@@ -133,5 +152,7 @@ public class GameManagerScript : MonoBehaviour
         gain_words = gain_combo = 0;
         SwitchPause(false);
         isGameOver = isFinish = false;
+        canControllUI = false;
+        UIms.ResetResultUI();
     }
 }
