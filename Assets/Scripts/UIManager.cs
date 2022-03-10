@@ -20,6 +20,8 @@ public class UIManager : MonoBehaviour
 
     public GameObject resultUI;
     public GameObject finishText, resultPaper;
+    public GameObject result_score, result_sf, result_lifeBonus, result_noDamage, result_totalScore;
+    public GameObject result_clearBonus_dL, result_lifeBonus_dL, result_noDamage_dL;
     public GameObject[] resultUI_choosing = new GameObject[2];
 
     // Start is called before the first frame update
@@ -57,7 +59,10 @@ public class UIManager : MonoBehaviour
             if(r_vy > 0){
                 if(rp_pos.y < 90) r_vy -= 0.05f;
             }
-            else gms.canControllUI = true;
+            else{
+                rp_pos.y = 0;
+                gms.canControllUI = true;
+            }
             rp_pos.y -= r_vy;
             resultPaper.transform.localPosition = rp_pos;
         }
@@ -80,6 +85,19 @@ public class UIManager : MonoBehaviour
     public void SetChoosingUI(GameObject[] cUI, int prev, int now){
         cUI[prev].SetActive(false);
         cUI[now].SetActive(true);
+    }
+
+    public void SetResultUI(bool isGameOver, bool isSuccess, int score,
+                            int lifeBonus, bool isNoDamage, int total_score){
+        finishText.GetComponent<Text>().text = tms.finishText(isGameOver);
+        result_sf.GetComponent<Text>().text = tms.resultSFText(isSuccess);
+        result_score.GetComponent<Text>().text = tms.resultScoreText(score);
+        result_lifeBonus.GetComponent<Text>().text = tms.resultLifeBonusText(lifeBonus);
+        result_clearBonus_dL.SetActive(!isSuccess);
+        result_lifeBonus_dL.SetActive(!isSuccess);
+        result_noDamage_dL.SetActive(!isSuccess || !isNoDamage);
+        result_totalScore.GetComponent<Text>().text = tms.resultTotalScoreText(total_score);
+        resultUI.SetActive(true);
     }
 
     public void ResetResultUI(){

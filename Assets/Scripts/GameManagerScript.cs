@@ -13,13 +13,13 @@ public class GameManagerScript : MonoBehaviour
     public GameObject words, enemyShots, enemies, playerShots;
 
     [System.NonSerialized] public bool gameIsStop;
-    [System.NonSerialized] public bool isGameOver;
+    [System.NonSerialized] public bool isGameOver, isSuccess;
     bool isPause, isFinish;
 
     public GameObject UIManager;
     UIManager UIms;
 
-    [System.NonSerialized] public int gain_words, gain_combo, score;
+    [System.NonSerialized] public int gain_words, gain_combo, score, total_score;
     public int quota_words;
 
     [System.NonSerialized] public int life;
@@ -64,6 +64,7 @@ public class GameManagerScript : MonoBehaviour
 
         if(gameIsStop) return;
         if(Input.GetKeyDown(KeyCode.F)) GameFinish();
+        if(Input.GetKeyDown(KeyCode.G)) GameOver();
         UIms.SetProgressBarUI(progress, timeLimit);
 
         if(progress == timeLimit) GameFinish();
@@ -112,9 +113,20 @@ public class GameManagerScript : MonoBehaviour
 
     void GameFinish(){
         isFinish = true;
-        Debug.Log("GameFinish");
+        isSuccess = judgeSuccess();
+        total_score = score;
+        int lifeBonus = life * 1000;
+        if(isSuccess){
+            total_score += 15000 + lifeBonus;
+            if(life == life_max) total_score += 10000;
+        }
+        UIms.SetResultUI(isGameOver, isSuccess, score, lifeBonus, life == life_max, total_score);
+    }
 
-        UIms.resultUI.SetActive(true);
+    bool judgeSuccess(){
+        if(isGameOver) return false;
+        if(gain_words < quota_words) return false;
+        return true;
     }
 
     public void IncreaseScore(int plusScore){
@@ -124,11 +136,12 @@ public class GameManagerScript : MonoBehaviour
 
     public void DecreaseLife(){
         life--;
-        UIms.lifeSprites[life].SetActive(false);
+        if(life >= 0) UIms.lifeSprites[life].SetActive(false);
     }
 
     public void GameOver(){
         isGameOver = true;
+        GameFinish();
         Debug.Log("GameOver");
     }
 
@@ -150,6 +163,7 @@ public class GameManagerScript : MonoBehaviour
         progress = 0;
         IncreaseScore(-score);
         gain_words = gain_combo = 0;
+        UIms.SetWordCountUI(gain_words, quota_words);
         SwitchPause(false);
         isGameOver = isFinish = false;
         canControllUI = false;

@@ -99,6 +99,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void ResetVariables(){
+        this.gameObject.SetActive(true);
         pos.x = -100;
         pos.y = 20;
         transform.localPosition = pos;
