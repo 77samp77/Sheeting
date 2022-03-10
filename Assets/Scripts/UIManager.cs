@@ -11,7 +11,9 @@ public class UIManager : MonoBehaviour
     public GameObject scoreUI, wordCountUI;
     public GameObject[] lifeSprites = new GameObject[6];
     public GameObject progressBar;
+
     public GameObject pauseUI;
+    public GameObject[] pauseUI_choosing = new GameObject[3];
 
     // Start is called before the first frame update
     void Start()
@@ -41,5 +43,10 @@ public class UIManager : MonoBehaviour
         Vector3 bar_scl = progressBar.transform.localScale;
         bar_scl.x = progress / (float)limit;
         progressBar.transform.localScale = bar_scl;
+    }
+
+    public void SetPauseChoosingUI(int prev, int now){
+        pauseUI_choosing[prev].SetActive(false);
+        pauseUI_choosing[now].SetActive(true);
     }
 }

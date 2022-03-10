@@ -22,6 +22,8 @@ public class GameManagerScript : MonoBehaviour
     public int timeLimit;    // 制限時間(フレーム)
     int progress;
 
+    int choosing;
+
     void Awake(){
         Application.targetFrameRate = 60;
     }
@@ -39,6 +41,8 @@ public class GameManagerScript : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.P)) SwitchPause();
+        if(isPause) ControllPause();
+
         gameIsStop = JudgeGameStop();
 
         if(gameIsStop) return;
@@ -58,6 +62,18 @@ public class GameManagerScript : MonoBehaviour
     void SwitchPause(){
         isPause = !isPause;
         UIms.pauseUI.SetActive(isPause);
+        choosing = 0;
+    }
+
+    void ControllPause(){
+        int pre_choosing = choosing;
+        if(Input.GetKeyDown(KeyCode.W) && choosing > 0) choosing--;
+        if(Input.GetKeyDown(KeyCode.S) && choosing < 2) choosing++;
+        if(choosing != pre_choosing) UIms.SetPauseChoosingUI(pre_choosing, choosing);
+
+        if(Input.GetKeyDown(KeyCode.Space)){
+            if(choosing == 0) SwitchPause();
+        }
     }
 
     void GameFinish(){
