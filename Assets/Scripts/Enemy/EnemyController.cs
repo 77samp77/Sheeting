@@ -12,8 +12,9 @@ public class EnemyController : MonoBehaviour
 
     [System.NonSerialized] public Vector3 pos;
 
-    public GameObject sprite, sprite_f, sprite_d;
-    [System.NonSerialized] public SpriteRenderer sprite_d_ren;
+    public GameObject sprite, sprite_f/*, sprite_d*/;
+    // [System.NonSerialized] public SpriteRenderer sprite_d_ren;
+    [System.NonSerialized] public GameObject spriteDefeatPrefab;
 
     public float v;
     public int score;
@@ -36,7 +37,8 @@ public class EnemyController : MonoBehaviour
         gms = gameManager.GetComponent<GameManagerScript>();
         sheet = GameObject.Find("Sheet");
         scs = sheet.GetComponent<SheetController>();
-        sprite_d_ren = sprite_d.GetComponent<SpriteRenderer>();
+        /*sprite_d_ren = sprite_d.GetComponent<SpriteRenderer>();*/
+        spriteDefeatPrefab = Resources.Load<GameObject>("Prefabs/Sprite_Defeat");
         enemyShots = GameObject.Find("EnemyShots");
         frame_shot = gms.progress;
     }
@@ -54,7 +56,7 @@ public class EnemyController : MonoBehaviour
             Move();
             SwitchIsCovered();
         }
-        else DefeatAnimation();
+        // else DefeatAnimation();
     }
 
     public virtual void Move(){
@@ -74,14 +76,14 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public virtual void DefeatAnimation(){
-        int defeat_progress = gms.progress - frame_defeat;
-        if(defeat_progress == 16) sprite_d_ren.sprite = gms.defeat_sprites[0];
-        else if(defeat_progress == 4 || defeat_progress == 12) sprite_d_ren.sprite = gms.defeat_sprites[1];
-        else if(defeat_progress == 8) sprite_d_ren.sprite = gms.defeat_sprites[2];
+    // public virtual void DefeatAnimation(){
+    //     int defeat_progress = gms.progress - frame_defeat;
+    //     if(defeat_progress == 16) sprite_d_ren.sprite = gms.defeat_sprites[0];
+    //     else if(defeat_progress == 4 || defeat_progress == 12) sprite_d_ren.sprite = gms.defeat_sprites[1];
+    //     else if(defeat_progress == 8) sprite_d_ren.sprite = gms.defeat_sprites[2];
 
-        if(defeat_progress == 20) Destroy(this.gameObject);
-    }
+    //     if(defeat_progress == 20) Destroy(this.gameObject);
+    // }
 
     public virtual bool readyToShoot(){
         return false;
@@ -107,7 +109,10 @@ public class EnemyController : MonoBehaviour
         isDefeated = true;
         sprite.SetActive(false);
         sprite_f.SetActive(false);
-        sprite_d.SetActive(true);
+        GameObject sprite_d = Instantiate(spriteDefeatPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        sprite_d.transform.SetParent(this.transform);
+        SpriteDefeatController sdcs = sprite_d.GetComponent<SpriteDefeatController>();
+        sdcs.SetObject(this.gameObject);
         bc2D.enabled = false;
     }
     

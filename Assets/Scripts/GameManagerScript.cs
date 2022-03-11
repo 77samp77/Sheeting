@@ -67,6 +67,7 @@ public class GameManagerScript : MonoBehaviour
             if(!canControllUI) UIms.ResultMotion();
             else ControllResult();
         }
+        else if(isGameOver) pcs.GameOverAnimation();
 
         gameIsStop = JudgeGameStop();
 
@@ -121,7 +122,7 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
-    void GameFinish(){
+    public void GameFinish(){
         isFinish = true;
         isSuccess = judgeSuccess();
         total_score = score;
@@ -151,7 +152,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void GameOver(){
         isGameOver = true;
-        GameFinish();
+        // GameFinish();
     }
 
     void ResetGame(){

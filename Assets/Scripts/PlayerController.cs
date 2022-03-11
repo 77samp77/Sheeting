@@ -21,7 +21,8 @@ public class PlayerController : MonoBehaviour
     int frame_shot; // 弾を撃ったときのフレーム
 
     public int damage_interval; // ダメージ後の無敵時間(フレーム数) 
-    int frame_damaged = -1000;
+    int frame_damaged = -1000, frame_gameOver = 0;
+    public GameObject spriteDefeatPrefab;
 
     void Start()
     {
@@ -99,8 +100,22 @@ public class PlayerController : MonoBehaviour
     }
 
     void GameOver(){
-        this.gameObject.SetActive(false);
         gms.GameOver();
+    }
+
+    int sprite_d_interval = 15;
+    public void GameOverAnimation(){
+        if(frame_gameOver == sprite_d_interval * 4 + 10){
+            this.gameObject.SetActive(false);
+            gms.GameFinish();
+        }
+        else if(frame_gameOver % sprite_d_interval == 0 && frame_gameOver < sprite_d_interval * 4){
+            GameObject sprite_d = Instantiate(spriteDefeatPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            sprite_d.transform.SetParent(this.transform);
+            SpriteDefeatController sdcs = sprite_d.GetComponent<SpriteDefeatController>();
+            sdcs.SetObject(this.gameObject);
+        }
+        frame_gameOver++;
     }
 
     public void ResetVariables(){
@@ -111,6 +126,7 @@ public class PlayerController : MonoBehaviour
         transform.localPosition = pos;
         frame_shot = -1000;
         frame_damaged = -1000;
+        frame_gameOver = 0;
         Color sprite_color = GetComponent<SpriteRenderer>().color;
         sprite_color.a = 1;
         GetComponent<SpriteRenderer>().color = sprite_color;
