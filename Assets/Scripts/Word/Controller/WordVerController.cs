@@ -15,6 +15,7 @@ public class WordVerController : WordController
         if(isUp) pos.y = scs.bottom + 20;
         else pos.y = 110 + colWidth;
         transform.localPosition = pos;
+        v = Random.Range(0.2f, 1.0f);
         readyToSetPos = false;
     }
 

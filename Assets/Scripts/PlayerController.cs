@@ -15,7 +15,8 @@ public class PlayerController : MonoBehaviour
     Vector3 pos;
     [System.NonSerialized] public Vector2 spr_scl;
 
-    public float v;
+    float v;
+    public float v_default, v_dash;
     public int shoot_interval; // 連続で弾を撃つときの間隔(フレーム数) 
     int frame_shot; // 弾を撃ったときのフレーム
 
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         InitVariables();
+        ResetVariables();
     }
 
     void InitVariables(){
@@ -57,6 +59,9 @@ public class PlayerController : MonoBehaviour
     }
 
     void Move(){
+        if(Input.GetKeyDown(KeyCode.LeftShift)) v = v_dash;
+        else if(Input.GetKeyUp(KeyCode.LeftShift)) v = v_default;
+        
         if(Input.GetKey(KeyCode.W)){
             if(pos.y >= Screen.height / 2) pos.y = Screen.height / 2;
             else pos.y += v;
@@ -102,6 +107,7 @@ public class PlayerController : MonoBehaviour
         this.gameObject.SetActive(true);
         pos.x = -100;
         pos.y = 20;
+        v = v_default;
         transform.localPosition = pos;
         frame_shot = -1000;
         frame_damaged = -1000;
