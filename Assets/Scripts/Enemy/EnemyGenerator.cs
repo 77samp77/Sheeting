@@ -31,7 +31,6 @@ public class EnemyGenerator : MonoBehaviour
         if(gms.gameIsStop) return;
         if(gms.progress - frame_gen > gen_interval){
             float temp = Random.value;
-            Debug.Log(temp);
             if(temp < 0.3f) Generate(enemyAPrefab);
             else if(temp < 0.6f) Generate(enemyBPrefab);
             else Generate(enemyCPrefab);

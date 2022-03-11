@@ -16,7 +16,7 @@ public class BackGroundController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(SceneManager.GetActiveScene().name == "SampleScene"){
+        if(SceneManager.GetActiveScene().name == "Game"){
             GameObject gameManager = GameObject.Find("GameManager");
             GameManagerScript gms = gameManager.GetComponent<GameManagerScript>();
             v = gms.gameSpeed;
