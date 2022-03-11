@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
+    public GameObject pressSpaceKey;
+    void Awake(){
+        Application.targetFrameRate = 60;
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +19,8 @@ public class TitleManager : MonoBehaviour
     void Update()
     {
         if(Input.GetKey(KeyCode.Space)) SceneManager.LoadScene("LevelSelect");
+
+        if(Time.frameCount % 100 == 0) pressSpaceKey.SetActive(true);
+        else if(Time.frameCount % 100 == 50) pressSpaceKey.SetActive(false);
     }
 }
