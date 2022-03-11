@@ -12,15 +12,17 @@ public class EnemyController : MonoBehaviour
 
     [System.NonSerialized] public Vector3 pos;
 
-    // [System.NonSerialized] public bool isCovered;
-    public GameObject sprite, sprite_f;
+    public GameObject sprite, sprite_f, sprite_d;
+    [System.NonSerialized] public SpriteRenderer sprite_d_ren;
 
     public float v;
     public int score;
 
     [System.NonSerialized] public GameObject enemyShotPrefab, enemyShots;
     public int shoot_interval; // 連続で弾を撃つときの間隔(フレーム数) 
-    [System.NonSerialized] public int frame_shot; // 弾を撃ったときのフレーム
+    [System.NonSerialized] public int frame_shot, frame_defeat; // 弾を撃ったとき, 撃墜時のフレーム
+    [System.NonSerialized] public bool isDefeated; // 撃墜された
+    public BoxCollider2D bc2D;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -34,6 +36,7 @@ public class EnemyController : MonoBehaviour
         gms = gameManager.GetComponent<GameManagerScript>();
         sheet = GameObject.Find("Sheet");
         scs = sheet.GetComponent<SheetController>();
+        sprite_d_ren = sprite_d.GetComponent<SpriteRenderer>();
         enemyShots = GameObject.Find("EnemyShots");
         frame_shot = gms.progress;
     }
@@ -47,8 +50,15 @@ public class EnemyController : MonoBehaviour
     {
         if(gms.gameIsStop) return;
         pos = transform.localPosition;
-        Move();
-        SwitchIsCovered();
+        if(!isDefeated){
+            Move();
+            SwitchIsCovered();
+        }
+        else DefeatAnimation();
+    }
+
+    public virtual void Move(){
+
     }
 
     public virtual void SwitchIsCovered(){
@@ -64,8 +74,13 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public virtual void Move(){
+    public virtual void DefeatAnimation(){
+        int defeat_progress = gms.progress - frame_defeat;
+        if(defeat_progress == 16) sprite_d_ren.sprite = gms.defeat_sprites[0];
+        else if(defeat_progress == 4 || defeat_progress == 12) sprite_d_ren.sprite = gms.defeat_sprites[1];
+        else if(defeat_progress == 8) sprite_d_ren.sprite = gms.defeat_sprites[2];
 
+        if(defeat_progress == 20) Destroy(this.gameObject);
     }
 
     public virtual bool readyToShoot(){
@@ -85,6 +100,15 @@ public class EnemyController : MonoBehaviour
 
     public virtual void PositionShot(GameObject eShot){
 
+    }
+
+    public virtual void Defeat(){
+        frame_defeat = gms.progress;
+        isDefeated = true;
+        sprite.SetActive(false);
+        sprite_f.SetActive(false);
+        sprite_d.SetActive(true);
+        bc2D.enabled = false;
     }
     
     public virtual void OnTriggerStay2D(Collider2D collider){

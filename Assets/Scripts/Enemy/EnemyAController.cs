@@ -30,8 +30,10 @@ public class EnemyAController : EnemyController
     
     public override void Update(){
         base.Update();
-        if(readyToShoot()) Shoot();
-        isShootMode = isStartShoot && gms.progress - frame_startedShoot < stayFrame;
+        if(!isDefeated){
+            if(readyToShoot()) Shoot();
+            isShootMode = isStartShoot && gms.progress - frame_startedShoot < stayFrame;
+        }
     }
 
     public override void Move()

@@ -21,6 +21,7 @@ public class WordController : MonoBehaviour
 
     [System.NonSerialized] public GameObject sheet;
     [System.NonSerialized] public SheetController scs;
+    public BoxCollider2D bc2D;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -95,6 +96,7 @@ public class WordController : MonoBehaviour
     public virtual void BeCovered(){
         isCovered = true;
         mark_c.SetActive(true);
+        bc2D.enabled = false;
     }
 
     public virtual void BeGained(){

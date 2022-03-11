@@ -41,9 +41,11 @@ public class EnemyBController : EnemyController
     public override void Update(){
         base.Update();
         if(toSetFirstPosition) SetFirstPosition();
-        if(readyToShoot()) Shoot();
-        SwitchAngle();
-        if(pos.x + 6 < -Screen.width / 2) Destroy(this.gameObject);
+        if(!isDefeated){
+            if(readyToShoot()) Shoot();
+            SwitchAngle();
+            if(pos.x + 6 < -Screen.width / 2) Destroy(this.gameObject);
+        }
     }
 
     public override void SetFirstPosition()

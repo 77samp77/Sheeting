@@ -57,7 +57,7 @@ public class PlayerShotController : MonoBehaviour
     
     void HitEnemy(GameObject enemy, EnemyController ecs){
         gms.IncreaseScore(ecs.score);
-        Destroy(enemy);
+        ecs.Defeat();
         Destroy(this.gameObject);
     }
 

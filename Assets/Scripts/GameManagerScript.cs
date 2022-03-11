@@ -35,6 +35,8 @@ public class GameManagerScript : MonoBehaviour
     int choosing;
     [System.NonSerialized] public bool canControllUI;
 
+    public Sprite[] defeat_sprites = new Sprite[3];
+
     void Awake(){
         Application.targetFrameRate = 60;
     }
@@ -58,7 +60,7 @@ public class GameManagerScript : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P)) SwitchPause(!isPause);
+        if(Input.GetKeyDown(KeyCode.P) && !isFinish) SwitchPause(!isPause);
         if(Input.GetKeyDown(KeyCode.R)) ResetGame();
         if(isPause) ControllPause();
         if(isFinish){
@@ -150,7 +152,6 @@ public class GameManagerScript : MonoBehaviour
     public void GameOver(){
         isGameOver = true;
         GameFinish();
-        Debug.Log("GameOver");
     }
 
     void ResetGame(){
