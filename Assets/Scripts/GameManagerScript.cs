@@ -10,6 +10,8 @@ public class GameManagerScript : MonoBehaviour
     SheetController scs;
     WordGenerator wgs;
     EnemyGenerator egs;
+    GameObject backGround;
+    BackGroundController bgcs;
 
     public GameObject words, enemyShots, enemies, playerShots;
 
@@ -40,6 +42,7 @@ public class GameManagerScript : MonoBehaviour
     void Start()
     {
         InitVariables();
+        bgcs.InitGameVariables();
     }
 
     void InitVariables(){
@@ -47,6 +50,8 @@ public class GameManagerScript : MonoBehaviour
         scs = sheet.GetComponent<SheetController>();
         wgs = wordManager.GetComponent<WordGenerator>();
         egs = enemyManager.GetComponent<EnemyGenerator>();
+        backGround = GameObject.Find("BackGround");
+        bgcs = backGround.GetComponent<BackGroundController>();
         UIms = UIManager.GetComponent<UIManager>();
         life = life_max;
     }
@@ -98,6 +103,7 @@ public class GameManagerScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space)){
             if(choosing == 0) SwitchPause(false);
             else if(choosing == 1) ResetGame();
+            else if(choosing == 2) SceneManager.LoadScene("LevelSelect");
         }
     }
 
@@ -109,6 +115,7 @@ public class GameManagerScript : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space)){
             if(choosing == 0) ResetGame();
+            else if(choosing == 1) SceneManager.LoadScene("LevelSelect");
         }
     }
 

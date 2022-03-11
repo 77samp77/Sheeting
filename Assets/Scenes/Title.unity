@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pressSpaceKey: {fileID: 412028978}
+  backGround: {fileID: 522076454562873184}
 --- !u!1 &68926313
 GameObject:
   m_ObjectHideFlags: 0
@@ -972,7 +973,7 @@ GameObject:
   - component: {fileID: 522076454562873185}
   - component: {fileID: 522076454562873198}
   m_Layer: 0
-  m_Name: BackGround
+  m_Name: BackGround(pre)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

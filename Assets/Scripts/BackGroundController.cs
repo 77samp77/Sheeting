@@ -9,24 +9,28 @@ public class BackGroundController : MonoBehaviour
     public GameObject[] sprites = new GameObject[2];
     Vector2[] spr_pos = new Vector2[2];
 
+    GameObject gameManager;
+    GameManagerScript gms;
+
     void Awake(){
-        DontDestroyOnLoad(this.gameObject);
+        GameObject temp = GameObject.Find("BackGround");
+        if(temp != null) Destroy(this.gameObject);
+        else{
+            DontDestroyOnLoad(this.gameObject);
+            this.name = "BackGround";
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        if(SceneManager.GetActiveScene().name == "Game"){
-            GameObject gameManager = GameObject.Find("GameManager");
-            GameManagerScript gms = gameManager.GetComponent<GameManagerScript>();
-            v = gms.gameSpeed;
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
         for(int i = 0; i < 2; i++) spr_pos[i] = sprites[i].transform.localPosition;
+        if(SceneManager.GetActiveScene().name == "Game" && gms.gameIsStop) return;
         Move();
     }
 
@@ -36,5 +40,15 @@ public class BackGroundController : MonoBehaviour
             for(int i = 0; i < 2; i++) spr_pos[i].x += Screen.width;
         }
         for(int i = 0; i < 2; i++) sprites[i].transform.localPosition = spr_pos[i];
+    }
+
+    public void InitTitleVariables(){
+        v = 0.2f;
+    }
+
+    public void InitGameVariables(){
+        gameManager = GameObject.Find("GameManager");
+        gms = gameManager.GetComponent<GameManagerScript>();
+        v = gms.gameSpeed;
     }
 }

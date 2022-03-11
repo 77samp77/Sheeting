@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
-    public GameObject pressSpaceKey;
+    public GameObject pressSpaceKey, backGround;
+    BackGroundController bgcs;
+
     void Awake(){
         Application.targetFrameRate = 60;
     }
@@ -13,6 +15,8 @@ public class TitleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        bgcs = backGround.GetComponent<BackGroundController>();
+        bgcs.InitTitleVariables();
     }
 
     // Update is called once per frame
