@@ -63,7 +63,8 @@ public class WordGenerator : MonoBehaviour
         word.name = wordPrefab.name;
         word.transform.SetParent(words.transform);
         frame_gen = gms.progress;
-        SetWord(word, Random.Range(3, wordLen_max + 1), Random.Range(0, wordNo_max + 1));
+        if(word.name == "Word_Hor") SetWord(word, Random.Range(3, 8), Random.Range(0, wordNo_max + 1));
+        else SetWord(word, Random.Range(8, wordLen_max + 1), Random.Range(0, wordNo_max + 1));
     }
     
     void SetWord(GameObject word, int len, int no){

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class GameManagerScript : MonoBehaviour
     SheetController scs;
     WordGenerator wgs;
     EnemyGenerator egs;
+    GameObject backGround;
+    BackGroundController bgcs;
 
     public GameObject words, enemyShots, enemies, playerShots;
 
@@ -32,6 +35,8 @@ public class GameManagerScript : MonoBehaviour
     int choosing;
     [System.NonSerialized] public bool canControllUI;
 
+    public Sprite[] defeat_sprites = new Sprite[3];
+
     void Awake(){
         Application.targetFrameRate = 60;
     }
@@ -39,6 +44,7 @@ public class GameManagerScript : MonoBehaviour
     void Start()
     {
         InitVariables();
+        bgcs.InitGameVariables();
     }
 
     void InitVariables(){
@@ -46,19 +52,22 @@ public class GameManagerScript : MonoBehaviour
         scs = sheet.GetComponent<SheetController>();
         wgs = wordManager.GetComponent<WordGenerator>();
         egs = enemyManager.GetComponent<EnemyGenerator>();
+        backGround = GameObject.Find("BackGround");
+        bgcs = backGround.GetComponent<BackGroundController>();
         UIms = UIManager.GetComponent<UIManager>();
         life = life_max;
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P)) SwitchPause(!isPause);
+        if(Input.GetKeyDown(KeyCode.P) && !isFinish) SwitchPause(!isPause);
         if(Input.GetKeyDown(KeyCode.R)) ResetGame();
         if(isPause) ControllPause();
         if(isFinish){
             if(!canControllUI) UIms.ResultMotion();
             else ControllResult();
         }
+        else if(isGameOver) pcs.GameOverAnimation();
 
         gameIsStop = JudgeGameStop();
 
@@ -97,6 +106,7 @@ public class GameManagerScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space)){
             if(choosing == 0) SwitchPause(false);
             else if(choosing == 1) ResetGame();
+            else if(choosing == 2) SceneManager.LoadScene("LevelSelect");
         }
     }
 
@@ -108,10 +118,11 @@ public class GameManagerScript : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space)){
             if(choosing == 0) ResetGame();
+            else if(choosing == 1) SceneManager.LoadScene("LevelSelect");
         }
     }
 
-    void GameFinish(){
+    public void GameFinish(){
         isFinish = true;
         isSuccess = judgeSuccess();
         total_score = score;
@@ -141,8 +152,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void GameOver(){
         isGameOver = true;
-        GameFinish();
-        Debug.Log("GameOver");
+        // GameFinish();
     }
 
     void ResetGame(){

@@ -15,16 +15,19 @@ public class PlayerController : MonoBehaviour
     Vector3 pos;
     [System.NonSerialized] public Vector2 spr_scl;
 
-    public float v;
+    float v;
+    public float v_default, v_dash;
     public int shoot_interval; // 連続で弾を撃つときの間隔(フレーム数) 
     int frame_shot; // 弾を撃ったときのフレーム
 
     public int damage_interval; // ダメージ後の無敵時間(フレーム数) 
-    int frame_damaged = -1000;
+    int frame_damaged = -1000, frame_gameOver = 0;
+    public GameObject spriteDefeatPrefab;
 
     void Start()
     {
         InitVariables();
+        ResetVariables();
     }
 
     void InitVariables(){
@@ -57,6 +60,9 @@ public class PlayerController : MonoBehaviour
     }
 
     void Move(){
+        if(Input.GetKeyDown(KeyCode.LeftShift)) v = v_dash;
+        else if(Input.GetKeyUp(KeyCode.LeftShift)) v = v_default;
+        
         if(Input.GetKey(KeyCode.W)){
             if(pos.y >= Screen.height / 2) pos.y = Screen.height / 2;
             else pos.y += v;
@@ -94,17 +100,33 @@ public class PlayerController : MonoBehaviour
     }
 
     void GameOver(){
-        this.gameObject.SetActive(false);
         gms.GameOver();
+    }
+
+    int sprite_d_interval = 15;
+    public void GameOverAnimation(){
+        if(frame_gameOver == sprite_d_interval * 4 + 10){
+            this.gameObject.SetActive(false);
+            gms.GameFinish();
+        }
+        else if(frame_gameOver % sprite_d_interval == 0 && frame_gameOver < sprite_d_interval * 4){
+            GameObject sprite_d = Instantiate(spriteDefeatPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            sprite_d.transform.SetParent(this.transform);
+            SpriteDefeatController sdcs = sprite_d.GetComponent<SpriteDefeatController>();
+            sdcs.SetObject(this.gameObject);
+        }
+        frame_gameOver++;
     }
 
     public void ResetVariables(){
         this.gameObject.SetActive(true);
         pos.x = -100;
         pos.y = 20;
+        v = v_default;
         transform.localPosition = pos;
         frame_shot = -1000;
         frame_damaged = -1000;
+        frame_gameOver = 0;
         Color sprite_color = GetComponent<SpriteRenderer>().color;
         sprite_color.a = 1;
         GetComponent<SpriteRenderer>().color = sprite_color;

@@ -43,6 +43,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BackGround
+    uniqueID: 2788132629
+    locked: 0
   - name: Word
     uniqueID: 516446117
     locked: 0

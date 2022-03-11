@@ -165,7 +165,6 @@ GameObject:
   - component: {fileID: 1866698549238306571}
   - component: {fileID: 1866698549238306570}
   - component: {fileID: 1866698549238306574}
-  - component: {fileID: 1866698549238306612}
   - component: {fileID: 1866698549238306613}
   - component: {fileID: 5715974094797580360}
   m_Layer: 0
@@ -228,7 +227,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 516446117
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -253,7 +252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598de035d346ab5488e52d6a12b4106e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb2d: {fileID: 5715974094797580360}
   canvas: {fileID: 1866698550244478852}
   textObject: {fileID: 1866698548635617972}
   mark: {fileID: 1866698550212649015}
@@ -261,26 +259,7 @@ MonoBehaviour:
   v: 0.3
   isMarked: 0
   isCovered: 0
---- !u!114 &1866698549238306612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1866698549238306569}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: feb24f634afacc24393150a835af7186, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb2d: {fileID: 5715974094797580360}
-  canvas: {fileID: 1866698550244478852}
-  textObject: {fileID: 1866698548635617972}
-  mark: {fileID: 1866698550212649015}
-  mark_c: {fileID: 1511195737193186741}
-  v: -0.5
-  isMarked: 0
-  isCovered: 0
+  bc2D: {fileID: 1866698549238306613}
 --- !u!61 &1866698549238306613
 BoxCollider2D:
   m_ObjectHideFlags: 0
