@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
+    GameObject systemSound;
+    SystemSoundManager ssms;
+
     public GameObject player, sheet, wordManager, enemyManager;
     PlayerController pcs;
     SheetController scs;
@@ -48,6 +51,8 @@ public class GameManagerScript : MonoBehaviour
     }
 
     void InitVariables(){
+        systemSound = GameObject.Find("SystemSound");
+        ssms = systemSound.GetComponent<SystemSoundManager>();
         pcs = player.GetComponent<PlayerController>();
         scs = sheet.GetComponent<SheetController>();
         wgs = wordManager.GetComponent<WordGenerator>();
@@ -101,12 +106,21 @@ public class GameManagerScript : MonoBehaviour
         int pre_choosing = choosing;
         if(Input.GetKeyDown(KeyCode.W) && choosing > 0) choosing--;
         if(Input.GetKeyDown(KeyCode.S) && choosing < 2) choosing++;
-        if(choosing != pre_choosing) UIms.SetChoosingUI(UIms.pauseUI_choosing, pre_choosing, choosing);
+        if(choosing != pre_choosing){
+            ssms.PlaySE(ssms.SE_choose);
+            UIms.SetChoosingUI(UIms.pauseUI_choosing, pre_choosing, choosing);
+        }
 
         if(Input.GetKeyDown(KeyCode.Space)){
             if(choosing == 0) SwitchPause(false);
-            else if(choosing == 1) ResetGame();
-            else if(choosing == 2) SceneManager.LoadScene("LevelSelect");
+            else if(choosing == 1){
+                ssms.PlaySE(ssms.SE_decide);
+                ResetGame();
+            }
+            else if(choosing == 2){
+                ssms.PlaySE(ssms.SE_decide);
+                SceneManager.LoadScene("LevelSelect");
+            }
         }
     }
 
@@ -114,11 +128,20 @@ public class GameManagerScript : MonoBehaviour
         int pre_choosing = choosing;
         if(Input.GetKeyDown(KeyCode.D) && choosing == 0) choosing++;
         if(Input.GetKeyDown(KeyCode.A) && choosing == 1) choosing--;
-        if(choosing != pre_choosing) UIms.SetChoosingUI(UIms.resultUI_choosing, pre_choosing, choosing);
+        if(choosing != pre_choosing){
+            ssms.PlaySE(ssms.SE_choose);
+            UIms.SetChoosingUI(UIms.resultUI_choosing, pre_choosing, choosing);
+        }
 
         if(Input.GetKeyDown(KeyCode.Space)){
-            if(choosing == 0) ResetGame();
-            else if(choosing == 1) SceneManager.LoadScene("LevelSelect");
+            if(choosing == 0){
+                ssms.PlaySE(ssms.SE_decide);
+                ResetGame();
+            }
+            else if(choosing == 1){
+                ssms.PlaySE(ssms.SE_decide);
+                SceneManager.LoadScene("LevelSelect");
+            }
         }
     }
 
