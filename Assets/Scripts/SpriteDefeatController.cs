@@ -6,9 +6,7 @@ public class SpriteDefeatController : MonoBehaviour
 {
     GameObject defeatObject;
     bool objectIsSet;
-
-    GameObject gameManager;
-    GameManagerScript gms;
+    public Sprite[] defeat_sprites = new Sprite[3];
     SpriteRenderer sprite_d_ren;
     int defeat_progress = 0;
 
@@ -22,8 +20,6 @@ public class SpriteDefeatController : MonoBehaviour
     }
 
     void InitVariables(){
-        gameManager = GameObject.Find("GameManager");
-        gms = gameManager.GetComponent<GameManagerScript>();
         sprite_d_ren = GetComponent<SpriteRenderer>();
     }
 
@@ -39,15 +35,16 @@ public class SpriteDefeatController : MonoBehaviour
         objectIsSet = true;
     }
 
+    public int anim_f;
     // Update is called once per frame
     void Update()
     {
         this.gameObject.SetActive(true);
         if(objectIsSet){
-            if(defeat_progress == 16) sprite_d_ren.sprite = gms.defeat_sprites[0];
-            else if(defeat_progress == 4 || defeat_progress == 12) sprite_d_ren.sprite = gms.defeat_sprites[1];
-            else if(defeat_progress == 8) sprite_d_ren.sprite = gms.defeat_sprites[2];
-            if(defeat_progress == 20){
+            if(defeat_progress == anim_f * 4) sprite_d_ren.sprite = defeat_sprites[0];
+            else if(defeat_progress == anim_f || defeat_progress == anim_f * 3) sprite_d_ren.sprite = defeat_sprites[1];
+            else if(defeat_progress == anim_f * 2) sprite_d_ren.sprite = defeat_sprites[2];
+            if(defeat_progress == anim_f * 5){
                 Destroy(this.gameObject);
                 if(defeatObject.tag == "Enemy") Destroy(defeatObject);
             }

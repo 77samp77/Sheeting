@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9126881930302739795}
   - component: {fileID: 9126881930302739794}
-  - component: {fileID: 9126881930302739792}
+  - component: {fileID: 3035105862024001860}
   m_Layer: 0
-  m_Name: Sprite_Defeat
+  m_Name: Sprite_Gain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,10 +69,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1230622043
-  m_SortingLayer: 7
+  m_SortingLayerID: 516446117
+  m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: c15d0448bcde034498f22208206e1bba, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7cc0fa9ee5f0ba642b34fb6f275e7cd8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9126881930302739792
+--- !u!114 &3035105862024001860
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,11 +92,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 9126881930302739757}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46e1672afde1bd443be763d49a6d3da9, type: 3}
+  m_Script: {fileID: 11500000, guid: 47762df82d55fe140a3bd56e61f7e339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defeat_sprites:
-  - {fileID: 21300000, guid: c15d0448bcde034498f22208206e1bba, type: 3}
-  - {fileID: 21300000, guid: d39db4000a469a645bfaffb8ac42d6cd, type: 3}
-  - {fileID: 21300000, guid: f5ad0a893d64fd74397c508ea2a39188, type: 3}
-  anim_f: 5
+  gain_sprites:
+  - {fileID: 21300000, guid: 7cc0fa9ee5f0ba642b34fb6f275e7cd8, type: 3}
+  - {fileID: 21300000, guid: 50bf05aacc58efc4793aedc74f792e8b, type: 3}
+  - {fileID: 21300000, guid: 89cfb86075248f64c8473cee3898b5cf, type: 3}
+  anim_f: 4

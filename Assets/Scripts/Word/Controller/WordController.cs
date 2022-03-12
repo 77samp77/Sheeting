@@ -7,7 +7,7 @@ public class WordController : MonoBehaviour
 {
     [System.NonSerialized] public GameObject gameManager;
     [System.NonSerialized] public GameManagerScript gms;
-    [System.NonSerialized] public bool readyToSetPos;
+    [System.NonSerialized] public bool readyToSetPos, isGainAnimation;
     
     [System.NonSerialized] public GameObject UIManager;
     [System.NonSerialized] public UIManager UIms;
@@ -22,6 +22,8 @@ public class WordController : MonoBehaviour
     [System.NonSerialized] public GameObject sheet;
     [System.NonSerialized] public SheetController scs;
     public BoxCollider2D bc2D;
+
+    public GameObject spriteGainPrefab;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -61,7 +63,7 @@ public class WordController : MonoBehaviour
 
         if(gms.gameIsStop) return;
         pos = transform.localPosition;
-        Move();
+        if(!isGainAnimation) Move();
         if(readyToCover()) BeCovered();
         
         if(readyToGain()) BeGained();
@@ -79,6 +81,7 @@ public class WordController : MonoBehaviour
     public virtual bool readyToGain(){
         if(pos.y >= scs.bottom) return false;
         if(!isCovered) return false;
+        if(isGainAnimation) return false;
         return true;
     }
 
@@ -100,11 +103,23 @@ public class WordController : MonoBehaviour
     }
 
     public virtual void BeGained(){
+        pos.x = (int)pos.x;
+        pos.y = scs.bottom + 20;
+        transform.localPosition = pos;
+
         gms.gain_combo++;
         gms.gain_words++;
         UIms.SetWordCountUI(gms.gain_words, gms.quota_words);
         gms.IncreaseScore(Mathf.FloorToInt(100 * Mathf.Pow(2, gms.gain_combo - 1)));
-        Destroy(this.gameObject);
+        // Destroy(this.gameObject);
+
+        isGainAnimation = true;
+        // this.gameObject.SetActive(false);
+        canvas.SetActive(false);
+        GameObject sprite_g = Instantiate(spriteGainPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        sprite_g.transform.SetParent(this.transform);
+        SpriteGainController sgcs = sprite_g.GetComponent<SpriteGainController>();
+        sgcs.SetObject(this.gameObject);
     }
 
     /*=描画用===================================================================*/

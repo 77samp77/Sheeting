@@ -44,6 +44,7 @@ public class WordVerController : WordController
 
     public override bool readyToDestroy()
     {
+        if(isGainAnimation) return false;
         return (pos.y < scs.bottom + 20) || (pos.y > 110 + colWidth);
     }
 
