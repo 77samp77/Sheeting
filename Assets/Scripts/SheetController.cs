@@ -7,6 +7,9 @@ public class SheetController : MonoBehaviour
     public GameObject gameManager;
     GameManagerScript gms;
 
+    public GameObject gameSound;
+    GameSoundManager gsms;
+
     public int top, bottom, v;
     public bool isCovering;
     public bool toCover, toUncover;
@@ -21,6 +24,7 @@ public class SheetController : MonoBehaviour
 
     void InitVariables(){
         gms = gameManager.GetComponent<GameManagerScript>();
+        gsms = gameSound.GetComponent<GameSoundManager>();
     }
 
     // Update is called once per frame
@@ -34,10 +38,14 @@ public class SheetController : MonoBehaviour
 
     void Controll(){
         if(Input.GetKeyDown(KeyCode.UpArrow)){
-            if(!isCovering && !toUncover) isCovering = toCover = true;
+            if(!isCovering && !toUncover){
+                gsms.PlaySE(gsms.SE_sheet);
+                isCovering = toCover = true;
+            }
         }
         if(Input.GetKeyDown(KeyCode.DownArrow)){
             if(isCovering && !toCover){
+                gsms.PlaySE(gsms.SE_sheet);
                 isCovering = false;
                 toUncover = true;
             }

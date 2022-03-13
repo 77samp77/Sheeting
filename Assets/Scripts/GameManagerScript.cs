@@ -95,6 +95,8 @@ public class GameManagerScript : MonoBehaviour
 
     void SwitchPause(bool status){
         isPause = status;
+        if(isPause) ssms.PlaySE(ssms.SE_pause_open);
+        else ssms.PlaySE(ssms.SE_pause_close);
         UIms.pauseUI.SetActive(isPause);
         if(isPause){
             UIms.SetChoosingUI(UIms.pauseUI_choosing, choosing, 0);

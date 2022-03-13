@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject gameManager;
     GameManagerScript gms;
+    public GameObject gameSound;
+    GameSoundManager gsms;
 
     Sprite spr;
     public GameObject playerShotPrefab, playerShots;
@@ -32,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     void InitVariables(){
         gms = gameManager.GetComponent<GameManagerScript>();
+        gsms = gameSound.GetComponent<GameSoundManager>();
         spr = GetComponent<SpriteRenderer>().sprite;
         spr_scl = spr.bounds.size;
         scs = sheet.GetComponent<SheetController>();
@@ -83,6 +86,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void Shoot(){
+        // gsms.PlaySE(gsms.SE_shot_player);
         GameObject pShot = Instantiate(playerShotPrefab, 
                                        new Vector3(pos.x + spr_scl.x * 0.8f, pos.y - spr_scl.y / 2, 0), 
                                        Quaternion.identity);
@@ -94,6 +98,7 @@ public class PlayerController : MonoBehaviour
 
     public void Damage(){
         if(gms.progress - frame_damaged < damage_interval) return;
+        gsms.PlaySE(gsms.SE_damage);
         gms.DecreaseLife();
         if(gms.life == 0) GameOver();
         else frame_damaged = gms.progress;

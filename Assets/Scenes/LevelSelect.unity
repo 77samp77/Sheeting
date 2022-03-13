@@ -319,7 +319,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "LEVEL SELECT\u753B\u9762(\u4EEE)\n\nZ\u30AD\u30FC\u3067\u30BF\u30A4\u30C8\u30EB\nSPACE\u30AD\u30FC\u3067\u30B2\u30FC\u30E0\u958B\u59CB"
+  m_Text: "LEVEL SELECT\u753B\u9762(\u4EEE)\n\n\u3000Z\u30AD\u30FC\u3067\u30BF\u30A4\u30C8\u30EB\n\u3000SPACE\u30AD\u30FC\u3067\u30B2\u30FC\u30E0\u958B\u59CB\n\n\u3000"
 --- !u!222 &1160939357
 CanvasRenderer:
   m_ObjectHideFlags: 0

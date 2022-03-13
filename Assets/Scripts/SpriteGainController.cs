@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SpriteGainController : MonoBehaviour
 {
+    [System.NonSerialized] public GameObject gameSound;
+    [System.NonSerialized] public GameSoundManager gsms;
+    
     GameObject gainObject;
     bool objectIsSet;
     public Sprite[] gain_sprites = new Sprite[3];
@@ -17,9 +20,12 @@ public class SpriteGainController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gsms.PlaySE(gsms.SE_gain);
     }
 
     void InitVariables(){
+        gameSound = GameObject.Find("GameSound");
+        gsms = gameSound.GetComponent<GameSoundManager>();
         sprite_g_ren = GetComponent<SpriteRenderer>();
     }
 

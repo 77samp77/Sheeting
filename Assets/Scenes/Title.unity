@@ -588,6 +588,9 @@ MonoBehaviour:
   SE_decide: {fileID: 8300000, guid: 777eb1c15d9fa594bb8de56301fee547, type: 3}
   SE_choose: {fileID: 8300000, guid: 0a64f45d3bb162b4c95226733b1700d6, type: 3}
   SE_back: {fileID: 8300000, guid: 4d9135dc7e5c917469b834558560e0b2, type: 3}
+  SE_pause_open: {fileID: 8300000, guid: 38c2529301980f247abbb8ce57aa7bcd, type: 3}
+  SE_pause_close: {fileID: 8300000, guid: b65b0c441d99fc94987a99fbd030c701, type: 3}
+  volume: 0.5
 --- !u!82 &973354522
 AudioSource:
   m_ObjectHideFlags: 0

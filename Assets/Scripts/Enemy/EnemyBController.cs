@@ -91,5 +91,6 @@ public class EnemyBController : EnemyController
         EnemyBShotController ebscs = eShot.GetComponent<EnemyBShotController>();
         if(isFlip) ebscs.Flip();
         ebscs.SetAngle(angle);
+        gsms.PlaySE(gsms.SE_shot_enemyB);
     }
 }

@@ -7,6 +7,9 @@ public class PlayerShotController : MonoBehaviour
     GameObject gameManager;
     GameManagerScript gms;
 
+    GameObject gameSound;
+    GameSoundManager gsms;
+
     public float vx = 2f;
     Vector3 pos;
 
@@ -20,6 +23,8 @@ public class PlayerShotController : MonoBehaviour
     void InitVariables(){
         gameManager = GameObject.Find("GameManager");
         gms = gameManager.GetComponent<GameManagerScript>();
+        gameSound = GameObject.Find("GameSound");
+        gsms = gameSound.GetComponent<GameSoundManager>();
     }
 
     void Update()
@@ -41,7 +46,7 @@ public class PlayerShotController : MonoBehaviour
             WordController wcs;
             if(colObject.name == "Word_Hor") wcs = colObject.GetComponent<WordHorController>();
             else wcs = colObject.GetComponent<WordVerController>();
-            if(wcs.textObject.activeSelf) Mark(colObject, wcs);
+            if(wcs.textObject.activeSelf && !wcs.isMarked) Mark(colObject, wcs);
         }
         else if(colObject.tag == "Enemy"){
             EnemyController ecs = colObject.GetComponent<EnemyController>();
@@ -50,6 +55,7 @@ public class PlayerShotController : MonoBehaviour
     }
 
     void Mark(GameObject word, WordController wcs){
+        gsms.PlaySE(gsms.SE_mark);
         wcs.isMarked = true;
         wcs.mark.SetActive(true);
         Destroy(this.gameObject);

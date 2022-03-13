@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SpriteDefeatController : MonoBehaviour
 {
+    GameObject gameSound;
+    GameSoundManager gsms;
+
     GameObject defeatObject;
     bool objectIsSet;
     public Sprite[] defeat_sprites = new Sprite[3];
@@ -17,9 +20,12 @@ public class SpriteDefeatController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gsms.PlaySE(gsms.SE_defeat);
     }
 
     void InitVariables(){
+        gameSound = GameObject.Find("GameSound");
+        gsms = gameSound.GetComponent<GameSoundManager>();
         sprite_d_ren = GetComponent<SpriteRenderer>();
     }
 

@@ -111,10 +111,8 @@ public class WordController : MonoBehaviour
         gms.gain_words++;
         UIms.SetWordCountUI(gms.gain_words, gms.quota_words);
         gms.IncreaseScore(Mathf.FloorToInt(100 * Mathf.Pow(2, gms.gain_combo - 1)));
-        // Destroy(this.gameObject);
 
         isGainAnimation = true;
-        // this.gameObject.SetActive(false);
         canvas.SetActive(false);
         GameObject sprite_g = Instantiate(spriteGainPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         sprite_g.transform.SetParent(this.transform);

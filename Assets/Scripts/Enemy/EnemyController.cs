@@ -7,13 +7,15 @@ public class EnemyController : MonoBehaviour
     [System.NonSerialized] public GameObject gameManager;
     [System.NonSerialized] public GameManagerScript gms;
 
+    [System.NonSerialized] public GameObject gameSound;
+    [System.NonSerialized] public GameSoundManager gsms;
+
     [System.NonSerialized] public GameObject sheet;
     [System.NonSerialized] public SheetController scs;
 
     [System.NonSerialized] public Vector3 pos;
 
-    public GameObject sprite, sprite_f/*, sprite_d*/;
-    // [System.NonSerialized] public SpriteRenderer sprite_d_ren;
+    public GameObject sprite, sprite_f;
     [System.NonSerialized] public GameObject spriteDefeatPrefab;
 
     public float v;
@@ -35,9 +37,10 @@ public class EnemyController : MonoBehaviour
     public virtual void InitVariables(){
         gameManager = GameObject.Find("GameManager");
         gms = gameManager.GetComponent<GameManagerScript>();
+        gameSound = GameObject.Find("GameSound");
+        gsms = gameSound.GetComponent<GameSoundManager>();
         sheet = GameObject.Find("Sheet");
         scs = sheet.GetComponent<SheetController>();
-        /*sprite_d_ren = sprite_d.GetComponent<SpriteRenderer>();*/
         spriteDefeatPrefab = Resources.Load<GameObject>("Prefabs/Sprite_Defeat");
         enemyShots = GameObject.Find("EnemyShots");
         frame_shot = gms.progress;
