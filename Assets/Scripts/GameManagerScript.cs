@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
+    // GameObject screenManager;
     public GameObject gameMusic;
     GameMusicManager gmms;
 
@@ -54,6 +55,8 @@ public class GameManagerScript : MonoBehaviour
     }
 
     void InitVariables(){
+        // screenManager = GameObject.Find("ScreenManager");
+        // screenManager.GetComponent<ScreenManager>().SetMainCamera();
         gmms = gameMusic.GetComponent<GameMusicManager>();
         systemSound = GameObject.Find("SystemSound");
         ssms = systemSound.GetComponent<SystemSoundManager>();

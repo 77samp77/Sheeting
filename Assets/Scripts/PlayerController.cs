@@ -77,16 +77,17 @@ public class PlayerController : MonoBehaviour
         GetComponent<SpriteRenderer>().color = sprite_color;
     }
 
+    int screenWidth = 270, screenHeight = 180;
     void Move(){
         if(Input.GetKeyDown(KeyCode.LeftShift)) v = v_dash;
         else if(Input.GetKeyUp(KeyCode.LeftShift)) v = v_default;
         
         if(Input.GetKey(KeyCode.W)){
-            if(pos.y >= Screen.height / 2) pos.y = Screen.height / 2;
+            if(pos.y >= screenHeight / 2) pos.y = screenHeight / 2;
             else pos.y += v;
         }
         if(Input.GetKey(KeyCode.A)){
-            if(pos.x <= -Screen.width / 2) pos.x = -Screen.width / 2;
+            if(pos.x <= -screenWidth / 2) pos.x = -screenWidth / 2;
             else pos.x -= v;
         }
         if(Input.GetKey(KeyCode.S)){
@@ -94,7 +95,7 @@ public class PlayerController : MonoBehaviour
             else pos.y -= v;
         }
         if(Input.GetKey(KeyCode.D)){
-            if(pos.x + spr_scl.x >= Screen.width / 2) pos.x = Screen.width / 2 - spr_scl.x;
+            if(pos.x + spr_scl.x >= screenWidth / 2) pos.x = screenWidth / 2 - spr_scl.x;
             else pos.x += v;
         }
         transform.localPosition = pos;

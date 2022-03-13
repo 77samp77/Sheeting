@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelSelectManager : MonoBehaviour
 {
+    // GameObject screenManager;
     GameObject systemSound;
     SystemSoundManager ssms;
 
@@ -15,6 +16,8 @@ public class LevelSelectManager : MonoBehaviour
     }
 
     void InitVariables(){
+        // screenManager = GameObject.Find("ScreenManager");
+        // screenManager.GetComponent<ScreenManager>().SetMainCamera();
         systemSound = GameObject.Find("SystemSound");
         ssms = systemSound.GetComponent<SystemSoundManager>();
     }
@@ -26,7 +29,7 @@ public class LevelSelectManager : MonoBehaviour
             ssms.PlaySE(ssms.SE_back);
             SceneManager.LoadScene("Title");
         }
-        if(Input.GetKey(KeyCode.Space)){
+        if(Input.GetKey(KeyCode.A)){
             ssms.PlaySE(ssms.SE_decide);
             SceneManager.LoadScene("Game");
         }

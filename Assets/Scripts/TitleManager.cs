@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TitleManager : MonoBehaviour
 {
+    // GameObject screenManager;
     public GameObject pressSpaceKey, backGround, systemSound;
     SystemSoundManager ssms;
     BackGroundController bgcs;
@@ -17,9 +19,14 @@ public class TitleManager : MonoBehaviour
     void Start()
     {
         InitVariables();
+        GameObject pskText = GameObject.Find("-PRESS SPACE KEY-");
+        pskText.GetComponent<Text>().text = "w:" + Screen.width + ", h:" + Screen.height;
+        Debug.Log("w:" + Screen.width + ", h:" + Screen.height);
     }
 
     void InitVariables(){
+        // screenManager = GameObject.Find("ScreenManager");
+        // screenManager.GetComponent<ScreenManager>().SetMainCamera();
         bgcs = backGround.GetComponent<BackGroundController>();
         bgcs.InitTitleVariables();
         systemSound = GameObject.Find("SystemSound");
