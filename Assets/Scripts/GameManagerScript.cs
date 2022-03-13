@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
+    public GameObject gameMusic;
+    GameMusicManager gmms;
+
     GameObject systemSound;
     SystemSoundManager ssms;
 
@@ -51,6 +54,7 @@ public class GameManagerScript : MonoBehaviour
     }
 
     void InitVariables(){
+        gmms = gameMusic.GetComponent<GameMusicManager>();
         systemSound = GameObject.Find("SystemSound");
         ssms = systemSound.GetComponent<SystemSoundManager>();
         pcs = player.GetComponent<PlayerController>();
@@ -119,10 +123,12 @@ public class GameManagerScript : MonoBehaviour
             if(choosing == 0) SwitchPause(false);
             else if(choosing == 1){
                 ssms.PlaySE(ssms.SE_decide);
+                gmms.PauseBGM();
                 ResetGame();
             }
             else if(choosing == 2){
                 ssms.PlaySE(ssms.SE_decide);
+                gmms.UnpauseBGM();
                 SceneManager.LoadScene("LevelSelect");
             }
         }

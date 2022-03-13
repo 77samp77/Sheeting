@@ -25,4 +25,12 @@ public class GameMusicManager : MonoBehaviour
         float part_volume = 0.1f;
         audioSource.PlayOneShot(music, volume * part_volume);
     }
+
+    public void PauseBGM(){
+        audioSource.Pause();
+    }
+
+    public void UnpauseBGM(){
+        audioSource.UnPause();
+    }
 }
