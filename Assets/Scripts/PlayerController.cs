@@ -6,6 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject gameManager;
     GameManagerScript gms;
+    public GameObject gameMusic, gameSound;
+    GameMusicManager gmms;
+    GameSoundManager gsms;
 
     Sprite spr;
     public GameObject playerShotPrefab, playerShots;
@@ -32,6 +35,8 @@ public class PlayerController : MonoBehaviour
 
     void InitVariables(){
         gms = gameManager.GetComponent<GameManagerScript>();
+        gmms = gameMusic.GetComponent<GameMusicManager>();
+        gsms = gameSound.GetComponent<GameSoundManager>();
         spr = GetComponent<SpriteRenderer>().sprite;
         spr_scl = spr.bounds.size;
         scs = sheet.GetComponent<SheetController>();
@@ -39,13 +44,26 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if(!gms.isStart) StartMotion();
+
         if(gms.gameIsStop) return;
         if(gms.progress - frame_damaged <= damage_interval) DamageAnimation();
         pos = transform.localPosition;
         Move();
         if(Input.GetKey(KeyCode.Space)){
-            if(gms.progress - frame_shot > shoot_interval && pos.y > scs.pos.y) Shoot();
+            if(gms.isStart && gms.progress - frame_shot > shoot_interval && pos.y > scs.pos.y) Shoot();
         }
+    }
+
+    void StartMotion(){
+        pos = transform.localPosition;
+        if(pos.x < -120) pos.x += 0.5f;
+        else{
+            gmms.PlayBGM(gmms.bgm);
+            pos.x = -120;
+            gms.isStart = true;
+        }
+        transform.localPosition = pos;
     }
 
     void DamageAnimation(){
@@ -59,16 +77,17 @@ public class PlayerController : MonoBehaviour
         GetComponent<SpriteRenderer>().color = sprite_color;
     }
 
+    int screenWidth = 270, screenHeight = 180;
     void Move(){
         if(Input.GetKeyDown(KeyCode.LeftShift)) v = v_dash;
         else if(Input.GetKeyUp(KeyCode.LeftShift)) v = v_default;
         
         if(Input.GetKey(KeyCode.W)){
-            if(pos.y >= Screen.height / 2) pos.y = Screen.height / 2;
+            if(pos.y >= screenHeight / 2) pos.y = screenHeight / 2;
             else pos.y += v;
         }
         if(Input.GetKey(KeyCode.A)){
-            if(pos.x <= -Screen.width / 2) pos.x = -Screen.width / 2;
+            if(pos.x <= -screenWidth / 2) pos.x = -screenWidth / 2;
             else pos.x -= v;
         }
         if(Input.GetKey(KeyCode.S)){
@@ -76,13 +95,14 @@ public class PlayerController : MonoBehaviour
             else pos.y -= v;
         }
         if(Input.GetKey(KeyCode.D)){
-            if(pos.x + spr_scl.x >= Screen.width / 2) pos.x = Screen.width / 2 - spr_scl.x;
+            if(pos.x + spr_scl.x >= screenWidth / 2) pos.x = screenWidth / 2 - spr_scl.x;
             else pos.x += v;
         }
         transform.localPosition = pos;
     }
 
     void Shoot(){
+        // gsms.PlaySE(gsms.SE_shot_player);
         GameObject pShot = Instantiate(playerShotPrefab, 
                                        new Vector3(pos.x + spr_scl.x * 0.8f, pos.y - spr_scl.y / 2, 0), 
                                        Quaternion.identity);
@@ -94,6 +114,7 @@ public class PlayerController : MonoBehaviour
 
     public void Damage(){
         if(gms.progress - frame_damaged < damage_interval) return;
+        gsms.PlaySE(gsms.SE_damage);
         gms.DecreaseLife();
         if(gms.life == 0) GameOver();
         else frame_damaged = gms.progress;
@@ -120,7 +141,7 @@ public class PlayerController : MonoBehaviour
 
     public void ResetVariables(){
         this.gameObject.SetActive(true);
-        pos.x = -100;
+        pos.x = -170;
         pos.y = 20;
         v = v_default;
         transform.localPosition = pos;

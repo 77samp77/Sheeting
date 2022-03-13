@@ -319,7 +319,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "LEVEL SELECT\u753B\u9762(\u4EEE)\n\nZ\u30AD\u30FC\u3067\u30BF\u30A4\u30C8\u30EB\nSPACE\u30AD\u30FC\u3067\u30B2\u30FC\u30E0\u958B\u59CB"
+  m_Text: "LEVEL SELECT\u753B\u9762(\u4EEE)\n\n\u3000Z\u30AD\u30FC\u3067\u30BF\u30A4\u30C8\u30EB\n\u3000SPACE\u30AD\u30FC\u3067\u30B2\u30FC\u30E0\u958B\u59CB\n\n\u3000"
 --- !u!222 &1160939357
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -376,11 +376,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 1
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ReferenceResolution: {x: 270, y: 180}
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96

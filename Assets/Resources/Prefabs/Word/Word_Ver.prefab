@@ -260,6 +260,7 @@ MonoBehaviour:
   isMarked: 0
   isCovered: 0
   bc2D: {fileID: 1866698549238306613}
+  spriteGainPrefab: {fileID: 9126881930302739757, guid: 87441cb9d47aefb4bbe76adcf77054c5, type: 3}
 --- !u!61 &1866698549238306613
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -456,11 +457,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 1
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ReferenceResolution: {x: 270, y: 180}
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96

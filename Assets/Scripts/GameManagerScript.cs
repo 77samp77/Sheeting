@@ -5,6 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
+    // GameObject screenManager;
+    public GameObject gameMusic;
+    GameMusicManager gmms;
+
+    GameObject systemSound;
+    SystemSoundManager ssms;
+
     public GameObject player, sheet, wordManager, enemyManager;
     PlayerController pcs;
     SheetController scs;
@@ -16,7 +23,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject words, enemyShots, enemies, playerShots;
 
     [System.NonSerialized] public bool gameIsStop;
-    [System.NonSerialized] public bool isGameOver, isSuccess;
+    [System.NonSerialized] public bool isStart, isGameOver, isSuccess;
     bool isPause, isFinish;
 
     public GameObject UIManager;
@@ -48,6 +55,11 @@ public class GameManagerScript : MonoBehaviour
     }
 
     void InitVariables(){
+        // screenManager = GameObject.Find("ScreenManager");
+        // screenManager.GetComponent<ScreenManager>().SetMainCamera();
+        gmms = gameMusic.GetComponent<GameMusicManager>();
+        systemSound = GameObject.Find("SystemSound");
+        ssms = systemSound.GetComponent<SystemSoundManager>();
         pcs = player.GetComponent<PlayerController>();
         scs = sheet.GetComponent<SheetController>();
         wgs = wordManager.GetComponent<WordGenerator>();
@@ -60,6 +72,10 @@ public class GameManagerScript : MonoBehaviour
 
     void Update()
     {
+
+        gameIsStop = JudgeGameStop();
+        if(!isStart) return;
+
         if(Input.GetKeyDown(KeyCode.P) && !isFinish) SwitchPause(!isPause);
         if(Input.GetKeyDown(KeyCode.R)) ResetGame();
         if(isPause) ControllPause();
@@ -68,8 +84,6 @@ public class GameManagerScript : MonoBehaviour
             else ControllResult();
         }
         else if(isGameOver) pcs.GameOverAnimation();
-
-        gameIsStop = JudgeGameStop();
 
         if(gameIsStop) return;
         if(Input.GetKeyDown(KeyCode.F)) GameFinish();
@@ -90,6 +104,8 @@ public class GameManagerScript : MonoBehaviour
 
     void SwitchPause(bool status){
         isPause = status;
+        if(isPause) ssms.PlaySE(ssms.SE_pause_open);
+        else ssms.PlaySE(ssms.SE_pause_close);
         UIms.pauseUI.SetActive(isPause);
         if(isPause){
             UIms.SetChoosingUI(UIms.pauseUI_choosing, choosing, 0);
@@ -101,12 +117,23 @@ public class GameManagerScript : MonoBehaviour
         int pre_choosing = choosing;
         if(Input.GetKeyDown(KeyCode.W) && choosing > 0) choosing--;
         if(Input.GetKeyDown(KeyCode.S) && choosing < 2) choosing++;
-        if(choosing != pre_choosing) UIms.SetChoosingUI(UIms.pauseUI_choosing, pre_choosing, choosing);
+        if(choosing != pre_choosing){
+            ssms.PlaySE(ssms.SE_choose);
+            UIms.SetChoosingUI(UIms.pauseUI_choosing, pre_choosing, choosing);
+        }
 
         if(Input.GetKeyDown(KeyCode.Space)){
             if(choosing == 0) SwitchPause(false);
-            else if(choosing == 1) ResetGame();
-            else if(choosing == 2) SceneManager.LoadScene("LevelSelect");
+            else if(choosing == 1){
+                ssms.PlaySE(ssms.SE_decide);
+                gmms.PauseBGM();
+                ResetGame();
+            }
+            else if(choosing == 2){
+                ssms.PlaySE(ssms.SE_decide);
+                gmms.UnpauseBGM();
+                SceneManager.LoadScene("LevelSelect");
+            }
         }
     }
 
@@ -114,11 +141,20 @@ public class GameManagerScript : MonoBehaviour
         int pre_choosing = choosing;
         if(Input.GetKeyDown(KeyCode.D) && choosing == 0) choosing++;
         if(Input.GetKeyDown(KeyCode.A) && choosing == 1) choosing--;
-        if(choosing != pre_choosing) UIms.SetChoosingUI(UIms.resultUI_choosing, pre_choosing, choosing);
+        if(choosing != pre_choosing){
+            ssms.PlaySE(ssms.SE_choose);
+            UIms.SetChoosingUI(UIms.resultUI_choosing, pre_choosing, choosing);
+        }
 
         if(Input.GetKeyDown(KeyCode.Space)){
-            if(choosing == 0) ResetGame();
-            else if(choosing == 1) SceneManager.LoadScene("LevelSelect");
+            if(choosing == 0){
+                ssms.PlaySE(ssms.SE_decide);
+                ResetGame();
+            }
+            else if(choosing == 1){
+                ssms.PlaySE(ssms.SE_decide);
+                SceneManager.LoadScene("LevelSelect");
+            }
         }
     }
 
@@ -175,7 +211,7 @@ public class GameManagerScript : MonoBehaviour
         gain_words = gain_combo = 0;
         UIms.SetWordCountUI(gain_words, quota_words);
         SwitchPause(false);
-        isGameOver = isFinish = false;
+        isStart = isGameOver = isFinish = false;
         canControllUI = false;
         UIms.ResetResultUI();
     }

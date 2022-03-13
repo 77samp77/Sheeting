@@ -76,6 +76,7 @@ public class EnemyAController : EnemyController
         base.Shoot();
         if(shoot_con_count == shoot_con_max) shoot_con_count = 1;
         else shoot_con_count++;
+        gsms.PlaySE(gsms.SE_shot_enemyA);
     }
 
     public override void PositionShot(GameObject eShot){
