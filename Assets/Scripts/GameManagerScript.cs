@@ -19,7 +19,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject words, enemyShots, enemies, playerShots;
 
     [System.NonSerialized] public bool gameIsStop;
-    [System.NonSerialized] public bool isGameOver, isSuccess;
+    [System.NonSerialized] public bool isStart, isGameOver, isSuccess;
     bool isPause, isFinish;
 
     public GameObject UIManager;
@@ -65,6 +65,10 @@ public class GameManagerScript : MonoBehaviour
 
     void Update()
     {
+
+        gameIsStop = JudgeGameStop();
+        if(!isStart) return;
+
         if(Input.GetKeyDown(KeyCode.P) && !isFinish) SwitchPause(!isPause);
         if(Input.GetKeyDown(KeyCode.R)) ResetGame();
         if(isPause) ControllPause();
@@ -73,8 +77,6 @@ public class GameManagerScript : MonoBehaviour
             else ControllResult();
         }
         else if(isGameOver) pcs.GameOverAnimation();
-
-        gameIsStop = JudgeGameStop();
 
         if(gameIsStop) return;
         if(Input.GetKeyDown(KeyCode.F)) GameFinish();
@@ -200,7 +202,7 @@ public class GameManagerScript : MonoBehaviour
         gain_words = gain_combo = 0;
         UIms.SetWordCountUI(gain_words, quota_words);
         SwitchPause(false);
-        isGameOver = isFinish = false;
+        isStart = isGameOver = isFinish = false;
         canControllUI = false;
         UIms.ResetResultUI();
     }

@@ -47,6 +47,7 @@ public class PlayerShotController : MonoBehaviour
             if(colObject.name == "Word_Hor") wcs = colObject.GetComponent<WordHorController>();
             else wcs = colObject.GetComponent<WordVerController>();
             if(wcs.textObject.activeSelf && !wcs.isMarked) Mark(colObject, wcs);
+            else Destroy(this.gameObject);
         }
         else if(colObject.tag == "Enemy"){
             EnemyController ecs = colObject.GetComponent<EnemyController>();

@@ -6,7 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject gameManager;
     GameManagerScript gms;
-    public GameObject gameSound;
+    public GameObject gameMusic, gameSound;
+    GameMusicManager gmms;
     GameSoundManager gsms;
 
     Sprite spr;
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
 
     void InitVariables(){
         gms = gameManager.GetComponent<GameManagerScript>();
+        gmms = gameMusic.GetComponent<GameMusicManager>();
         gsms = gameSound.GetComponent<GameSoundManager>();
         spr = GetComponent<SpriteRenderer>().sprite;
         spr_scl = spr.bounds.size;
@@ -42,13 +44,26 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if(!gms.isStart) StartMotion();
+
         if(gms.gameIsStop) return;
         if(gms.progress - frame_damaged <= damage_interval) DamageAnimation();
         pos = transform.localPosition;
         Move();
         if(Input.GetKey(KeyCode.Space)){
-            if(gms.progress - frame_shot > shoot_interval && pos.y > scs.pos.y) Shoot();
+            if(gms.isStart && gms.progress - frame_shot > shoot_interval && pos.y > scs.pos.y) Shoot();
         }
+    }
+
+    void StartMotion(){
+        pos = transform.localPosition;
+        if(pos.x < -120) pos.x += 0.5f;
+        else{
+            gmms.PlayBGM(gmms.bgm);
+            pos.x = -120;
+            gms.isStart = true;
+        }
+        transform.localPosition = pos;
     }
 
     void DamageAnimation(){
@@ -125,7 +140,7 @@ public class PlayerController : MonoBehaviour
 
     public void ResetVariables(){
         this.gameObject.SetActive(true);
-        pos.x = -100;
+        pos.x = -170;
         pos.y = 20;
         v = v_default;
         transform.localPosition = pos;
