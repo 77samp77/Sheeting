@@ -10,7 +10,7 @@ public class WordVerController : WordController
     public override void SetFirstPosition()
     {
         isUp = Random.value < 0.5f;
-        int fx = Random.Range(Screen.width / 2 - 10, Screen.width / 2 + 40);
+        int fx = Random.Range(SW / 2 - 10, SW / 2 + 40);
         pos.x = fx;
         if(isUp) pos.y = scs.bottom + 20;
         else pos.y = 110 + colWidth;

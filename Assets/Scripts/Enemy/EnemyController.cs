@@ -27,6 +27,8 @@ public class EnemyController : MonoBehaviour
     [System.NonSerialized] public bool isDefeated; // 撃墜された
     public BoxCollider2D bc2D;
 
+    [System.NonSerialized] public int SW, SH;
+
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -44,6 +46,8 @@ public class EnemyController : MonoBehaviour
         spriteDefeatPrefab = Resources.Load<GameObject>("Prefabs/Sprite_Defeat");
         enemyShots = GameObject.Find("EnemyShots");
         frame_shot = gms.progress;
+        SW = StaticManager.screenWidth;
+        SH = StaticManager.screenHeight;
     }
 
     public virtual void SetFirstPosition(){

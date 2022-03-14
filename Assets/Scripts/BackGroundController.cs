@@ -12,6 +12,8 @@ public class BackGroundController : MonoBehaviour
     GameObject gameManager;
     GameManagerScript gms;
 
+    int SW, SH;
+
     void Awake(){
         GameObject temp = GameObject.Find("BackGround");
         if(temp != null) Destroy(this.gameObject);
@@ -24,6 +26,12 @@ public class BackGroundController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InitVariables();
+    }
+
+    void InitVariables(){
+        SW = StaticManager.screenWidth;
+        SH = StaticManager.screenHeight;
     }
 
     // Update is called once per frame
@@ -36,8 +44,8 @@ public class BackGroundController : MonoBehaviour
 
     void Move(){
         for(int i = 0; i < 2; i++) spr_pos[i].x -= v;
-        if(spr_pos[0].x < -Screen.width * 1.5f){
-            for(int i = 0; i < 2; i++) spr_pos[i].x += Screen.width;
+        if(spr_pos[0].x < -SW * 1.5f){
+            for(int i = 0; i < 2; i++) spr_pos[i].x += SW;
         }
         for(int i = 0; i < 2; i++) sprites[i].transform.localPosition = spr_pos[i];
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class StaticManager : MonoBehaviour
 {
     public static bool canControll;
-    public static int screenWidth = 270, screenHeight = 130;
+    public static int screenWidth = 270, screenHeight = 180;
 
     void Awake(){
         GameObject temp = GameObject.Find("StaticManager");

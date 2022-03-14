@@ -25,7 +25,7 @@ public class EnemyAController : EnemyController
     }
 
     public override void SetFirstPosition(){
-        transform.localPosition = new Vector3(Screen.width / 2, 0, 0);
+        transform.localPosition = new Vector3(SW / 2, 0, 0);
     }
     
     public override void Update(){
@@ -59,7 +59,7 @@ public class EnemyAController : EnemyController
             }
         }
         else{
-            if(pos.x < Screen.width / 2) pos.x += 0.4f;
+            if(pos.x < SW / 2) pos.x += 0.4f;
             else Destroy(this.gameObject);
         }
     }
