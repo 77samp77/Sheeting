@@ -22,8 +22,9 @@ public class GameMusicManager : MonoBehaviour
     }
 
     public void PlayBGM(AudioClip music){
-        float part_volume = 0.1f;
-        audioSource.PlayOneShot(music, volume * part_volume);
+        audioSource.volume = volume;
+        audioSource.clip = bgm;
+        audioSource.Play(0);
     }
 
     public void PauseBGM(){
@@ -32,5 +33,9 @@ public class GameMusicManager : MonoBehaviour
 
     public void UnpauseBGM(){
         audioSource.UnPause();
+    }
+
+    public void StopBGM(){
+        audioSource.Stop();
     }
 }
