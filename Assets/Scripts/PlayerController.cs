@@ -57,10 +57,10 @@ public class PlayerController : MonoBehaviour
 
     void StartMotion(){
         pos = transform.localPosition;
-        if(pos.x < -120) pos.x += 0.5f;
+        if(pos.x < -110) pos.x += 0.5f;
         else{
             gmms.PlayBGM(gmms.bgm);
-            pos.x = -120;
+            pos.x = -110;
             gms.isStart = true;
         }
         transform.localPosition = pos;

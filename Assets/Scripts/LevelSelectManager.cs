@@ -9,6 +9,10 @@ public class LevelSelectManager : MonoBehaviour
     GameObject systemSound;
     SystemSoundManager ssms;
 
+    void Awake(){
+        StaticManager.canControll = false;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,13 +29,15 @@ public class LevelSelectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.Z)){
-            ssms.PlaySE(ssms.SE_back);
-            SceneManager.LoadScene("Title");
-        }
-        if(Input.GetKey(KeyCode.A)){
-            ssms.PlaySE(ssms.SE_decide);
-            SceneManager.LoadScene("Game");
-        }
+        // if(StaticManager.canControll){
+            if(Input.GetKeyDown(KeyCode.Z)){
+                ssms.PlaySE(ssms.SE_back);
+                SceneManager.LoadScene("Title");
+            }
+            if(Input.GetKeyDown(KeyCode.Space)){
+                ssms.PlaySE(ssms.SE_decide);
+                SceneManager.LoadScene("Game");
+            }
+        // }
     }
 }

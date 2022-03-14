@@ -13,6 +13,7 @@ public class TitleManager : MonoBehaviour
 
     void Awake(){
         Application.targetFrameRate = 60;
+        StaticManager.canControll = false;
     }
     
     // Start is called before the first frame update
@@ -20,8 +21,8 @@ public class TitleManager : MonoBehaviour
     {
         InitVariables();
         GameObject pskText = GameObject.Find("-PRESS SPACE KEY-");
-        pskText.GetComponent<Text>().text = "w:" + Screen.width + ", h:" + Screen.height;
-        Debug.Log("w:" + Screen.width + ", h:" + Screen.height);
+        // pskText.GetComponent<Text>().text = "w:" + Screen.width + ", h:" + Screen.height;
+        // Debug.Log("w:" + Screen.width + ", h:" + Screen.height);
     }
 
     void InitVariables(){
@@ -36,7 +37,7 @@ public class TitleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.Space)){
+        if(Input.GetKeyDown(KeyCode.Space)){
             ssms.PlaySE(ssms.SE_decide);
             SceneManager.LoadScene("LevelSelect");
         }
