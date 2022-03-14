@@ -104,8 +104,15 @@ public class GameManagerScript : MonoBehaviour
 
     void SwitchPause(bool status){
         isPause = status;
-        if(isPause) ssms.PlaySE(ssms.SE_pause_open);
-        else ssms.PlaySE(ssms.SE_pause_close);
+        if(isPause){
+            gmms.PauseBGM();
+            ssms.PlaySE(ssms.SE_pause_open);
+        }
+        else{
+            if(isStart) gmms.UnpauseBGM();
+            else gmms.StopBGM();
+            ssms.PlaySE(ssms.SE_pause_close);
+        }
         UIms.pauseUI.SetActive(isPause);
         if(isPause){
             UIms.SetChoosingUI(UIms.pauseUI_choosing, choosing, 0);
@@ -126,12 +133,10 @@ public class GameManagerScript : MonoBehaviour
             if(choosing == 0) SwitchPause(false);
             else if(choosing == 1){
                 ssms.PlaySE(ssms.SE_decide);
-                gmms.PauseBGM();
                 ResetGame();
             }
             else if(choosing == 2){
                 ssms.PlaySE(ssms.SE_decide);
-                gmms.UnpauseBGM();
                 SceneManager.LoadScene("LevelSelect");
             }
         }
@@ -210,8 +215,8 @@ public class GameManagerScript : MonoBehaviour
         IncreaseScore(-score);
         gain_words = gain_combo = 0;
         UIms.SetWordCountUI(gain_words, quota_words);
-        SwitchPause(false);
         isStart = isGameOver = isFinish = false;
+        SwitchPause(false);
         canControllUI = false;
         UIms.ResetResultUI();
     }

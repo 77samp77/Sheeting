@@ -15,6 +15,8 @@ public class PlayerShotController : MonoBehaviour
 
     List<GameObject> colliders = new List<GameObject>();
 
+    int SW;
+
     void Start()
     {
         InitVariables();
@@ -25,6 +27,7 @@ public class PlayerShotController : MonoBehaviour
         gms = gameManager.GetComponent<GameManagerScript>();
         gameSound = GameObject.Find("GameSound");
         gsms = gameSound.GetComponent<GameSoundManager>();
+        SW = StaticManager.screenWidth;
     }
 
     void Update()
@@ -32,7 +35,7 @@ public class PlayerShotController : MonoBehaviour
         if(gms.gameIsStop) return;
         pos = transform.localPosition;
         Move();
-        if(pos.x > Screen.width / 2) Destroy(this.gameObject);
+        if(pos.x > SW / 2) Destroy(this.gameObject);
     }
 
     void Move(){

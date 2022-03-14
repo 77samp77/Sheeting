@@ -25,6 +25,8 @@ public class WordController : MonoBehaviour
 
     public GameObject spriteGainPrefab;
 
+    [System.NonSerialized] public int SW, SH;
+
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -43,6 +45,8 @@ public class WordController : MonoBehaviour
         UIms = UIManager.GetComponent<UIManager>();
         sheet = GameObject.Find("Sheet");
         scs = sheet.GetComponent<SheetController>();
+        SW = StaticManager.screenWidth;
+        SH = StaticManager.screenHeight;
     }
 
     public virtual void BeSetWord(string wordStr){

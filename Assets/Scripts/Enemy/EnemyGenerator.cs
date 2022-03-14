@@ -14,6 +14,8 @@ public class EnemyGenerator : MonoBehaviour
     public int gen_interval;  // 生成間隔(フレーム数)
     int frame_gen;  // 生成時のフレーム
 
+    int SW, SH;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,8 @@ public class EnemyGenerator : MonoBehaviour
     void InitVariables(){
         gms = gameManager.GetComponent<GameManagerScript>();
         scs = sheet.GetComponent<SheetController>();
+        SW = StaticManager.screenWidth;
+        SH = StaticManager.screenHeight;
     }
 
     // Update is called once per frame
@@ -40,8 +44,8 @@ public class EnemyGenerator : MonoBehaviour
     void Generate(GameObject enemyPrefab){
         int e_pos_x = 0, e_pos_y = 0;
         if(enemyPrefab.name == "EnemyC"){
-            e_pos_x = Screen.width / 2 + 2;
-            e_pos_y = Random.Range(scs.bottom + 11, Screen.height / 2 - 2);
+            e_pos_x = SW / 2 + 2;
+            e_pos_y = Random.Range(scs.bottom + 11, SH / 2 - 2);
         }
         GameObject enemy = Instantiate(enemyPrefab, new Vector3(e_pos_x, e_pos_y, 0), Quaternion.identity);
         enemy.name = enemyPrefab.name;

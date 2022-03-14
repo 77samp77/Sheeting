@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     int frame_damaged = -1000, frame_gameOver = 0;
     public GameObject spriteDefeatPrefab;
 
+    int SW, SH;
+
     void Start()
     {
         InitVariables();
@@ -40,6 +42,8 @@ public class PlayerController : MonoBehaviour
         spr = GetComponent<SpriteRenderer>().sprite;
         spr_scl = spr.bounds.size;
         scs = sheet.GetComponent<SheetController>();
+        SW = StaticManager.screenWidth;
+        SH = StaticManager.screenHeight;
     }
 
     void Update()
@@ -57,10 +61,10 @@ public class PlayerController : MonoBehaviour
 
     void StartMotion(){
         pos = transform.localPosition;
-        if(pos.x < -120) pos.x += 0.5f;
+        if(pos.x < -110) pos.x += 0.5f;
         else{
             gmms.PlayBGM(gmms.bgm);
-            pos.x = -120;
+            pos.x = -110;
             gms.isStart = true;
         }
         transform.localPosition = pos;
@@ -77,17 +81,16 @@ public class PlayerController : MonoBehaviour
         GetComponent<SpriteRenderer>().color = sprite_color;
     }
 
-    int screenWidth = 270, screenHeight = 180;
     void Move(){
         if(Input.GetKeyDown(KeyCode.LeftShift)) v = v_dash;
         else if(Input.GetKeyUp(KeyCode.LeftShift)) v = v_default;
         
         if(Input.GetKey(KeyCode.W)){
-            if(pos.y >= screenHeight / 2) pos.y = screenHeight / 2;
+            if(pos.y >= SH / 2) pos.y = SH / 2;
             else pos.y += v;
         }
         if(Input.GetKey(KeyCode.A)){
-            if(pos.x <= -screenWidth / 2) pos.x = -screenWidth / 2;
+            if(pos.x <= -SW / 2) pos.x = -SW / 2;
             else pos.x -= v;
         }
         if(Input.GetKey(KeyCode.S)){
@@ -95,7 +98,7 @@ public class PlayerController : MonoBehaviour
             else pos.y -= v;
         }
         if(Input.GetKey(KeyCode.D)){
-            if(pos.x + spr_scl.x >= screenWidth / 2) pos.x = screenWidth / 2 - spr_scl.x;
+            if(pos.x + spr_scl.x >= SW / 2) pos.x = SW / 2 - spr_scl.x;
             else pos.x += v;
         }
         transform.localPosition = pos;

@@ -44,15 +44,15 @@ public class EnemyBController : EnemyController
         if(!isDefeated){
             if(readyToShoot()) Shoot();
             SwitchAngle();
-            if(pos.x + 6 < -Screen.width / 2) Destroy(this.gameObject);
+            if(pos.x + 6 < -SW / 2) Destroy(this.gameObject);
         }
     }
 
     public override void SetFirstPosition()
     {
         float f_pos_y = -44;
-        if(isFlip) f_pos_y = Screen.height / 2 - 6;
-        transform.localPosition = new Vector3(Screen.width / 2 + 6, f_pos_y, 0);
+        if(isFlip) f_pos_y = SH / 2 - 6;
+        transform.localPosition = new Vector3(SW / 2 + 6, f_pos_y, 0);
         toSetFirstPosition = false;
         sprite_all.SetActive(true);
     }

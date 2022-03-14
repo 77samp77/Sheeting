@@ -12,8 +12,8 @@ public class WordHorController : WordController
 
     public override void SetFirstPosition()
     {
-        int fy = Random.Range(scs.bottom + 6, Screen.height / 2 - 1);
-        pos.x = Screen.width / 2;
+        int fy = Random.Range(scs.bottom + 6, SH / 2 - 1);
+        pos.x = SW / 2;
         pos.y = fy;
         transform.localPosition = pos;
         v = Random.Range(0.4f, 1.5f);
@@ -35,7 +35,7 @@ public class WordHorController : WordController
 
     public override bool readyToDestroy()
     {
-        return pos.x + colWidth < -Screen.width / 2;
+        return pos.x + colWidth < -SW / 2;
     }
 
     public override void LateUpdate(){

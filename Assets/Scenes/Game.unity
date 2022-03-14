@@ -2027,7 +2027,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2125,7 +2125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 573207131}
   bgm: {fileID: 8300000, guid: db999844ab4f2af48ba67fba9d7e15bb, type: 3}
-  volume: 0.5
+  volume: 0.1
 --- !u!1 &575160764
 GameObject:
   m_ObjectHideFlags: 0
@@ -4555,7 +4555,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: <color=#C80000>0</color>/10
+  m_Text: <color=#C80000>0</color>/50
 --- !u!222 &1251484501
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5660,7 +5660,7 @@ MonoBehaviour:
   enemies: {fileID: 1628317941}
   playerShots: {fileID: 1939982089}
   UIManager: {fileID: 599143814}
-  quota_words: 10
+  quota_words: 50
   life_max: 6
   gameSpeed: 0.2
   timeLimit: 5400
