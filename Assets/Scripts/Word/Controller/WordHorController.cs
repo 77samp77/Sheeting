@@ -16,7 +16,7 @@ public class WordHorController : WordController
         pos.x = SW / 2;
         pos.y = fy;
         transform.localPosition = pos;
-        v = Random.Range(0.4f, 1.5f);
+        v = Random.Range(0.2f, 1.2f);
         readyToSetPos = false;
     }
     
@@ -29,7 +29,7 @@ public class WordHorController : WordController
 
     public override void Move(){
         base.Move();
-        pos.x -= v;
+        pos.x -= v + gms.gameSpeed;
         transform.localPosition = pos;
     }
 
