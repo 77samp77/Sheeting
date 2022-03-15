@@ -21,15 +21,12 @@ public class TitleManager : MonoBehaviour
     {
         InitVariables();
         GameObject pskText = GameObject.Find("-PRESS SPACE KEY-");
-        // pskText.GetComponent<Text>().text = "w:" + Screen.width + ", h:" + Screen.height;
-        // Debug.Log("w:" + Screen.width + ", h:" + Screen.height);
     }
 
     void InitVariables(){
-        // screenManager = GameObject.Find("ScreenManager");
-        // screenManager.GetComponent<ScreenManager>().SetMainCamera();
         bgcs = backGround.GetComponent<BackGroundController>();
-        bgcs.InitTitleVariables();
+        bgcs.v = 0.2f;
+        // bgcs.InitTitleVariables();
         systemSound = GameObject.Find("SystemSound");
         ssms = systemSound.GetComponent<SystemSoundManager>();
     }

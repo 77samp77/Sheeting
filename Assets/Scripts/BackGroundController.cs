@@ -50,9 +50,9 @@ public class BackGroundController : MonoBehaviour
         for(int i = 0; i < 2; i++) sprites[i].transform.localPosition = spr_pos[i];
     }
 
-    public void InitTitleVariables(){
-        v = 0.2f;
-    }
+    // public void InitTitleVariables(){
+    //     v = 0.2f;
+    // }
 
     public void InitGameVariables(){
         gameManager = GameObject.Find("GameManager");

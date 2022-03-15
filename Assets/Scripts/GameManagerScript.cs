@@ -5,12 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
-    // GameObject screenManager;
     public GameObject gameMusic;
     GameMusicManager gmms;
 
     GameObject systemSound;
     SystemSoundManager ssms;
+
+    GameObject stageData;
+    StageDataManager sdms;
 
     public GameObject player, sheet, wordManager, enemyManager;
     PlayerController pcs;
@@ -52,14 +54,15 @@ public class GameManagerScript : MonoBehaviour
     {
         InitVariables();
         bgcs.InitGameVariables();
+        LoadStageData();
     }
 
     void InitVariables(){
-        // screenManager = GameObject.Find("ScreenManager");
-        // screenManager.GetComponent<ScreenManager>().SetMainCamera();
         gmms = gameMusic.GetComponent<GameMusicManager>();
         systemSound = GameObject.Find("SystemSound");
         ssms = systemSound.GetComponent<SystemSoundManager>();
+        stageData = GameObject.Find("StageData");
+        sdms = stageData.GetComponent<StageDataManager>();
         pcs = player.GetComponent<PlayerController>();
         scs = sheet.GetComponent<SheetController>();
         wgs = wordManager.GetComponent<WordGenerator>();
@@ -67,12 +70,22 @@ public class GameManagerScript : MonoBehaviour
         backGround = GameObject.Find("BackGround");
         bgcs = backGround.GetComponent<BackGroundController>();
         UIms = UIManager.GetComponent<UIManager>();
+    }
+
+    void LoadStageData(){
+        int level = StaticManager.gameLevel;
+        quota_words = sdms.base_quotaNum[level];
+        UIms.SetWordCountUI(0, quota_words);
+        timeLimit = sdms.base_limit[level];
+        gameSpeed = sdms.base_speed[level];
+        bgcs.v = gameSpeed;
+        life_max = sdms.base_life[level];
         life = life_max;
+        for(int i = life_max; i < 6; i++) UIms.lifeSprites[i].SetActive(false);
     }
 
     void Update()
     {
-
         gameIsStop = JudgeGameStop();
         if(!isStart) return;
 
