@@ -6,7 +6,7 @@ public class EnemyAShotController : EnemyShotController
 {
     public override void Move()
     {
-        pos.x -= v;
+        pos.x -= v + gms.gameSpeed;
         transform.localPosition = pos;
     }
 

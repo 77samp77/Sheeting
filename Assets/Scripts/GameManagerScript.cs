@@ -124,7 +124,7 @@ public class GameManagerScript : MonoBehaviour
         else{
             if(isStart) gmms.UnpauseBGM();
             else gmms.StopBGM();
-            ssms.PlaySE(ssms.SE_pause_close);
+            if(!isFinish) ssms.PlaySE(ssms.SE_pause_close);
         }
         UIms.pauseUI.SetActive(isPause);
         if(isPause){
@@ -225,11 +225,13 @@ public class GameManagerScript : MonoBehaviour
         life = life_max;
         for(int i = 0; i < life_max; i++) UIms.lifeSprites[i].SetActive(true);
         progress = 0;
+        UIms.SetProgressBarUI(progress, timeLimit);
         IncreaseScore(-score);
         gain_words = gain_combo = 0;
         UIms.SetWordCountUI(gain_words, quota_words);
-        isStart = isGameOver = isFinish = false;
+        isStart = isGameOver = false;
         SwitchPause(false);
+        isFinish = false;
         canControllUI = false;
         UIms.ResetResultUI();
     }
