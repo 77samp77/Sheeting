@@ -1,5 +1,7 @@
 Level,Progress,Tag,Type,Pos,Speed,Length,IsTop
-1,1,Word,Hor,0,0.4,6,
-1,60,Word,Hor,40,0.2,3,
-1,120,Word,Ver,130,0.4,8,TRUE
-1,180,Word,Ver,160,0.6,12,FALSE
+1,60,Enemy,A,-30,,,
+1,120,Enemy,A,60,,,
+2,1,Word,Hor,0,0.4,6,
+2,60,Word,Hor,40,0.2,3,
+2,120,Word,Ver,130,0.4,8,TRUE
+2,180,Word,Ver,160,0.6,12,FALSE

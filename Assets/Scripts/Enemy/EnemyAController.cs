@@ -24,9 +24,14 @@ public class EnemyAController : EnemyController
         isShootMode = false;
     }
 
-    public override void SetFirstPosition(){
-        transform.localPosition = new Vector3(SW / 2, 0, 0);
+    public override void BeSetEnemy(int _pos, bool isTop)
+    {
+        transform.localPosition = new Vector2(SW / 2, _pos);
     }
+
+    // public override void SetFirstPosition(){
+    //     transform.localPosition = new Vector3(SW / 2, 0, 0);
+    // }
     
     public override void Update(){
         base.Update();

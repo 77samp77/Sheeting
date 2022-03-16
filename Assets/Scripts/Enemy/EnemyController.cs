@@ -29,10 +29,13 @@ public class EnemyController : MonoBehaviour
 
     [System.NonSerialized] public int SW, SH;
 
+    public virtual void Awake(){
+        InitVariables();
+    }
+
     // Start is called before the first frame update
     public virtual void Start()
     {
-        InitVariables();
         SetFirstPosition();
     }
 
@@ -50,6 +53,10 @@ public class EnemyController : MonoBehaviour
         SH = StaticManager.screenHeight;
     }
 
+    public virtual void BeSetEnemy(int _pos, bool isTop){
+        
+    }
+
     public virtual void SetFirstPosition(){
 
     }
@@ -63,7 +70,6 @@ public class EnemyController : MonoBehaviour
             Move();
             SwitchIsCovered();
         }
-        // else DefeatAnimation();
     }
 
     public virtual void Move(){
@@ -82,15 +88,6 @@ public class EnemyController : MonoBehaviour
             sprite_f.SetActive(false);
         }
     }
-
-    // public virtual void DefeatAnimation(){
-    //     int defeat_progress = gms.progress - frame_defeat;
-    //     if(defeat_progress == 16) sprite_d_ren.sprite = gms.defeat_sprites[0];
-    //     else if(defeat_progress == 4 || defeat_progress == 12) sprite_d_ren.sprite = gms.defeat_sprites[1];
-    //     else if(defeat_progress == 8) sprite_d_ren.sprite = gms.defeat_sprites[2];
-
-    //     if(defeat_progress == 20) Destroy(this.gameObject);
-    // }
 
     public virtual bool readyToShoot(){
         return false;

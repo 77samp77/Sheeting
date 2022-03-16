@@ -61,8 +61,10 @@ public class WordGenerator : MonoBehaviour
     }
 
     public void Generate(string type, int pos, float speed, int length, bool isTop){
-        if(type == "Hor") GenerateWord(wordHorPrefab, pos, speed, length, isTop);
-        else if(type == "Ver") GenerateWord(wordVerPrefab, pos, speed, length, isTop);
+        GameObject wordPrefab = new GameObject();
+        if(type == "Hor") wordPrefab = wordHorPrefab;
+        else if(type == "Ver") wordPrefab = wordVerPrefab;
+        GenerateWord(wordPrefab, pos, speed, length, isTop);
     }
 
     void GenerateWord(GameObject wordPrefab, int pos, float speed, int length, bool isTop){
