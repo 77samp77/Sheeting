@@ -28,10 +28,6 @@ public class EnemyAController : EnemyController
     {
         transform.localPosition = new Vector2(SW / 2, _pos);
     }
-
-    // public override void SetFirstPosition(){
-    //     transform.localPosition = new Vector3(SW / 2, 0, 0);
-    // }
     
     public override void Update(){
         base.Update();
@@ -89,4 +85,12 @@ public class EnemyAController : EnemyController
         e_pos.y -= 3;
         eShot.transform.localPosition = e_pos;
     }
+
+
+
+    // --------ランダム生成用-----------------------
+    public override void SetFirstPosition(){
+        transform.localPosition = new Vector3(SW / 2, 0, 0);
+    }
+    // ---------------------------------------------
 }

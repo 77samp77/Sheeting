@@ -1,6 +1,8 @@
 Level,Progress,Tag,Type,Pos,Speed,Length,IsTop
+1,1,Enemy,C,0,,,
 1,60,Enemy,A,-30,,,
 1,60,Enemy,B,,,,TRUE
+1,90,Enemy,C,50,,,
 1,120,Enemy,A,60,,,
 1,180,Enemy,B,,,,FALSE
 2,1,Word,Hor,0,0.4,6,
