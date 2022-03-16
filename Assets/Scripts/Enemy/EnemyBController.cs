@@ -18,7 +18,6 @@ public class EnemyBController : EnemyController
 
     public override void Start()
     {
-        InitVariables();
     }
 
     public override void InitVariables()
@@ -46,6 +45,17 @@ public class EnemyBController : EnemyController
             SwitchAngle();
             if(pos.x + 6 < -SW / 2) Destroy(this.gameObject);
         }
+    }
+
+    public override void BeSetEnemy(int _pos, bool isTop)
+    {
+        isFlip = isTop;
+        if(isFlip) Flip();
+        float f_pos_y = -44;
+        if(isFlip) f_pos_y = SH / 2 - 6;
+        transform.localPosition = new Vector2(SW / 2 + 6, f_pos_y);
+        toSetFirstPosition = false;
+        sprite_all.SetActive(true);
     }
 
     public override void SetFirstPosition()

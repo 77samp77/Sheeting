@@ -45,8 +45,12 @@ public class EnemyGenerator : MonoBehaviour
 
     public void Generate(string type, int pos, bool isTop){
         GameObject enemyPrefab = new GameObject();
+        Debug.Log("paiofe");
         if(type == "A") enemyPrefab = enemyAPrefab;
-        else if(type == "B") enemyPrefab = enemyBPrefab;
+        else if(type == "B"){
+            Debug.Log("aa");
+            enemyPrefab = enemyBPrefab;
+        }
         else if(type == "C") enemyPrefab = enemyCPrefab;
         GenerateEnemy(enemyPrefab, pos, isTop);
     }
