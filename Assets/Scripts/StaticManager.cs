@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class StaticManager : MonoBehaviour
 {
-    public static bool canControll;
-    public static int screenWidth = 270, screenHeight = 180;
+    [System.NonSerialized] public static bool canControll;
+    [System.NonSerialized] public static int screenWidth = 270, screenHeight = 180;
+    [System.NonSerialized] public static int gameLevel = 1;
 
     void Awake(){
         GameObject temp = GameObject.Find("StaticManager");

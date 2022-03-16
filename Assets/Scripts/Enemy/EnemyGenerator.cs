@@ -32,15 +32,41 @@ public class EnemyGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gms.gameIsStop) return;
-        if(gms.progress - frame_gen > gen_interval){
-            float temp = Random.value;
-            if(temp < 0.3f) Generate(enemyAPrefab);
-            else if(temp < 0.6f) Generate(enemyBPrefab);
-            else Generate(enemyCPrefab);
-        }
+        // ----------ランダム生成---------------------------
+        // if(gms.gameIsStop) return;
+        // if(gms.progress - frame_gen > gen_interval){
+        //     float temp = Random.value;
+        //     if(temp < 0.3f) Generate(enemyAPrefab);
+        //     else if(temp < 0.6f) Generate(enemyBPrefab);
+        //     else Generate(enemyCPrefab);
+        // }
+        // -------------------------------------------------
     }
 
+    public void Generate(string type, int pos, bool isTop){
+        GameObject enemyPrefab = new GameObject();
+        Debug.Log("paiofe");
+        if(type == "A") enemyPrefab = enemyAPrefab;
+        else if(type == "B") enemyPrefab = enemyBPrefab;
+        else if(type == "C") enemyPrefab = enemyCPrefab;
+        GenerateEnemy(enemyPrefab, pos, isTop);
+    }
+
+    void GenerateEnemy(GameObject enemyPrefab, int pos, bool isTop){
+        GameObject enemy = Instantiate(enemyPrefab, new Vector2(0, 0), Quaternion.identity);
+        enemy.name = enemyPrefab.name;
+        enemy.transform.SetParent(enemies.transform);
+        EnemyController ecs = enemy.GetComponent<EnemyController>();
+        ecs.BeSetEnemy(pos, isTop);
+    }
+
+    public void ResetVariables(){
+        frame_gen = 0;
+    }
+
+
+
+    // -----------ランダム生成-----------------------------
     void Generate(GameObject enemyPrefab){
         int e_pos_x = 0, e_pos_y = 0;
         if(enemyPrefab.name == "EnemyC"){
@@ -58,8 +84,5 @@ public class EnemyGenerator : MonoBehaviour
             else ebcs.toSetFirstPosition = true;
         }
     }
-
-    public void ResetVariables(){
-        frame_gen = 0;
-    }
+    // ---------------------------------------------------
 }

@@ -1,0 +1,4 @@
+Level,QuotaType,QuotaNum,Limit,Speed,Life
+1,word,30,5400,0.2,6
+2,word,40,7200,0.4,4
+3,word,10,1800,0.8,2

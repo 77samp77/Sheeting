@@ -38,7 +38,7 @@ public class BackGroundController : MonoBehaviour
     void Update()
     {
         for(int i = 0; i < 2; i++) spr_pos[i] = sprites[i].transform.localPosition;
-        if(SceneManager.GetActiveScene().name == "Game" && gms.gameIsStop) return;
+        if(SceneManager.GetActiveScene().name == "Game" && gms.gameIsStop && gms.isStart) return;
         Move();
     }
 
@@ -48,10 +48,6 @@ public class BackGroundController : MonoBehaviour
             for(int i = 0; i < 2; i++) spr_pos[i].x += SW;
         }
         for(int i = 0; i < 2; i++) sprites[i].transform.localPosition = spr_pos[i];
-    }
-
-    public void InitTitleVariables(){
-        v = 0.2f;
     }
 
     public void InitGameVariables(){

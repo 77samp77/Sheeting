@@ -16,7 +16,7 @@ public class WordGenerator : MonoBehaviour
 
     public GameObject wordHorPrefab, wordVerPrefab, words;
     public int gen_interval;  // 生成間隔(フレーム数)
-    int frame_gen;  // 生成時のフレーム
+    int frame_gen;  // 生成時のフレーム(ランダム生成)
 
     // Start is called before the first frame update
     void Start()
@@ -51,12 +51,41 @@ public class WordGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gms.gameIsStop) return;
-        if(gms.progress - frame_gen > gen_interval){
-            if(Random.value < 0.5f) Generate(wordHorPrefab);
-            else Generate(wordVerPrefab);
-        }
+        // ----------ランダム生成-----------------------------
+        // if(gms.gameIsStop) return;
+        // if(gms.progress - frame_gen > gen_interval){
+        //     if(Random.value < 0.5f) Generate(wordHorPrefab);
+        //     else Generate(wordVerPrefab);
+        // }
+        // ---------------------------------------------------
     }
+
+    public void Generate(string type, int pos, float speed, int length, bool isTop){
+        GameObject wordPrefab = new GameObject();
+        if(type == "Hor") wordPrefab = wordHorPrefab;
+        else if(type == "Ver") wordPrefab = wordVerPrefab;
+        GenerateWord(wordPrefab, pos, speed, length, isTop);
+    }
+
+    void GenerateWord(GameObject wordPrefab, int pos, float speed, int length, bool isTop){
+        GameObject word = Instantiate(wordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        word.name = wordPrefab.name;
+        word.transform.SetParent(words.transform);
+        SetWord(word, pos, speed, length, Random.Range(0, wordNo_max + 1), isTop);
+    }
+
+    void SetWord(GameObject word, int pos, float speed, int len, int no, bool isTop){
+        WordController wcs = word.GetComponent<WordController>();
+        wcs.BeSetWord(pos, speed, wordStr[len, no], isTop);
+    }
+
+    public void ResetVariables(){
+        frame_gen = 0;
+    }
+
+
+
+    // ----------------ランダム生成------------------------------
 
     void Generate(GameObject wordPrefab){
         GameObject word = Instantiate(wordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
@@ -68,13 +97,9 @@ public class WordGenerator : MonoBehaviour
     }
     
     void SetWord(GameObject word, int len, int no){
-        WordController wcs;
-        if(word.name == "Word_Hor") wcs = word.GetComponent<WordHorController>();
-        else wcs = word.GetComponent<WordVerController>();
+        WordController wcs = word.GetComponent<WordController>();
         wcs.BeSetWord(wordStr[len, no]);
     }
 
-    public void ResetVariables(){
-        frame_gen = 0;
-    }
+    // ----------------------------------------------------------
 }

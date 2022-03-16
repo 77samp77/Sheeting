@@ -18,7 +18,6 @@ public class EnemyBController : EnemyController
 
     public override void Start()
     {
-        InitVariables();
     }
 
     public override void InitVariables()
@@ -48,11 +47,13 @@ public class EnemyBController : EnemyController
         }
     }
 
-    public override void SetFirstPosition()
+    public override void BeSetEnemy(int _pos, bool isTop)
     {
+        isFlip = isTop;
+        if(isFlip) Flip();
         float f_pos_y = -44;
         if(isFlip) f_pos_y = SH / 2 - 6;
-        transform.localPosition = new Vector3(SW / 2 + 6, f_pos_y, 0);
+        transform.localPosition = new Vector2(SW / 2 + 6, f_pos_y);
         toSetFirstPosition = false;
         sprite_all.SetActive(true);
     }
@@ -93,4 +94,17 @@ public class EnemyBController : EnemyController
         ebscs.SetAngle(angle);
         gsms.PlaySE(gsms.SE_shot_enemyB);
     }
+
+
+
+    // ----------ランダム生成用------------------------
+    public override void SetFirstPosition()
+    {
+        float f_pos_y = -44;
+        if(isFlip) f_pos_y = SH / 2 - 6;
+        transform.localPosition = new Vector3(SW / 2 + 6, f_pos_y, 0);
+        toSetFirstPosition = false;
+        sprite_all.SetActive(true);
+    }
+    // -----------------------------------------------
 }

@@ -5,12 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
-    // GameObject screenManager;
     public GameObject gameMusic;
     GameMusicManager gmms;
 
     GameObject systemSound;
     SystemSoundManager ssms;
+
+    GameObject stageData;
+    StageDataManager sdms;
 
     public GameObject player, sheet, wordManager, enemyManager;
     PlayerController pcs;
@@ -39,6 +41,8 @@ public class GameManagerScript : MonoBehaviour
 
     public int timeLimit, progress;    // 制限時間(フレーム)、経過フレーム数
 
+    [System.NonSerialized] public List<int> ip = new List<int>();
+
     int choosing;
     [System.NonSerialized] public bool canControllUI;
 
@@ -52,14 +56,15 @@ public class GameManagerScript : MonoBehaviour
     {
         InitVariables();
         bgcs.InitGameVariables();
+        LoadStageData();
     }
 
     void InitVariables(){
-        // screenManager = GameObject.Find("ScreenManager");
-        // screenManager.GetComponent<ScreenManager>().SetMainCamera();
         gmms = gameMusic.GetComponent<GameMusicManager>();
         systemSound = GameObject.Find("SystemSound");
         ssms = systemSound.GetComponent<SystemSoundManager>();
+        stageData = GameObject.Find("StageData");
+        sdms = stageData.GetComponent<StageDataManager>();
         pcs = player.GetComponent<PlayerController>();
         scs = sheet.GetComponent<SheetController>();
         wgs = wordManager.GetComponent<WordGenerator>();
@@ -67,12 +72,34 @@ public class GameManagerScript : MonoBehaviour
         backGround = GameObject.Find("BackGround");
         bgcs = backGround.GetComponent<BackGroundController>();
         UIms = UIManager.GetComponent<UIManager>();
+    }
+
+    int level;
+    void LoadStageData(){
+        level = StaticManager.gameLevel;
+        LoadStageBaseData();
+        LoadStageInitPointer();
+    }
+
+    void LoadStageBaseData(){
+        quota_words = sdms.base_quotaNum[level];
+        UIms.SetWordCountUI(0, quota_words);
+        timeLimit = sdms.base_limit[level];
+        gameSpeed = sdms.base_speed[level];
+        bgcs.v = gameSpeed;
+        life_max = sdms.base_life[level];
         life = life_max;
+        for(int i = life_max; i < 6; i++) UIms.lifeSprites[i].SetActive(false);
+    }
+
+    void LoadStageInitPointer(){
+        for(int i = 0; i < sdms.init_level.Length/* || sdms.init_level[i] <= level*/; i++){
+            if(sdms.init_level[i] == level) ip.Add(i);
+        }
     }
 
     void Update()
     {
-
         gameIsStop = JudgeGameStop();
         if(!isStart) return;
 
@@ -88,6 +115,7 @@ public class GameManagerScript : MonoBehaviour
         if(gameIsStop) return;
         if(Input.GetKeyDown(KeyCode.F)) GameFinish();
         if(Input.GetKeyDown(KeyCode.G)) GameOver();
+        if(readPoint < ip.Count) ReadInitData();
         UIms.SetProgressBarUI(progress, timeLimit);
 
         if(progress == timeLimit) GameFinish();
@@ -96,6 +124,7 @@ public class GameManagerScript : MonoBehaviour
     }
 
     bool JudgeGameStop(){
+        if(!isStart) return true;
         if(isPause) return true;
         if(isGameOver) return true;
         if(isFinish) return true;
@@ -111,7 +140,7 @@ public class GameManagerScript : MonoBehaviour
         else{
             if(isStart) gmms.UnpauseBGM();
             else gmms.StopBGM();
-            ssms.PlaySE(ssms.SE_pause_close);
+            if(!isFinish) ssms.PlaySE(ssms.SE_pause_close);
         }
         UIms.pauseUI.SetActive(isPause);
         if(isPause){
@@ -196,6 +225,25 @@ public class GameManagerScript : MonoBehaviour
         // GameFinish();
     }
 
+    int readPoint = 0;
+    void ReadInitData(){
+        if(sdms.init_progress[ip[readPoint]] != progress) return;
+        while(sdms.init_progress[ip[readPoint]] == progress){
+            int p = ip[readPoint];
+            switch(sdms.init_tag[p]){
+                case "Word":
+                    wgs.Generate(sdms.init_type[p], sdms.init_pos[p], sdms.init_speed[p], 
+                                 sdms.init_length[p], sdms.init_isTop[p]);
+                    break;
+                case "Enemy":
+                    egs.Generate(sdms.init_type[p], sdms.init_pos[p], sdms.init_isTop[p]);
+                    break;
+            }
+            readPoint++;
+            if(readPoint == ip.Count) return;
+        }
+    }
+
     void ResetGame(){
         ResetVariables();
         pcs.ResetVariables();
@@ -211,12 +259,14 @@ public class GameManagerScript : MonoBehaviour
     void ResetVariables(){
         life = life_max;
         for(int i = 0; i < life_max; i++) UIms.lifeSprites[i].SetActive(true);
-        progress = 0;
+        progress = readPoint = 0;
+        UIms.SetProgressBarUI(progress, timeLimit);
         IncreaseScore(-score);
         gain_words = gain_combo = 0;
         UIms.SetWordCountUI(gain_words, quota_words);
-        isStart = isGameOver = isFinish = false;
+        isStart = isGameOver = false;
         SwitchPause(false);
+        isFinish = false;
         canControllUI = false;
         UIms.ResetResultUI();
     }

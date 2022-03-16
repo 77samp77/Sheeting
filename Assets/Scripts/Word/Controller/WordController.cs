@@ -27,15 +27,15 @@ public class WordController : MonoBehaviour
 
     [System.NonSerialized] public int SW, SH;
 
+    public virtual void Awake(){
+        textObject.SetActive(false);
+        InitVariables();
+    }
+
     // Start is called before the first frame update
     public virtual void Start()
     {
-        textObject.SetActive(false);
-        InitVariables();
         canvas.GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-    }
-
-    public virtual void SetFirstPosition(){
     }
     
     public virtual void InitVariables(){
@@ -49,12 +49,15 @@ public class WordController : MonoBehaviour
         SH = StaticManager.screenHeight;
     }
 
-    public virtual void BeSetWord(string wordStr){
+    public virtual void BeSetWord(int pos, float speed, string wordStr, bool isTop){
         textObject.GetComponent<Text>().text = wordStr;
         colWidth = 5 * wordStr.Length;
         mark.GetComponent<RectTransform>().sizeDelta = new Vector2(colWidth, 7);
         mark_c.GetComponent<RectTransform>().sizeDelta = new Vector2(colWidth, 7);
-        readyToSetPos = true;
+    }
+
+    public virtual void SetFirstPosition(int pos, float speed, bool isTop){
+
     }
 
     // Update is called once per frame
@@ -137,4 +140,19 @@ public class WordController : MonoBehaviour
     public virtual void OnRenderObject(){
         transform.localPosition = cashPos;
     }
+
+
+
+    // -------------ランダム生成--------------------------------
+    public virtual void BeSetWord(string wordStr){
+        textObject.GetComponent<Text>().text = wordStr;
+        colWidth = 5 * wordStr.Length;
+        mark.GetComponent<RectTransform>().sizeDelta = new Vector2(colWidth, 7);
+        mark_c.GetComponent<RectTransform>().sizeDelta = new Vector2(colWidth, 7);
+        readyToSetPos = true;
+    }
+
+    public virtual void SetFirstPosition(){
+    }
+    // -------------------------------------------------------
 }
