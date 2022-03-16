@@ -236,6 +236,7 @@ public class GameManagerScript : MonoBehaviour
                                  sdms.init_length[p], sdms.init_isTop[p]);
                     break;
                 case "Enemy":
+                    egs.Generate(sdms.init_type[p], sdms.init_pos[p], sdms.init_isTop[p]);
                     break;
             }
             readPoint++;

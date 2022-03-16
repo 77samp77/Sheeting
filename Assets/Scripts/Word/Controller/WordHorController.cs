@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class WordHorController : WordController
 {
-    public override void Start()
-    {
-        base.Start();
-        // readyToSetPos = true;
-    }
-
     public override void SetFirstPosition(int _pos, float speed, bool isTop){
         pos.x = SW / 2;
         pos.y = _pos;
@@ -17,12 +11,10 @@ public class WordHorController : WordController
         v = speed;
         textObject.SetActive(true);
     }
-    
-    public override void BeSetWord(string wordStr){
-        base.BeSetWord(wordStr);
-        BoxCollider2D bc2d = GetComponent<BoxCollider2D>();
-        bc2d.offset = new Vector2(colWidth / 2 - 1, -2.5f);
-        bc2d.size = new Vector2(colWidth, 8);
+
+    public override void BeSetWord(int pos, float speed, string wordStr, bool isTop){
+        base.BeSetWord(pos, speed, wordStr, isTop);
+        SetFirstPosition(pos, speed, isTop);
     }
 
     public override void Move(){
@@ -54,6 +46,13 @@ public class WordHorController : WordController
         transform.localPosition = pos;
         v = Random.Range(0.2f, 1.2f);
         readyToSetPos = false;
+    }
+    
+    public override void BeSetWord(string wordStr){
+        base.BeSetWord(wordStr);
+        BoxCollider2D bc2d = GetComponent<BoxCollider2D>();
+        bc2d.offset = new Vector2(colWidth / 2 - 1, -2.5f);
+        bc2d.size = new Vector2(colWidth, 8);
     }
     // -------------------------------------------------------
 }

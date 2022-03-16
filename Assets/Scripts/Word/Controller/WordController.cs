@@ -29,14 +29,12 @@ public class WordController : MonoBehaviour
 
     public virtual void Awake(){
         textObject.SetActive(false);
-        SW = StaticManager.screenWidth;
-        SH = StaticManager.screenHeight;
+        InitVariables();
     }
 
     // Start is called before the first frame update
     public virtual void Start()
     {
-        InitVariables();
         canvas.GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
     
@@ -47,6 +45,8 @@ public class WordController : MonoBehaviour
         UIms = UIManager.GetComponent<UIManager>();
         sheet = GameObject.Find("Sheet");
         scs = sheet.GetComponent<SheetController>();
+        SW = StaticManager.screenWidth;
+        SH = StaticManager.screenHeight;
     }
 
     public virtual void BeSetWord(int pos, float speed, string wordStr, bool isTop){
@@ -54,7 +54,6 @@ public class WordController : MonoBehaviour
         colWidth = 5 * wordStr.Length;
         mark.GetComponent<RectTransform>().sizeDelta = new Vector2(colWidth, 7);
         mark_c.GetComponent<RectTransform>().sizeDelta = new Vector2(colWidth, 7);
-        SetFirstPosition(pos, speed, isTop);
     }
 
     public virtual void SetFirstPosition(int pos, float speed, bool isTop){

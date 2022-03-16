@@ -62,12 +62,12 @@ public class WordGenerator : MonoBehaviour
 
     public void Generate(string type, int pos, float speed, int length, bool isTop){
         if(type == "Hor") GenerateWord(wordHorPrefab, pos, speed, length, isTop);
-        else GenerateWord(wordVerPrefab, pos, speed, length, isTop);
+        else if(type == "Ver") GenerateWord(wordVerPrefab, pos, speed, length, isTop);
     }
 
     void GenerateWord(GameObject wordPrefab, int pos, float speed, int length, bool isTop){
         GameObject word = Instantiate(wordPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        word.name = wordHorPrefab.name;
+        word.name = wordPrefab.name;
         word.transform.SetParent(words.transform);
         SetWord(word, pos, speed, length, Random.Range(0, wordNo_max + 1), isTop);
     }
