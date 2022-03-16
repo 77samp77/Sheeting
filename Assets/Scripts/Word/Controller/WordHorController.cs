@@ -7,17 +7,15 @@ public class WordHorController : WordController
     public override void Start()
     {
         base.Start();
-        readyToSetPos = true;
+        // readyToSetPos = true;
     }
 
-    public override void SetFirstPosition()
-    {
-        int fy = Random.Range(scs.bottom + 6, SH / 2 - 1);
+    public override void SetFirstPosition(int _pos, float speed, bool isTop){
         pos.x = SW / 2;
-        pos.y = fy;
+        pos.y = _pos;
         transform.localPosition = pos;
-        v = Random.Range(0.2f, 1.2f);
-        readyToSetPos = false;
+        v = speed;
+        textObject.SetActive(true);
     }
     
     public override void BeSetWord(string wordStr){
@@ -44,4 +42,18 @@ public class WordHorController : WordController
         if(isMarked) mark.transform.localPosition = new Vector3(pos.x - 1, pos.y - 6, pos.z);
         if(isCovered) mark_c.transform.localPosition = new Vector3(pos.x - 1, pos.y - 6, pos.z);
     }
+
+
+
+    // -------------ランダム生成--------------------------------
+    public override void SetFirstPosition()
+    {
+        int fy = Random.Range(scs.bottom + 6, SH / 2 - 1);
+        pos.x = SW / 2;
+        pos.y = fy;
+        transform.localPosition = pos;
+        v = Random.Range(0.2f, 1.2f);
+        readyToSetPos = false;
+    }
+    // -------------------------------------------------------
 }

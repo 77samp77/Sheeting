@@ -1,2 +1,3 @@
-Level	Progress	Tag	Type	Pos	Speed	Length	IsTop
-1	0	Word	Hor	0	0.4	6	
+Level,Progress,Tag,Type,Pos,Speed,Length,IsTop
+1,0,Word,Hor,0,0.4,6,
+1,60,Word,Hor,40,0.2,3,

@@ -38,7 +38,7 @@ public class BackGroundController : MonoBehaviour
     void Update()
     {
         for(int i = 0; i < 2; i++) spr_pos[i] = sprites[i].transform.localPosition;
-        if(SceneManager.GetActiveScene().name == "Game" && gms.gameIsStop) return;
+        if(SceneManager.GetActiveScene().name == "Game" && gms.gameIsStop && gms.isStart) return;
         Move();
     }
 
