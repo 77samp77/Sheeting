@@ -68,9 +68,7 @@ public class WordGenerator : MonoBehaviour
     }
     
     void SetWord(GameObject word, int len, int no){
-        WordController wcs;
-        if(word.name == "Word_Hor") wcs = word.GetComponent<WordHorController>();
-        else wcs = word.GetComponent<WordVerController>();
+        WordController wcs = word.GetComponent<WordController>();
         wcs.BeSetWord(wordStr[len, no]);
     }
 
