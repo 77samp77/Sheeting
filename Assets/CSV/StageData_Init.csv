@@ -1,6 +1,4 @@
 Level,Progress,Tag,Type,Pos,Speed,Length,IsTop
-1,18,Obstacle,Line,,,,
-1,100,Obstacle,Check,0,,,
 1,240,Word,Hor,0,0.4,6,
 1,480,Word,Hor,40,0.2,3,
 1,500,Word,Hor,-30,0.2,4,
@@ -109,3 +107,4 @@ Level,Progress,Tag,Type,Pos,Speed,Length,IsTop
 3,18,Obstacle,Line,,,,
 3,60,Enemy,B,,,,TRUE
 3,60,Enemy,B,,,,FALSE
+3,100,Obstacle,Check,0,,,
