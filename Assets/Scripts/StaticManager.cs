@@ -26,30 +26,15 @@ public class StaticManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if(screenWidth != Screen.width || screenHeight != Screen.height){
-        //     float currentAspect = (float)Screen.height / (float)Screen.width;
-        //     // if(!Mathf.Approximately(baseAspect, currentAspect)){
-        //     if(Mathf.Abs(baseAspect - currentAspect) > 0.01f){
-        //         Debug.Log("base:" + baseAspect + ", curr:" + currentAspect);
-        //         mcc.orthographicSize = (int)(mcc.orthographicSize * baseAspect / currentAspect);
-        //         Debug.Log("Size:" + mcc.orthographicSize);
-        //         currentAspect = 0;
-        //     }
-        //     else{
-        //         mcc.orthographicSize = 90;
-        //         Debug.Log("Size:" + mcc.orthographicSize);
-        //     }
-        //     screenWidth = Screen.width;
-        //     screenHeight = Screen.height;
-        // }
     }
-
-    // public void SetMainCamera(){
-    //     mainCamera = GameObject.Find("Main Camera");
-    //     mcc = mainCamera.GetComponent<Camera>();
-    // }
 
     void LateUpdate(){
         canControll = true;
+    }
+
+    public static float map(float value, float a1, float a2, float b1, float b2){
+        float temp = ((Mathf.Abs(value - a2) / Mathf.Abs(a2 - a1)) * Mathf.Abs(b2 - b1));
+        if(b1 < b2) return temp + b1;
+        else return temp + b2;
     }
 }

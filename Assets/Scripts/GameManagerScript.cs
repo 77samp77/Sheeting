@@ -14,15 +14,16 @@ public class GameManagerScript : MonoBehaviour
     GameObject stageData;
     StageDataManager sdms;
 
-    public GameObject player, sheet, wordManager, enemyManager;
+    public GameObject player, sheet, wordManager, enemyManager, obstacleManager;
     PlayerController pcs;
     SheetController scs;
     WordGenerator wgs;
     EnemyGenerator egs;
+    ObstacleGenerator ogs;
     GameObject backGround;
     BackGroundController bgcs;
 
-    public GameObject words, enemyShots, enemies, playerShots;
+    public GameObject words, obstacles, enemyShots, enemies, playerShots;
 
     [System.NonSerialized] public bool gameIsStop;
     [System.NonSerialized] public bool isStart, isGameOver, isSuccess;
@@ -47,9 +48,11 @@ public class GameManagerScript : MonoBehaviour
     [System.NonSerialized] public bool canControllUI;
 
     public Sprite[] defeat_sprites = new Sprite[3];
+    int SW;
 
     void Awake(){
         Application.targetFrameRate = 60;
+        SW = StaticManager.screenWidth;
     }
 
     void Start()
@@ -69,6 +72,7 @@ public class GameManagerScript : MonoBehaviour
         scs = sheet.GetComponent<SheetController>();
         wgs = wordManager.GetComponent<WordGenerator>();
         egs = enemyManager.GetComponent<EnemyGenerator>();
+        ogs = obstacleManager.GetComponent<ObstacleGenerator>();
         backGround = GameObject.Find("BackGround");
         bgcs = backGround.GetComponent<BackGroundController>();
         UIms = UIManager.GetComponent<UIManager>();
@@ -106,12 +110,14 @@ public class GameManagerScript : MonoBehaviour
     void LoadStageInitPointer(){
         for(int i = 0; i < sdms.init_level.Length; i++){
             if(sdms.init_level[i] == level) ip.Add(i);
+            if(sdms.init_level[i] > level) return;
         }
     }
 
     void Update()
     {
         gameIsStop = JudgeGameStop();
+        if(pcs.readyToStart && Mathf.RoundToInt(bgcs.spr_pos[1].x + SW) % 18 == 14) isStart = true;
         if(!isStart) return;
 
         if(Input.GetKeyDown(KeyCode.P) && !isFinish) SwitchPause(!isPause);
@@ -249,6 +255,9 @@ public class GameManagerScript : MonoBehaviour
                 case "Enemy":
                     egs.Generate(sdms.init_type[p], sdms.init_pos[p], sdms.init_isTop[p]);
                     break;
+                case "Obstacle":
+                    ogs.Generate(sdms.init_type[p], sdms.init_pos[p]);
+                    break;
             }
             readPoint++;
             if(readPoint == ip.Count) return;
@@ -262,6 +271,7 @@ public class GameManagerScript : MonoBehaviour
         wgs.ResetVariables();
         egs.ResetVariables();
         foreach(Transform word in words.transform) Destroy(word.gameObject);
+        foreach(Transform obstacle in obstacles.transform) Destroy(obstacle.gameObject);
         foreach(Transform enemyShot in enemyShots.transform) Destroy(enemyShot.gameObject);
         foreach(Transform enemy in enemies.transform) Destroy(enemy.gameObject);
         foreach(Transform playerShot in playerShots.transform) Destroy(playerShot.gameObject);
