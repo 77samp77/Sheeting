@@ -85,15 +85,26 @@ public class GameManagerScript : MonoBehaviour
         quota_words = sdms.base_quotaNum[level];
         UIms.SetWordCountUI(0, quota_words);
         timeLimit = sdms.base_limit[level];
-        gameSpeed = sdms.base_speed[level];
+        gameSpeed = setGameSpeed(sdms.base_speed[level]);
         bgcs.v = gameSpeed;
         life_max = sdms.base_life[level];
         life = life_max;
         for(int i = life_max; i < 6; i++) UIms.lifeSprites[i].SetActive(false);
     }
 
+    float setGameSpeed(string speedText){
+        switch(speedText){
+            case "VERY SLOW": return 0.1f;
+            case "SLOW": return 0.2f;
+            case "NORMAL": return 0.4f;
+            case "FAST": return 0.6f;
+            case "VERY FAST": return 1.0f;
+            default: return 2.0f;
+        }
+    }
+
     void LoadStageInitPointer(){
-        for(int i = 0; i < sdms.init_level.Length/* || sdms.init_level[i] <= level*/; i++){
+        for(int i = 0; i < sdms.init_level.Length; i++){
             if(sdms.init_level[i] == level) ip.Add(i);
         }
     }

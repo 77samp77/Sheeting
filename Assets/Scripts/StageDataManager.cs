@@ -11,9 +11,8 @@ public class StageDataManager : MonoBehaviour
 
     List<string[]> baseData = new List<string[]>();
     int bd_colLength;
-    [System.NonSerialized] public string[] base_quotaType;
+    [System.NonSerialized] public string[] base_quotaType, base_speed;
     [System.NonSerialized] public int[] base_quotaNum, base_limit, base_life;
-    [System.NonSerialized] public float[] base_speed;
 
     List<string[]> initData = new List<string[]>();
     int id_colLength;
@@ -54,14 +53,14 @@ public class StageDataManager : MonoBehaviour
         base_quotaType = new string[baseData.Count];
         base_quotaNum = new int[baseData.Count];
         base_limit = new int[baseData.Count];
-        base_speed = new float[baseData.Count];
+        base_speed = new string[baseData.Count];
         base_life = new int[baseData.Count];
 
         for(int row = 1; row < baseData.Count; row++){
             base_quotaType[row] = baseData[row][1];
             base_quotaNum[row] = int.Parse(baseData[row][2]);
             base_limit[row] = int.Parse(baseData[row][3]);
-            base_speed[row] = float.Parse(baseData[row][4]);
+            base_speed[row] = baseData[row][4];
             base_life[row] = int.Parse(baseData[row][5]);
         }
     }
@@ -84,6 +83,7 @@ public class StageDataManager : MonoBehaviour
         init_isTop = new bool[initData.Count];
         
         for(int row = 1; row < initData.Count; row++){
+            if(initData[row][0] == "") continue;
             init_level[row] = int.Parse(initData[row][0]);
             init_progress[row] = int.Parse(initData[row][1]);
             init_tag[row] = initData[row][2];
