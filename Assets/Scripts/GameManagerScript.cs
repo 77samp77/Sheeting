@@ -135,7 +135,7 @@ public class GameManagerScript : MonoBehaviour
         if(readPoint < ip.Count) ReadInitData();
         UIms.SetProgressBarUI(progress, timeLimit);
 
-        if(progress == timeLimit) GameFinish();
+        // if(progress == timeLimit) GameFinish();
 
         progress++;
     }

@@ -87,7 +87,7 @@ public class StageDataManager : MonoBehaviour
             init_level[row] = int.Parse(initData[row][0]);
             init_progress[row] = int.Parse(initData[row][1]);
             init_tag[row] = initData[row][2];
-            init_type[row] = initData[row][3];
+            if(initData[row][3] != "") init_type[row] = initData[row][3];
             if(initData[row][4] != "") init_pos[row] = int.Parse(initData[row][4]);
             if(initData[row][5] != "") init_speed[row] = float.Parse(initData[row][5]);
             if(initData[row][6] != "") init_length[row] = int.Parse(initData[row][6]);
