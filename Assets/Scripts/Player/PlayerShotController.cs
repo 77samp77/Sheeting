@@ -48,10 +48,7 @@ public class PlayerShotController : MonoBehaviour
         if(colObject.tag == "Word"){
             WordController wcs;
             if(colObject.name == "Word_Hor") wcs = colObject.GetComponent<WordHorController>();
-            else{
-                wcs = colObject.GetComponent<WordVerController>();
-                // Debug.Log(wcs.isMarked);
-            }
+            else wcs = colObject.GetComponent<WordVerController>();
 
             if(wcs.textObject.activeSelf){
                 if(!wcs.isMarked) Mark(colObject, wcs);

@@ -15,8 +15,10 @@ public class PlayerController : MonoBehaviour
     public GameObject sheet;
     SheetController scs;
 
-    Vector3 pos;
+    [System.NonSerialized] public Vector3 pos;
     [System.NonSerialized] public Vector2 spr_scl;
+
+    [System.NonSerialized] public bool readyToStart;
 
     float v;
     public float v_default, v_dash;
@@ -48,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(!gms.isStart) StartMotion();
+        if(!readyToStart) StartMotion();
 
         if(gms.gameIsStop) return;
         if(gms.progress - frame_damaged <= damage_interval) DamageAnimation();
@@ -65,7 +67,7 @@ public class PlayerController : MonoBehaviour
         else{
             gmms.PlayBGM(gmms.bgm);
             pos.x = -110;
-            gms.isStart = true;
+            readyToStart = true;
         }
         transform.localPosition = pos;
     }
@@ -148,6 +150,7 @@ public class PlayerController : MonoBehaviour
         pos.y = 20;
         v = v_default;
         transform.localPosition = pos;
+        readyToStart = false;
         frame_shot = -1000;
         frame_damaged = -1000;
         frame_gameOver = 0;

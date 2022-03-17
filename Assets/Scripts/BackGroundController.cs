@@ -7,7 +7,7 @@ public class BackGroundController : MonoBehaviour
 {
     public float v;
     public GameObject[] sprites = new GameObject[2];
-    Vector2[] spr_pos = new Vector2[2];
+    [System.NonSerialized] public Vector2[] spr_pos = new Vector2[2];
 
     GameObject gameManager;
     GameManagerScript gms;

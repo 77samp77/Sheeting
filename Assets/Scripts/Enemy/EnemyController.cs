@@ -46,7 +46,7 @@ public class EnemyController : MonoBehaviour
         gsms = gameSound.GetComponent<GameSoundManager>();
         sheet = GameObject.Find("Sheet");
         scs = sheet.GetComponent<SheetController>();
-        spriteDefeatPrefab = Resources.Load<GameObject>("Prefabs/Sprite_Defeat");
+        spriteDefeatPrefab = Resources.Load<GameObject>("Prefabs/Sprite/Sprite_Defeat");
         enemyShots = GameObject.Find("EnemyShots");
         frame_shot = gms.progress;
         SW = StaticManager.screenWidth;
