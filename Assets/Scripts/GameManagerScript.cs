@@ -133,9 +133,9 @@ public class GameManagerScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.F)) GameFinish();
         if(Input.GetKeyDown(KeyCode.G)) GameOver();
         if(readPoint < ip.Count) ReadInitData();
-        UIms.SetProgressBarUI(progress, timeLimit);
+        UIms.SetProgressBarUI(Mathf.Min(progress, timeLimit), timeLimit);
 
-        // if(progress == timeLimit) GameFinish();
+        if(progress == timeLimit) ogs.Generate("Goal", 0);
 
         progress++;
     }

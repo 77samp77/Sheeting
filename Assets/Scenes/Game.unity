@@ -4454,6 +4454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleLinePrefab: {fileID: 2175117481894218985, guid: 27e20ff2d3891924196f1f5b443d29e3, type: 3}
+  obstacleCheckPrefab: {fileID: 6869631264353254663, guid: 77799ffe723b2c349b7edb26dac4a1dd, type: 3}
   goalPrefab: {fileID: 2175117481894218985, guid: 9d08cf9da074580418463eb328b3918a, type: 3}
   obstacles: {fileID: 1720520620}
 --- !u!1 &1236094158

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObstacleGenerator : MonoBehaviour
 {
-    public GameObject obstacleLinePrefab, goalPrefab, obstacles;
+    public GameObject obstacleLinePrefab, obstacleCheckPrefab, goalPrefab, obstacles;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +21,7 @@ public class ObstacleGenerator : MonoBehaviour
     public void Generate(string type, int pos){
         GameObject obstaclePrefab = obstacles;
         if(type == "Line") obstaclePrefab = obstacleLinePrefab;
+        else if(type == "Check") obstaclePrefab = obstacleCheckPrefab;
         else if(type == "Goal") obstaclePrefab = goalPrefab;
         GenerateObstacle(obstaclePrefab, pos);
     }
