@@ -23,11 +23,11 @@ public class EnemyBShotController : EnemyShotController
         angle = _angle;
         SpriteRenderer sprite_ren = sprite.GetComponent<SpriteRenderer>();
         if(angle == 0){
-            sprite_ren.sprite = Resources.Load<Sprite>("Images/EnemyB_Shot_Left");
+            sprite_ren.sprite = Resources.Load<Sprite>("Images/Game/Enemy/EnemyB/EnemyB_Shot_Left");
             pos.x--;
         }
         else if(angle == 2){
-            sprite_ren.sprite = Resources.Load<Sprite>("Images/EnemyB_Shot_Right");
+            sprite_ren.sprite = Resources.Load<Sprite>("Images/Game/Enemy/EnemyB/EnemyB_Shot_Right");
             pos.x++;
         }
         if(isFlip) pos.y++;
