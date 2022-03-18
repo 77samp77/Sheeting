@@ -4870,7 +4870,7 @@ MonoBehaviour:
   v_default: 1
   v_dash: 1.5
   shoot_interval: 10
-  damage_interval: 90
+  damage_interval: 120
   spriteDefeatPrefab: {fileID: 9126881930302739757, guid: f615ca72ef8ee474681733f24b242fdc, type: 3}
 --- !u!61 &1342664793
 BoxCollider2D:

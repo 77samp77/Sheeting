@@ -1,4 +1,4 @@
 Level,QuotaType,QuotaNum,Limit,Speed,Life
 1,word,15,3600,SLOW,6
 2,word,20,3600,SLOW,6
-3,word,10,1800,FAST,2
+3,word,25,5400,NORMAL,6

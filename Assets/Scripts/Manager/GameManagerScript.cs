@@ -117,7 +117,7 @@ public class GameManagerScript : MonoBehaviour
     void Update()
     {
         gameIsStop = JudgeGameStop();
-        if(pcs.readyToStart && Mathf.RoundToInt(bgcs.spr_pos[1].x + SW) % 18 == 14) isStart = true;
+        if(pcs.readyToStart && Mathf.RoundToInt(bgcs.spr_pos[1].x + SW) % 18 == 10) isStart = true;
         if(!isStart) return;
 
         if(Input.GetKeyDown(KeyCode.P) && !isFinish) SwitchPause(!isPause);
@@ -239,7 +239,6 @@ public class GameManagerScript : MonoBehaviour
 
     public void GameOver(){
         isGameOver = true;
-        // GameFinish();
     }
 
     int readPoint = 0;
