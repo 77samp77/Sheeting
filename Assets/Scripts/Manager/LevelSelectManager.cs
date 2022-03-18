@@ -39,17 +39,15 @@ public class LevelSelectManager : MonoBehaviour
             ssms.PlaySE(ssms.SE_decide);
             SceneManager.LoadScene("Game");
         }
-        if(Input.GetKeyDown(KeyCode.Alpha1)){
-            StaticManager.gameLevel = 1;
+        if(Input.GetKeyDown(KeyCode.W)){
+            StaticManager.gameLevel++;
             ssms.PlaySE(ssms.SE_choose);
+            Debug.Log(StaticManager.gameLevel);
         }
-        if(Input.GetKeyDown(KeyCode.Alpha2)){
-            StaticManager.gameLevel = 2;
+        if(Input.GetKeyDown(KeyCode.S)){
+            StaticManager.gameLevel--;
             ssms.PlaySE(ssms.SE_choose);
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha3)){
-            StaticManager.gameLevel = 3;
-            ssms.PlaySE(ssms.SE_choose);
+            Debug.Log(StaticManager.gameLevel);
         }
     }
 }

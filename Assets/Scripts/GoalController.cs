@@ -5,7 +5,7 @@ using UnityEngine;
 public class GoalController : ObstacleController
 {
     public override void BeSetObstacle(int pos){
-        transform.localPosition = new Vector2(141, 90);
+        transform.localPosition = new Vector2(137, 90);
     }
 
     public override void Move()

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SpriteDefeatController : MonoBehaviour
 {
+    GameObject gameManager;
+    GameManagerScript gms;
+
     GameObject gameSound;
     GameSoundManager gsms;
 
@@ -24,6 +27,8 @@ public class SpriteDefeatController : MonoBehaviour
     }
 
     void InitVariables(){
+        gameManager = GameObject.Find("GameManager");
+        gms = gameManager.GetComponent<GameManagerScript>();
         gameSound = GameObject.Find("GameSound");
         gsms = gameSound.GetComponent<GameSoundManager>();
         sprite_d_ren = GetComponent<SpriteRenderer>();
@@ -56,5 +61,21 @@ public class SpriteDefeatController : MonoBehaviour
             }
             defeat_progress++;
         }
+        Vector2 pos = transform.localPosition;
+        pos.x -= gms.gameSpeed;
+        transform.localPosition = pos;
+    }
+
+
+    /*=描画用===================================================================*/
+    Vector2 cashPos;
+    void LateUpdate(){
+        cashPos = transform.localPosition;
+        transform.localPosition = new Vector2(Mathf.RoundToInt(cashPos.x),
+                                              Mathf.RoundToInt(cashPos.y));
+    }
+
+    void OnRenderObject(){
+        transform.localPosition = cashPos;
     }
 }

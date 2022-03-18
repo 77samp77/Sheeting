@@ -48,7 +48,7 @@ public class EnemyController : MonoBehaviour
         scs = sheet.GetComponent<SheetController>();
         spriteDefeatPrefab = Resources.Load<GameObject>("Prefabs/Sprite/Sprite_Defeat");
         enemyShots = GameObject.Find("EnemyShots");
-        frame_shot = gms.progress;
+        frame_shot = 0;
         SW = StaticManager.screenWidth;
         SH = StaticManager.screenHeight;
     }
