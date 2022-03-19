@@ -242,7 +242,7 @@ public class GameManagerScript : MonoBehaviour
     }
 
     int readPoint = 0;
-    void ReadInitData(){
+    async void ReadInitData(){
         if(sdms.init_progress[ip[readPoint]] != progress) return;
         while(sdms.init_progress[ip[readPoint]] == progress){
             int p = ip[readPoint];
@@ -253,6 +253,15 @@ public class GameManagerScript : MonoBehaviour
                     break;
                 case "Enemy":
                     egs.Generate(sdms.init_type[p], sdms.init_pos[p], sdms.init_isTop[p]);
+                    break;
+                case "Gate":
+                    for(int i = 0; i < 11; i++){
+                        int _pos = -39 + 13 * i;
+                        if(sdms.init_pos[p] <= i && i < sdms.init_pos[p] + sdms.init_length[p]){
+                            if(sdms.init_type[p] == "Enemy") egs.Generate("C", _pos, false);
+                        }
+                        else ogs.Generate("Check", _pos);
+                    }
                     break;
                 case "Obstacle":
                     ogs.Generate(sdms.init_type[p], sdms.init_pos[p]);

@@ -57,9 +57,9 @@ public class PlayerController : MonoBehaviour
         if(gms.progress - frame_damaged <= damage_interval) DamageAnimation();
         pos = transform.localPosition;
         Move();
-        // if(Input.GetKey(KeyCode.Space)){
+        if(Input.GetKey(KeyCode.Space)){
             if(gms.isStart && gms.progress - frame_shot > shoot_interval && pos.y > scs.pos.y) Shoot();
-        // }
+        }
     }
 
     void StartMotion(){
