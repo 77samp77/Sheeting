@@ -7,6 +7,8 @@ public class StaticManager : MonoBehaviour
     [System.NonSerialized] public static bool canControll;
     [System.NonSerialized] public static int screenWidth = 270, screenHeight = 180;
     [System.NonSerialized] public static int gameLevel = 1;
+    [System.NonSerialized] public static int gameLevel_max = 10;
+    [System.NonSerialized] public static int[] levelStatus = new int[11]; // 0/1/2...選択不可/未クリア/クリア済
 
     void Awake(){
         GameObject temp = GameObject.Find("StaticManager");
@@ -20,7 +22,10 @@ public class StaticManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        for(int i = 1; i < levelStatus.Length; i++){
+            if(i <= 5) levelStatus[i] = 1;
+            else levelStatus[i] = 0;
+        }
     }
 
     // Update is called once per frame

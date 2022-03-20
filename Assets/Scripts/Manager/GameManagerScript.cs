@@ -217,8 +217,15 @@ public class GameManagerScript : MonoBehaviour
         if(isSuccess){
             total_score += 15000 + lifeBonus;
             if(life == life_max) total_score += 10000;
+            UpdateLevelStatus(level);
         }
         UIms.SetResultUI(isGameOver, isSuccess, score, lifeBonus, life == life_max, total_score);
+    }
+
+    void UpdateLevelStatus(int level){
+        StaticManager.levelStatus[level] = 2;
+        if(level == StaticManager.gameLevel_max) return;
+        if(StaticManager.levelStatus[level + 1] == 0) StaticManager.levelStatus[level + 1] = 1;
     }
 
     bool judgeSuccess(){
@@ -253,6 +260,15 @@ public class GameManagerScript : MonoBehaviour
                     break;
                 case "Enemy":
                     egs.Generate(sdms.init_type[p], sdms.init_pos[p], sdms.init_isTop[p]);
+                    break;
+                case "Gate":
+                    for(int i = 0; i < 11; i++){
+                        int _pos = -39 + 13 * i;
+                        if(sdms.init_pos[p] <= i && i < sdms.init_pos[p] + sdms.init_length[p]){
+                            if(sdms.init_type[p] == "Enemy") egs.Generate("C", _pos, false);
+                        }
+                        else ogs.Generate("Check", _pos);
+                    }
                     break;
                 case "Obstacle":
                     ogs.Generate(sdms.init_type[p], sdms.init_pos[p]);

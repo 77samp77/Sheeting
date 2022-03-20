@@ -56,7 +56,8 @@ public class EnemyAController : EnemyController
                 pos.x = 90;
                 isShootMode = isStartShoot = true;
                 shoot_con_count = shoot_con_max;
-                frame_startedShoot = frame_shot = gms.progress;
+                frame_startedShoot = gms.progress;
+                frame_shot = gms.progress - (shoot_interval - 60);
             }
         }
         else{

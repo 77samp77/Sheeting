@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
         scs = sheet.GetComponent<SheetController>();
         SW = StaticManager.screenWidth;
         SH = StaticManager.screenHeight;
+        v = v_dash;
     }
 
     void Update()
