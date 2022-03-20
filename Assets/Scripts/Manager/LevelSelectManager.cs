@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelSelectManager : MonoBehaviour
 {
+    GameObject stageData;
+    StageDataManager sdms;
     GameObject systemSound;
     SystemSoundManager ssms;
     GameObject backGround;
@@ -13,8 +15,7 @@ public class LevelSelectManager : MonoBehaviour
     public GameObject UIManager;
     UIManager_LevelSelect UIms;
 
-    int prev_choosing = 1;
-    int choosing = 1;
+    [System.NonSerialized] public int prev_choosing = 1, choosing = 1;
     int choosing_row = 0, choosing_column = 0;
     int ccs = 5; // choosing_column_size
 
@@ -30,14 +31,15 @@ public class LevelSelectManager : MonoBehaviour
     }
 
     void InitVariables(){
+        stageData = GameObject.Find("StageData");
+        sdms = stageData.GetComponent<StageDataManager>();
         systemSound = GameObject.Find("SystemSound");
         ssms = systemSound.GetComponent<SystemSoundManager>();
         backGround = GameObject.Find("BackGround");
         bgcs = backGround.GetComponent<BackGroundController>();
-        bgcs.v = 0.2f;
         UIms = UIManager.GetComponent<UIManager_LevelSelect>();
         prev_choosing = choosing = StaticManager.gameLevel;
-        ChooseButton(choosing);
+        bgcs.v = setGameSpeed(sdms.base_speed[choosing]);
     }
 
     // Update is called once per frame
@@ -60,10 +62,7 @@ public class LevelSelectManager : MonoBehaviour
 
         if(prev_choosing != choosing){
             ssms.PlaySE(ssms.SE_choose);
-            if(choosingLevelButton(choosing)){
-                StaticManager.gameLevel = choosing;
-                Debug.Log(StaticManager.gameLevel);
-            }
+            if(choosingLevelButton(choosing)) StaticManager.gameLevel = choosing;
         }
 
         if(Input.GetKeyDown(KeyCode.Z)){
@@ -83,6 +82,8 @@ public class LevelSelectManager : MonoBehaviour
         if(choosingLevelButton(choosing)){
             choosing_row = (int)((choosing - 1) / 5);
             choosing_column = (choosing - 1) % 5;
+            bgcs.v = setGameSpeed(sdms.base_speed[choosing]);
+            UIms.SetUIBar(choosing);
         }
     }
 
@@ -92,5 +93,16 @@ public class LevelSelectManager : MonoBehaviour
 
     bool choosingLevelButton(int choosing){
         return 1 <= choosing && choosing <= 10;
+    }
+
+    float setGameSpeed(string speedText){
+        switch(speedText){
+            case "VERY SLOW": return 0.1f;
+            case "SLOW": return 0.2f;
+            case "NORMAL": return 0.4f;
+            case "FAST": return 0.6f;
+            case "VERY FAST": return 1.0f;
+            default: return 2.0f;
+        }
     }
 }

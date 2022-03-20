@@ -63,6 +63,7 @@ public class StageDataManager : MonoBehaviour
             base_speed[row] = baseData[row][4];
             base_life[row] = int.Parse(baseData[row][5]);
         }
+        Debug.Log(base_life[1]);
     }
 
     void ReadInitCSV(){

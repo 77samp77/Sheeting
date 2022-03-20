@@ -8,19 +8,29 @@ public class UIManager_LevelSelect : MonoBehaviour
     public GameObject levelSelectManager;
     LevelSelectManager lsms;
 
+    GameObject stageData;
+    StageDataManager sdms;
+
     public GameObject[] levelButtonUI = new GameObject[11];
     public GameObject[] levelButtonNum = new GameObject[11];
     public GameObject[] choosingUI = new GameObject[12];
     public Sprite[] levelButtonSprite = new Sprite[3];
 
+    public GameObject[] lifeSprites = new GameObject[6];
+    public GameObject bar_quotaText, bar_speedText, bar_hiscoreText;
+
     // Start is called before the first frame update
     void Start()
     {
         InitVariables();
+        SetChoosingUI(lsms.prev_choosing, lsms.choosing);
+        SetUIBar(lsms.choosing);
     }
 
     void InitVariables(){
         lsms = levelSelectManager.GetComponent<LevelSelectManager>();
+        stageData = GameObject.Find("StageData");
+        sdms = stageData.GetComponent<StageDataManager>();
     }
 
     // Update is called once per frame
@@ -41,5 +51,13 @@ public class UIManager_LevelSelect : MonoBehaviour
             lb_image.sprite = levelButtonSprite[levelButtonStatus[i]];
             levelButtonNum[i].SetActive(levelButtonStatus[i] != 0);
         }
+    }
+
+    public void SetUIBar(int level){
+        Debug.Log(sdms.base_life[level]);
+        for(int i = 0; i < 6; i++) lifeSprites[i].SetActive(i < sdms.base_life[level]);
+        bar_quotaText.GetComponent<Text>().text = sdms.base_quotaNum[level] + " words";
+        bar_speedText.GetComponent<Text>().text = sdms.base_speed[level];
+        // bar_hiscoreText.GetComponent<Text>().text = sdmsのハイスコア;
     }
 }
