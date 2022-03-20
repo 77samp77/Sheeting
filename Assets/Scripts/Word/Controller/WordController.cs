@@ -117,7 +117,7 @@ public class WordController : MonoBehaviour
         gms.gain_combo++;
         gms.gain_words++;
         UIms.SetWordCountUI(gms.gain_words, gms.quota_words);
-        gms.IncreaseScore(Mathf.FloorToInt(100 * Mathf.Pow(2, gms.gain_combo - 1)));
+        gms.IncreaseScore(Mathf.FloorToInt(100 * Mathf.Pow(2, Mathf.Min(gms.gain_combo - 1, 8))));
 
         isGainAnimation = true;
         canvas.SetActive(false);

@@ -217,8 +217,15 @@ public class GameManagerScript : MonoBehaviour
         if(isSuccess){
             total_score += 15000 + lifeBonus;
             if(life == life_max) total_score += 10000;
+            UpdateLevelStatus(level);
         }
         UIms.SetResultUI(isGameOver, isSuccess, score, lifeBonus, life == life_max, total_score);
+    }
+
+    void UpdateLevelStatus(int level){
+        StaticManager.levelStatus[level] = 2;
+        if(level == StaticManager.gameLevel_max) return;
+        if(StaticManager.levelStatus[level + 1] == 0) StaticManager.levelStatus[level + 1] = 1;
     }
 
     bool judgeSuccess(){
@@ -242,7 +249,7 @@ public class GameManagerScript : MonoBehaviour
     }
 
     int readPoint = 0;
-    async void ReadInitData(){
+    void ReadInitData(){
         if(sdms.init_progress[ip[readPoint]] != progress) return;
         while(sdms.init_progress[ip[readPoint]] == progress){
             int p = ip[readPoint];
