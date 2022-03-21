@@ -9,7 +9,7 @@ public class StageDataManager : MonoBehaviour
     bool alreadyRead;
     public TextAsset baseCSV, initCSV;
 
-    List<string[]> baseData = new List<string[]>();
+    public List<string[]> baseData = new List<string[]>();
     int bd_colLength;
     [System.NonSerialized] public string[] base_quotaType, base_speed;
     [System.NonSerialized] public int[] base_quotaNum, base_limit, base_life, base_status, base_hiscore;
@@ -58,6 +58,7 @@ public class StageDataManager : MonoBehaviour
         base_status = new int[baseData.Count];
         base_hiscore = new int[baseData.Count];
 
+        Debug.Log(baseData.Count);
         for(int row = 1; row < baseData.Count; row++){
             base_quotaType[row] = baseData[row][1];
             base_quotaNum[row] = int.Parse(baseData[row][2]);
@@ -103,5 +104,17 @@ public class StageDataManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    string path_base = "Assets/CSV/StageData_Base.csv";
+    bool isAppend = false;
+    public void WriteBaseCSV(){
+        string newData = "Level,QuotaType,QuotaNum,Limit,Speed,Life,Status,Hiscore";
+        for(int row = 1; row < baseData.Count; row++){
+            newData += "\n" + string.Join(",", baseData[row]);
+        }
+        using(var fs = new StreamWriter(path_base, isAppend, System.Text.Encoding.GetEncoding("UTF-8"))){
+            fs.WriteLine(newData);
+        }
     }
 }

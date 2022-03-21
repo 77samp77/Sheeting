@@ -217,15 +217,23 @@ public class GameManagerScript : MonoBehaviour
         if(isSuccess){
             total_score += 15000 + lifeBonus;
             if(life == life_max) total_score += 10000;
-            UpdateLevelStatus(level);
+            UpdateLevelStatus(level, total_score);
         }
         UIms.SetResultUI(isGameOver, isSuccess, score, lifeBonus, life == life_max, total_score);
     }
 
-    void UpdateLevelStatus(int level){
+    void UpdateLevelStatus(int level, int hiscore){
         sdms.base_status[level] = 2;
-        if(level == StaticManager.gameLevel_max) return;
-        if(sdms.base_status[level + 1] == 0) sdms.base_status[level + 1] = 1;
+        sdms.baseData[level][6] = "2";
+        sdms.base_hiscore[level] = hiscore;
+        sdms.baseData[level][7] = hiscore.ToString();
+        if(level != StaticManager.gameLevel_max){
+            if(sdms.base_status[level + 1] == 0){
+                sdms.base_status[level + 1] = 1;
+                sdms.baseData[level + 1][6] = "1";
+            }
+        }
+        sdms.WriteBaseCSV();
     }
 
     bool judgeSuccess(){
