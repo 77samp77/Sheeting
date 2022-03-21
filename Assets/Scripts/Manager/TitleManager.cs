@@ -20,13 +20,10 @@ public class TitleManager : MonoBehaviour
     void Start()
     {
         InitVariables();
-        GameObject pskText = GameObject.Find("-PRESS SPACE KEY-");
     }
 
     void InitVariables(){
         bgcs = backGround.GetComponent<BackGroundController>();
-        bgcs.v = 0.2f;
-        // bgcs.InitTitleVariables();
         systemSound = GameObject.Find("SystemSound");
         ssms = systemSound.GetComponent<SystemSoundManager>();
     }

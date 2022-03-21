@@ -23,6 +23,7 @@ public class UIManager_LevelSelect : MonoBehaviour
     void Start()
     {
         InitVariables();
+        SetLevelButtonsColor();
         SetChoosingUI(lsms.prev_choosing, lsms.choosing);
         SetUIBar(lsms.choosing);
     }
@@ -45,7 +46,7 @@ public class UIManager_LevelSelect : MonoBehaviour
     }
 
     public void SetLevelButtonsColor(){
-        int[] levelButtonStatus = StaticManager.levelStatus;
+        int[] levelButtonStatus = sdms.base_status;
         for(int i = 1; i < levelButtonStatus.Length; i++){
             Image lb_image = levelButtonUI[i].GetComponent<Image>();
             lb_image.sprite = levelButtonSprite[levelButtonStatus[i]];
@@ -54,10 +55,11 @@ public class UIManager_LevelSelect : MonoBehaviour
     }
 
     public void SetUIBar(int level){
-        Debug.Log(sdms.base_life[level]);
         for(int i = 0; i < 6; i++) lifeSprites[i].SetActive(i < sdms.base_life[level]);
         bar_quotaText.GetComponent<Text>().text = sdms.base_quotaNum[level] + " words";
         bar_speedText.GetComponent<Text>().text = sdms.base_speed[level];
-        // bar_hiscoreText.GetComponent<Text>().text = sdmsのハイスコア;
+        string temp_hiscoreText = "--------";
+        if(sdms.base_status[level] == 2) temp_hiscoreText = sdms.base_hiscore[level].ToString("00000000");
+        bar_hiscoreText.GetComponent<Text>().text = temp_hiscoreText;
     }
 }

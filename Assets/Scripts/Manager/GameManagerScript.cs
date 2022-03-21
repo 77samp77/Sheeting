@@ -223,9 +223,9 @@ public class GameManagerScript : MonoBehaviour
     }
 
     void UpdateLevelStatus(int level){
-        StaticManager.levelStatus[level] = 2;
+        sdms.base_status[level] = 2;
         if(level == StaticManager.gameLevel_max) return;
-        if(StaticManager.levelStatus[level + 1] == 0) StaticManager.levelStatus[level + 1] = 1;
+        if(sdms.base_status[level + 1] == 0) sdms.base_status[level + 1] = 1;
     }
 
     bool judgeSuccess(){
