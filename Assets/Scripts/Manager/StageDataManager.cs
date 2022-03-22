@@ -58,7 +58,6 @@ public class StageDataManager : MonoBehaviour
         base_status = new int[baseData.Count];
         base_hiscore = new int[baseData.Count];
 
-        Debug.Log(baseData.Count);
         for(int row = 1; row < baseData.Count; row++){
             base_quotaType[row] = baseData[row][1];
             base_quotaNum[row] = int.Parse(baseData[row][2]);
@@ -106,15 +105,16 @@ public class StageDataManager : MonoBehaviour
         
     }
 
-    string path_base = "Assets/CSV/StageData_Base.csv";
-    bool isAppend = false;
-    public void WriteBaseCSV(){
-        string newData = "Level,QuotaType,QuotaNum,Limit,Speed,Life,Status,Hiscore";
-        for(int row = 1; row < baseData.Count; row++){
-            newData += "\n" + string.Join(",", baseData[row]);
-        }
-        using(var fs = new StreamWriter(path_base, isAppend, System.Text.Encoding.GetEncoding("UTF-8"))){
-            fs.WriteLine(newData);
-        }
-    }
+    // string path_base = "Assets/CSV/StageData_Base.csv";
+    // string path_base = Application.streamingAssetsPath + "/StageData_Base.csv";
+    // bool isAppend = false;
+    // public void WriteBaseCSV(){
+        // string newData = "Level,QuotaType,QuotaNum,Limit,Speed,Life,Status,Hiscore";
+        // for(int row = 1; row < baseData.Count; row++){
+        //     newData += "\n" + string.Join(",", baseData[row]);
+        // }
+        // using(var fs = new StreamWriter(path_base, isAppend, System.Text.Encoding.GetEncoding("UTF-8"))){
+        //     fs.WriteLine(newData);
+        // }
+    // }
 }

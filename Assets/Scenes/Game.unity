@@ -2345,6 +2345,7 @@ MonoBehaviour:
   result_lifeBonus: {fileID: 139186326}
   result_noDamage: {fileID: 1805628659}
   result_totalScore: {fileID: 656223709}
+  result_newRecord: {fileID: 2128793488}
   result_clearBonus_dL: {fileID: 1347217538}
   result_lifeBonus_dL: {fileID: 1968375292}
   result_noDamage_dL: {fileID: 2005197688}
@@ -7013,7 +7014,7 @@ GameObject:
   - component: {fileID: 2128793491}
   - component: {fileID: 2128793490}
   m_Layer: 0
-  m_Name: HIGH SCORE!
+  m_Name: NEW RECORD!!
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -117,8 +117,13 @@ public class GameManagerScript : MonoBehaviour
     void Update()
     {
         gameIsStop = JudgeGameStop();
-        if(pcs.readyToStart && Mathf.RoundToInt(bgcs.spr_pos[1].x + SW) % 18 == 10) isStart = true;
-        if(!isStart) return;
+        if(!isStart){
+            if(pcs.readyToStart && Mathf.RoundToInt(bgcs.spr_pos[1].x + SW) % 18 == 10){
+                gmms.PlayBGM(gmms.bgm);
+                isStart = true;
+            }
+            return;
+        }
 
         if(Input.GetKeyDown(KeyCode.P) && !isFinish) SwitchPause(!isPause);
         if(Input.GetKeyDown(KeyCode.R)) ResetGame();
@@ -209,6 +214,7 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
+    bool isNewRecord = false;
     public void GameFinish(){
         isFinish = true;
         isSuccess = judgeSuccess();
@@ -217,23 +223,23 @@ public class GameManagerScript : MonoBehaviour
         if(isSuccess){
             total_score += 15000 + lifeBonus;
             if(life == life_max) total_score += 10000;
-            UpdateLevelStatus(level, total_score);
+            if(total_score > sdms.base_hiscore[level]) isNewRecord = true;
+            UpdateLevelStatus(level, total_score, isNewRecord);
         }
-        UIms.SetResultUI(isGameOver, isSuccess, score, lifeBonus, life == life_max, total_score);
+        UIms.SetResultUI(isGameOver, isSuccess, score, lifeBonus, life == life_max, total_score, isNewRecord);
     }
 
-    void UpdateLevelStatus(int level, int hiscore){
+    void UpdateLevelStatus(int level, int hiscore, bool isNewRecord){
         sdms.base_status[level] = 2;
-        sdms.baseData[level][6] = "2";
-        sdms.base_hiscore[level] = hiscore;
-        sdms.baseData[level][7] = hiscore.ToString();
-        if(level != StaticManager.gameLevel_max){
-            if(sdms.base_status[level + 1] == 0){
-                sdms.base_status[level + 1] = 1;
-                sdms.baseData[level + 1][6] = "1";
-            }
+        if(isNewRecord){
+            sdms.base_hiscore[level] = hiscore;
         }
-        sdms.WriteBaseCSV();
+        if(level == 5 && sdms.base_status[6] == 0){
+            for(int pLevel = 6; pLevel <= 9; pLevel++) sdms.base_status[pLevel] = 1;
+        }
+        if(level == 9 && sdms.base_status[10] == 0){
+            sdms.base_status[10] = 1;
+        }
     }
 
     bool judgeSuccess(){

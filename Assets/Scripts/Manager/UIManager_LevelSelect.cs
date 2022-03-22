@@ -15,9 +15,10 @@ public class UIManager_LevelSelect : MonoBehaviour
     public GameObject[] levelButtonNum = new GameObject[11];
     public GameObject[] choosingUI = new GameObject[12];
     public Sprite[] levelButtonSprite = new Sprite[3];
+    public Sprite[] barLevelSprite = new Sprite[3];
 
     public GameObject[] lifeSprites = new GameObject[6];
-    public GameObject bar_quotaText, bar_speedText, bar_hiscoreText;
+    public GameObject bar_level, bar_level_num, bar_quotaText, bar_speedText, bar_hiscoreText;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +56,9 @@ public class UIManager_LevelSelect : MonoBehaviour
     }
 
     public void SetUIBar(int level){
+        Image bl_image = bar_level.GetComponent<Image>();
+        bl_image.sprite = barLevelSprite[sdms.base_status[level]];
+        bar_level_num.GetComponent<Text>().text = level.ToString();
         for(int i = 0; i < 6; i++) lifeSprites[i].SetActive(i < sdms.base_life[level]);
         bar_quotaText.GetComponent<Text>().text = sdms.base_quotaNum[level] + " words";
         bar_speedText.GetComponent<Text>().text = sdms.base_speed[level];

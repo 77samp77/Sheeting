@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject resultUI;
     public GameObject finishText, resultPaper;
-    public GameObject result_score, result_sf, result_lifeBonus, result_noDamage, result_totalScore;
+    public GameObject result_score, result_sf, result_lifeBonus, result_noDamage, result_totalScore, result_newRecord;
     public GameObject result_clearBonus_dL, result_lifeBonus_dL, result_noDamage_dL;
     public GameObject[] resultUI_choosing = new GameObject[2];
 
@@ -88,7 +88,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void SetResultUI(bool isGameOver, bool isSuccess, int score,
-                            int lifeBonus, bool isNoDamage, int total_score){
+                            int lifeBonus, bool isNoDamage, int total_score, bool isNewRecord){
         finishText.GetComponent<Text>().text = tms.finishText(isGameOver);
         result_sf.GetComponent<Text>().text = tms.resultSFText(isSuccess);
         result_score.GetComponent<Text>().text = tms.resultScoreText(score);
@@ -96,6 +96,7 @@ public class UIManager : MonoBehaviour
         result_clearBonus_dL.SetActive(!isSuccess);
         result_lifeBonus_dL.SetActive(!isSuccess);
         result_noDamage_dL.SetActive(!isSuccess || !isNoDamage);
+        result_newRecord.SetActive(isNewRecord);
         result_totalScore.GetComponent<Text>().text = tms.resultTotalScoreText(total_score);
         resultUI.SetActive(true);
     }
