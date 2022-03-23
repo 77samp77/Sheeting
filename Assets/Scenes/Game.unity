@@ -2345,6 +2345,7 @@ MonoBehaviour:
   result_lifeBonus: {fileID: 139186326}
   result_noDamage: {fileID: 1805628659}
   result_totalScore: {fileID: 656223709}
+  result_newRecord: {fileID: 2128793488}
   result_clearBonus_dL: {fileID: 1347217538}
   result_lifeBonus_dL: {fileID: 1968375292}
   result_noDamage_dL: {fileID: 2005197688}
@@ -4885,7 +4886,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 17, y: -4.5}
+  m_Offset: {x: 17, y: -6}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 1}
@@ -4896,7 +4897,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 34, y: 9}
+  m_Size: {x: 28, y: 5}
   m_EdgeRadius: 0
 --- !u!1 &1347217538
 GameObject:
@@ -7013,7 +7014,7 @@ GameObject:
   - component: {fileID: 2128793491}
   - component: {fileID: 2128793490}
   m_Layer: 0
-  m_Name: HIGH SCORE!
+  m_Name: NEW RECORD!!
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

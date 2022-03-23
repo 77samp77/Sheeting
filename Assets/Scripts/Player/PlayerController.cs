@@ -66,7 +66,6 @@ public class PlayerController : MonoBehaviour
         pos = transform.localPosition;
         if(pos.x < -110) pos.x += 0.5f;
         else{
-            gmms.PlayBGM(gmms.bgm);
             pos.x = -110;
             readyToStart = true;
         }

@@ -9,10 +9,10 @@ public class StageDataManager : MonoBehaviour
     bool alreadyRead;
     public TextAsset baseCSV, initCSV;
 
-    List<string[]> baseData = new List<string[]>();
+    public List<string[]> baseData = new List<string[]>();
     int bd_colLength;
     [System.NonSerialized] public string[] base_quotaType, base_speed;
-    [System.NonSerialized] public int[] base_quotaNum, base_limit, base_life;
+    [System.NonSerialized] public int[] base_quotaNum, base_limit, base_life, base_status, base_hiscore;
 
     List<string[]> initData = new List<string[]>();
     int id_colLength;
@@ -55,6 +55,8 @@ public class StageDataManager : MonoBehaviour
         base_limit = new int[baseData.Count];
         base_speed = new string[baseData.Count];
         base_life = new int[baseData.Count];
+        base_status = new int[baseData.Count];
+        base_hiscore = new int[baseData.Count];
 
         for(int row = 1; row < baseData.Count; row++){
             base_quotaType[row] = baseData[row][1];
@@ -62,8 +64,9 @@ public class StageDataManager : MonoBehaviour
             base_limit[row] = int.Parse(baseData[row][3]);
             base_speed[row] = baseData[row][4];
             base_life[row] = int.Parse(baseData[row][5]);
+            base_status[row] = int.Parse(baseData[row][6]);
+            base_hiscore[row] = int.Parse(baseData[row][7]);
         }
-        Debug.Log(base_life[1]);
     }
 
     void ReadInitCSV(){
@@ -101,4 +104,17 @@ public class StageDataManager : MonoBehaviour
     {
         
     }
+
+    // string path_base = "Assets/CSV/StageData_Base.csv";
+    // string path_base = Application.streamingAssetsPath + "/StageData_Base.csv";
+    // bool isAppend = false;
+    // public void WriteBaseCSV(){
+        // string newData = "Level,QuotaType,QuotaNum,Limit,Speed,Life,Status,Hiscore";
+        // for(int row = 1; row < baseData.Count; row++){
+        //     newData += "\n" + string.Join(",", baseData[row]);
+        // }
+        // using(var fs = new StreamWriter(path_base, isAppend, System.Text.Encoding.GetEncoding("UTF-8"))){
+        //     fs.WriteLine(newData);
+        // }
+    // }
 }

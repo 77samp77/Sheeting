@@ -27,7 +27,6 @@ public class LevelSelectManager : MonoBehaviour
     void Start()
     {
         InitVariables();
-        UIms.SetLevelButtonsColor();
     }
 
     void InitVariables(){
@@ -39,6 +38,8 @@ public class LevelSelectManager : MonoBehaviour
         bgcs = backGround.GetComponent<BackGroundController>();
         UIms = UIManager.GetComponent<UIManager_LevelSelect>();
         prev_choosing = choosing = StaticManager.gameLevel;
+        choosing_row = (int)((choosing - 1) / 5);
+        choosing_column = (choosing - 1) % 5;
         bgcs.v = setGameSpeed(sdms.base_speed[choosing]);
     }
 
@@ -88,7 +89,7 @@ public class LevelSelectManager : MonoBehaviour
     }
 
     bool canChoose(int next){
-        return !choosingLevelButton(next) || StaticManager.levelStatus[next] != 0;
+        return !choosingLevelButton(next) || sdms.base_status[next] != 0;
     }
 
     bool choosingLevelButton(int choosing){
