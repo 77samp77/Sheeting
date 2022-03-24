@@ -9,6 +9,10 @@ public class StaticManager : MonoBehaviour
     [System.NonSerialized] public static int gameLevel = 1;
     [System.NonSerialized] public static int gameLevel_max = 10;
     [System.NonSerialized] public static int[] levelStatus = new int[11]; // 0/1/2...選択不可/未クリア/クリア済
+    [System.NonSerialized] public static int[] hiscore = new int[11];
+
+    [System.NonSerialized] public static bool isSigningIn;
+    [System.NonSerialized] public static string userName;
 
     void Awake(){
         GameObject temp = GameObject.Find("StaticManager");

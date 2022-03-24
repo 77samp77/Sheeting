@@ -89,7 +89,7 @@ public class LevelSelectManager : MonoBehaviour
     }
 
     bool canChoose(int next){
-        return !choosingLevelButton(next) || sdms.base_status[next] != 0;
+        return !choosingLevelButton(next) || StaticManager.levelStatus[next] != 0;
     }
 
     bool choosingLevelButton(int choosing){

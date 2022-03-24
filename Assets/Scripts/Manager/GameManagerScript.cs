@@ -223,22 +223,25 @@ public class GameManagerScript : MonoBehaviour
         if(isSuccess){
             total_score += 15000 + lifeBonus;
             if(life == life_max) total_score += 10000;
-            if(total_score > sdms.base_hiscore[level]) isNewRecord = true;
+            if(total_score > StaticManager.hiscore[level]) isNewRecord = true;
             UpdateLevelStatus(level, total_score, isNewRecord);
         }
         UIms.SetResultUI(isGameOver, isSuccess, score, lifeBonus, life == life_max, total_score, isNewRecord);
     }
 
     void UpdateLevelStatus(int level, int hiscore, bool isNewRecord){
-        sdms.base_status[level] = 2;
+        StaticManager.levelStatus[level] = 2;
         if(isNewRecord){
-            sdms.base_hiscore[level] = hiscore;
+            StaticManager.hiscore[level] = hiscore;
         }
-        if(level == 5 && sdms.base_status[6] == 0){
-            for(int pLevel = 6; pLevel <= 9; pLevel++) sdms.base_status[pLevel] = 1;
+        if(level == 5 && StaticManager.levelStatus[6] == 0){
+            for(int pLevel = 6; pLevel <= 8; pLevel++) StaticManager.levelStatus[pLevel] = 1;
         }
-        if(level == 9 && sdms.base_status[10] == 0){
-            sdms.base_status[10] = 1;
+        else if(level == 8 && StaticManager.levelStatus[9] == 0){
+            StaticManager.levelStatus[9] = 1;
+        }
+        else if(level == 9 && StaticManager.levelStatus[10] == 0){
+            StaticManager.levelStatus[10] = 1;
         }
     }
 

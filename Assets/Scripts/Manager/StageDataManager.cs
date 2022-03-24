@@ -12,7 +12,7 @@ public class StageDataManager : MonoBehaviour
     public List<string[]> baseData = new List<string[]>();
     int bd_colLength;
     [System.NonSerialized] public string[] base_quotaType, base_speed;
-    [System.NonSerialized] public int[] base_quotaNum, base_limit, base_life, base_status, base_hiscore;
+    [System.NonSerialized] public int[] base_quotaNum, base_limit, base_life/*, base_status, base_hiscore*/;
 
     List<string[]> initData = new List<string[]>();
     int id_colLength;
@@ -55,8 +55,8 @@ public class StageDataManager : MonoBehaviour
         base_limit = new int[baseData.Count];
         base_speed = new string[baseData.Count];
         base_life = new int[baseData.Count];
-        base_status = new int[baseData.Count];
-        base_hiscore = new int[baseData.Count];
+        // base_status = new int[baseData.Count];
+        // base_hiscore = new int[baseData.Count];
 
         for(int row = 1; row < baseData.Count; row++){
             base_quotaType[row] = baseData[row][1];
@@ -64,8 +64,8 @@ public class StageDataManager : MonoBehaviour
             base_limit[row] = int.Parse(baseData[row][3]);
             base_speed[row] = baseData[row][4];
             base_life[row] = int.Parse(baseData[row][5]);
-            base_status[row] = int.Parse(baseData[row][6]);
-            base_hiscore[row] = int.Parse(baseData[row][7]);
+            // base_status[row] = int.Parse(baseData[row][6]);
+            // base_hiscore[row] = int.Parse(baseData[row][7]);
         }
     }
 

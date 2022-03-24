@@ -47,7 +47,7 @@ public class UIManager_LevelSelect : MonoBehaviour
     }
 
     public void SetLevelButtonsColor(){
-        int[] levelButtonStatus = sdms.base_status;
+        int[] levelButtonStatus = StaticManager.levelStatus;
         for(int i = 1; i < levelButtonStatus.Length; i++){
             Image lb_image = levelButtonUI[i].GetComponent<Image>();
             lb_image.sprite = levelButtonSprite[levelButtonStatus[i]];
@@ -57,13 +57,13 @@ public class UIManager_LevelSelect : MonoBehaviour
 
     public void SetUIBar(int level){
         Image bl_image = bar_level.GetComponent<Image>();
-        bl_image.sprite = barLevelSprite[sdms.base_status[level]];
+        bl_image.sprite = barLevelSprite[StaticManager.levelStatus[level]];
         bar_level_num.GetComponent<Text>().text = level.ToString();
         for(int i = 0; i < 6; i++) lifeSprites[i].SetActive(i < sdms.base_life[level]);
         bar_quotaText.GetComponent<Text>().text = sdms.base_quotaNum[level] + " words";
         bar_speedText.GetComponent<Text>().text = sdms.base_speed[level];
         string temp_hiscoreText = "--------";
-        if(sdms.base_status[level] == 2) temp_hiscoreText = sdms.base_hiscore[level].ToString("00000000");
+        if(StaticManager.levelStatus[level] == 2) temp_hiscoreText = StaticManager.hiscore[level].ToString("00000000");
         bar_hiscoreText.GetComponent<Text>().text = temp_hiscoreText;
     }
 }
