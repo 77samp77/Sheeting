@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using NCMB;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -26,8 +27,8 @@ public class GameManagerScript : MonoBehaviour
     public GameObject words, obstacles, enemyShots, enemies, playerShots;
 
     [System.NonSerialized] public bool gameIsStop;
-    [System.NonSerialized] public bool isStart, isGameOver, isSuccess;
-    bool isPause, isFinish;
+    [System.NonSerialized] public bool isStart, isGameOver, isSuccess, isFinish;
+    bool isPause;
 
     public GameObject UIManager;
     UIManager UIms;
@@ -225,6 +226,10 @@ public class GameManagerScript : MonoBehaviour
             if(life == life_max) total_score += 10000;
             if(total_score > StaticManager.hiscore[level]) isNewRecord = true;
             UpdateLevelStatus(level, total_score, isNewRecord);
+            if(StaticManager.isSigningIn){
+                UpdateUserData(StaticManager.userName, level, StaticManager.levelStatus, StaticManager.hiscore);
+                if(isNewRecord) RegistRanking(StaticManager.userName, level, total_score);
+            }
         }
         UIms.SetResultUI(isGameOver, isSuccess, score, lifeBonus, life == life_max, total_score, isNewRecord);
     }
@@ -243,6 +248,56 @@ public class GameManagerScript : MonoBehaviour
         else if(level == 9 && StaticManager.levelStatus[10] == 0){
             StaticManager.levelStatus[10] = 1;
         }
+    }
+
+    void UpdateUserData(string userName, int level, int[] levelStatus, int[] hiscore){
+        NCMBObject userData = new NCMBObject("UserData");
+        NCMBQuery<NCMBObject> userQuery = new NCMBQuery<NCMBObject>("UserData");
+        userQuery.WhereEqualTo("UserName", userName);
+        userQuery.FindAsync((List<NCMBObject> objList, NCMBException e) => {
+            if(e == null){
+                userData.ObjectId = objList[0].ObjectId;
+
+                string[] statusStringArray = new string[10];
+                for(int n = 0; n < 10; n++) statusStringArray[n] = levelStatus[n + 1].ToString();
+                string statusText = string.Join(",", statusStringArray);
+                Debug.Log(statusText);
+                userData["LevelStatus"] = statusText;
+
+                string[] hiscoreStringArray = new string[10];
+                for(int n = 0; n < 10; n++) hiscoreStringArray[n] = hiscore[n + 1].ToString();
+                string hiscoreText = string.Join(",", hiscoreStringArray);
+                Debug.Log(hiscoreText);
+                userData["Hiscore"] = hiscoreText;
+
+                userData.SaveAsync((NCMBException e) => { 
+				        if(e != null) UnityEngine.Debug.Log ("保存に失敗: " + e.ErrorMessage);
+				        else UnityEngine.Debug.Log ("保存に成功");
+			        }
+		        );
+            }
+            else Debug.Log("ユーザデータみつからん");
+        });
+    }
+
+    void RegistRanking(string userName, int level, int hiscore){
+        string objectName = "Ranking_" + level;
+        Debug.Log(objectName);
+        NCMBQuery<NCMBObject> rankingQuery = new NCMBQuery<NCMBObject>(objectName);
+        rankingQuery.WhereEqualTo("UserName", userName);
+        rankingQuery.FindAsync((List<NCMBObject> objList, NCMBException e) =>{
+            NCMBObject rankingData = new NCMBObject(objectName);
+            if(e == null){
+                foreach(NCMBObject obj in objList) rankingData.ObjectId = obj.ObjectId;
+            }
+            rankingData["UserName"] = userName;
+            rankingData["Hiscore"] = hiscore;
+            rankingData.SaveAsync((NCMBException e) => { 
+				if(e != null) UnityEngine.Debug.Log ("保存に失敗: " + e.ErrorMessage);
+				else UnityEngine.Debug.Log ("保存に成功");
+			    }
+		    );
+        });
     }
 
     bool judgeSuccess(){

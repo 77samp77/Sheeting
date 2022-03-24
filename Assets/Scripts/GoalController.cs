@@ -19,6 +19,6 @@ public class GoalController : ObstacleController
 
     public override void OnTriggerStay2D(Collider2D collider){
         GameObject colObject = collider.gameObject;
-        if(colObject.tag == "Player") gms.GameFinish();
+        if(colObject.tag == "Player" && !gms.isFinish) gms.GameFinish();
     }
 }
