@@ -9,12 +9,16 @@ public class TitleManager : MonoBehaviour
     // GameObject screenManager;
     public GameObject accountManager;
     AccountManager ams;
+
+    public GameObject UIManager;
+    UIManager_Title ums;
+
     public GameObject pressSpaceKey, titleButtons;
-    public GameObject backGround, systemSound;
+    GameObject backGround, systemSound;
     SystemSoundManager ssms;
     BackGroundController bgcs;
 
-    public GameObject[] choosingUI;
+    // public GameObject[] choosingUI;
     bool buttonIsAppear;
     int choosing;
 
@@ -31,6 +35,8 @@ public class TitleManager : MonoBehaviour
 
     void InitVariables(){
         ams = accountManager.GetComponent<AccountManager>();
+        ums = UIManager.GetComponent<UIManager_Title>();
+        backGround = GameObject.Find("BackGround");
         bgcs = backGround.GetComponent<BackGroundController>();
         systemSound = GameObject.Find("SystemSound");
         ssms = systemSound.GetComponent<SystemSoundManager>();
@@ -44,7 +50,7 @@ public class TitleManager : MonoBehaviour
             else if(Time.frameCount % 100 == 50) pressSpaceKey.SetActive(false);
             if(Input.GetKeyDown(KeyCode.Space)) OpenButtons();
         }
-        else ControllButtons();
+        else if(!ams.accountUI.activeSelf) ControllButtons();
     }
 
     void OpenButtons(){
@@ -56,10 +62,9 @@ public class TitleManager : MonoBehaviour
     int prev_bottom = 1;
     void ControllButtons(){
         if(Input.GetKeyDown(KeyCode.Space)){
-            if(choosing == 0){
-                ssms.PlaySE(ssms.SE_decide);
-                SceneManager.LoadScene("LevelSelect");
-            }
+            ssms.PlaySE(ssms.SE_decide);
+            if(choosing == 0) SceneManager.LoadScene("LevelSelect");
+            else if(choosing == 1) ams.OpenAccountUI();
         }
 
         int prev_choosing = choosing;
@@ -80,8 +85,7 @@ public class TitleManager : MonoBehaviour
         }
         if(choosing != prev_choosing){
             ssms.PlaySE(ssms.SE_choose);
-            choosingUI[prev_choosing].SetActive(false);
-            choosingUI[choosing].SetActive(true);
+            ums.SetChoosingUI("title", prev_choosing, choosing);
         }
     }
 }
