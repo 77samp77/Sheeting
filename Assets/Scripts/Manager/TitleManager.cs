@@ -20,7 +20,7 @@ public class TitleManager : MonoBehaviour
 
     // public GameObject[] choosingUI;
     bool buttonIsAppear;
-    int choosing;
+    [System.NonSerialized] public int choosing;
 
     void Awake(){
         Application.targetFrameRate = 60;
@@ -49,6 +49,12 @@ public class TitleManager : MonoBehaviour
             if(Time.frameCount % 100 == 0) pressSpaceKey.SetActive(true);
             else if(Time.frameCount % 100 == 50) pressSpaceKey.SetActive(false);
             if(Input.GetKeyDown(KeyCode.Space)) OpenButtons();
+        }
+        else if(ums.popUpUI.activeSelf){
+            if(Input.GetKeyDown(KeyCode.Space)){
+                ssms.PlaySE(ssms.SE_decide);
+                ums.popUpUI.SetActive(false);
+            }
         }
         else if(!ams.accountUI.activeSelf) ControllButtons();
     }

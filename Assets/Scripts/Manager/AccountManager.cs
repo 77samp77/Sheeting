@@ -12,7 +12,7 @@ public class AccountManager : MonoBehaviour
     GameObject systemSound;
     SystemSoundManager ssms;
 
-    public GameObject accountUI;
+    public GameObject accountUI, popUpUI;
     public InputField userNameField, passwordField;
 
     int prev_choosing, choosing;
@@ -39,18 +39,23 @@ public class AccountManager : MonoBehaviour
         prev_top = 0;
     }
 
-    void CloseAccountUI(){
+    public void CloseAccountUI(){
+        ums.SetChoosingUI("account", choosing, 2);
         accountUI.SetActive(false);
         canControll = false;
+        Debug.Log("Close");
     }
 
+    bool prev_accountUI, prev_popUpUI;
     // Update is called once per frame
     void Update()
     {
         if(!canControll){
             if(accountUI.activeSelf) canControll = true;
         }
-        else ControllAccountUI();
+        else if(!prev_popUpUI) ControllAccountUI();
+        prev_accountUI = accountUI.activeSelf;
+        prev_popUpUI = popUpUI.activeSelf;
     }
 
     void ControllAccountUI(){
@@ -91,11 +96,13 @@ public class AccountManager : MonoBehaviour
         NCMBUser.LogInAsync (userNameField.text, passwordField.text, (NCMBException e) => {    
 			if(e != null) UnityEngine.Debug.Log ("サインイン失敗: " + e.ErrorMessage);
 			else{
-				UnityEngine.Debug.Log ("サインイン成功！");
 				StaticManager.isSigningIn = true;
 				StaticManager.userName = userNameField.text;
 				ReadUserData();
+                ums.SetUserName(userNameField.text);
+                UnityEngine.Debug.Log ("サインイン成功！");
 			}
+            ums.PopUp(e == null, userNameField.text);
 		});
     }
 
@@ -124,7 +131,10 @@ public class AccountManager : MonoBehaviour
 		user.UserName = userNameField.text;
 		user.Password = passwordField.text;
 		user.SignUpAsync ((NCMBException e) => { 
-			if (e != null) Debug.Log ("サインアップ失敗: " + e.ErrorMessage);
+			if (e != null){
+                Debug.Log ("サインアップ失敗: " + e.ErrorMessage);
+                ums.PopUp(false, userNameField.text);
+            }
 			else {
 				Debug.Log ("サインアップ成功！");
 				RegistUserData(userNameField.text);
