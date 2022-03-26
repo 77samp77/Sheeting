@@ -55,7 +55,7 @@ public class TitleManager : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Space)) OpenButtons();
         }
         else if(ums.popUpUI.activeSelf){
-            if(Input.GetKeyDown(KeyCode.Space)){
+            if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z)){
                 ssms.PlaySE(ssms.SE_back);
                 ums.popUpUI.SetActive(false);
             }

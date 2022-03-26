@@ -31,7 +31,9 @@ public class OptionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(prev_optionUI && Input.GetKeyDown(KeyCode.Space)) CloseOptionUI();
+        if(prev_optionUI){
+            if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z)) CloseOptionUI();
+        }
         prev_optionUI = optionUI.activeSelf;
     }
 

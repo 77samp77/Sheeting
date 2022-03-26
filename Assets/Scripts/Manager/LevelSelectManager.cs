@@ -61,7 +61,8 @@ public class LevelSelectManager : MonoBehaviour
     
     void ControllBack(){
         ssms.PlaySE(ssms.SE_back);
-        SceneManager.LoadScene("Title");
+        if(UIms.rankingUI.activeSelf) UIms.rankingUI.SetActive(false);
+        else SceneManager.LoadScene("Title");
     }
 
     void ControllDecide(){

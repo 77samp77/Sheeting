@@ -181,7 +181,8 @@ public class GameManagerScript : MonoBehaviour
             UIms.SetChoosingUI(UIms.pauseUI_choosing, pre_choosing, choosing);
         }
 
-        if(Input.GetKeyDown(KeyCode.Space)){
+        if(Input.GetKeyDown(KeyCode.Z)) SwitchPause(false);
+        else if(Input.GetKeyDown(KeyCode.Space)){
             if(choosing == 0) SwitchPause(false);
             else if(choosing == 1){
                 ssms.PlaySE(ssms.SE_decide);
@@ -202,14 +203,18 @@ public class GameManagerScript : MonoBehaviour
             ssms.PlaySE(ssms.SE_choose);
             UIms.SetChoosingUI(UIms.resultUI_choosing, pre_choosing, choosing);
         }
-
-        if(Input.GetKeyDown(KeyCode.Space)){
+ 
+        if(Input.GetKeyDown(KeyCode.Z)){
+            ssms.PlaySE(ssms.SE_back);
+            SceneManager.LoadScene("LevelSelect");
+        }
+        else if(Input.GetKeyDown(KeyCode.Space)){
             if(choosing == 0){
                 ssms.PlaySE(ssms.SE_decide);
                 ResetGame();
             }
             else if(choosing == 1){
-                ssms.PlaySE(ssms.SE_decide);
+                ssms.PlaySE(ssms.SE_back);
                 SceneManager.LoadScene("LevelSelect");
             }
         }
