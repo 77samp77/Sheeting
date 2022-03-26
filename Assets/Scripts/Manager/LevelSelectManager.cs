@@ -65,11 +65,14 @@ public class LevelSelectManager : MonoBehaviour
     }
 
     void ControllDecide(){
-        ssms.PlaySE(ssms.SE_decide);
+        if(!UIms.rankingUI.activeSelf) ssms.PlaySE(ssms.SE_decide);
         if(choosing == 0) SwitchGameRanking(1 - status);
         else if(status == 0) SceneManager.LoadScene("Game");
         else{
-            if(UIms.rankingUI.activeSelf) UIms.rankingUI.SetActive(false);
+            if(UIms.rankingUI.activeSelf){
+                ssms.PlaySE(ssms.SE_back);
+                UIms.rankingUI.SetActive(false);
+            }
             else DisplayRanking(choosing);
         }
     }

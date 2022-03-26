@@ -10,6 +10,9 @@ public class TitleManager : MonoBehaviour
     public GameObject accountManager;
     AccountManager ams;
 
+    public GameObject optionManager;
+    OptionManager oms;
+
     public GameObject UIManager;
     UIManager_Title ums;
 
@@ -35,6 +38,7 @@ public class TitleManager : MonoBehaviour
 
     void InitVariables(){
         ams = accountManager.GetComponent<AccountManager>();
+        oms = optionManager.GetComponent<OptionManager>();
         ums = UIManager.GetComponent<UIManager_Title>();
         backGround = GameObject.Find("BackGround");
         bgcs = backGround.GetComponent<BackGroundController>();
@@ -52,11 +56,11 @@ public class TitleManager : MonoBehaviour
         }
         else if(ums.popUpUI.activeSelf){
             if(Input.GetKeyDown(KeyCode.Space)){
-                ssms.PlaySE(ssms.SE_decide);
+                ssms.PlaySE(ssms.SE_back);
                 ums.popUpUI.SetActive(false);
             }
         }
-        else if(!ams.accountUI.activeSelf) ControllButtons();
+        else if(!ams.accountUI.activeSelf && !oms.optionUI.activeSelf) ControllButtons();
     }
 
     void OpenButtons(){
@@ -71,6 +75,7 @@ public class TitleManager : MonoBehaviour
             ssms.PlaySE(ssms.SE_decide);
             if(choosing == 0) SceneManager.LoadScene("LevelSelect");
             else if(choosing == 1) ams.OpenAccountUI();
+            else oms.OpenOptionUI();
         }
 
         int prev_choosing = choosing;

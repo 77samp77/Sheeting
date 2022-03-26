@@ -14,6 +14,9 @@ public class StaticManager : MonoBehaviour
     [System.NonSerialized] public static bool isSigningIn;
     [System.NonSerialized] public static string userName;
 
+    [System.NonSerialized] public static float volume_BGM = 0.5f;
+    [System.NonSerialized] public static float volume_SE = 0.5f;
+
     void Awake(){
         GameObject temp = GameObject.Find("StaticManager");
         if(temp != null) Destroy(this.gameObject);

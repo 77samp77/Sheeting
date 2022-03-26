@@ -60,7 +60,8 @@ public class AccountManager : MonoBehaviour
 
     void ControllAccountUI(){
         if(Input.GetKeyDown(KeyCode.Space)){
-            ssms.PlaySE(ssms.SE_decide);
+            if(choosing != 2) ssms.PlaySE(ssms.SE_decide);
+            else ssms.PlaySE(ssms.SE_back);
             if(choosing == 0) SignIn();
             else if(choosing == 1) SignUp();
             else if(choosing == 2) CloseAccountUI();

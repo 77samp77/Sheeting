@@ -8,6 +8,8 @@ public class SystemSoundManager : MonoBehaviour
 
     public AudioClip SE_decide, SE_choose, SE_back, SE_pause_open, SE_pause_close;
 
+    [System.NonSerialized] public float volume = 0.5f;
+
     void Awake(){
         GameObject temp = GameObject.Find("SystemSound");
         if(temp != null) Destroy(this.gameObject);
@@ -29,7 +31,7 @@ public class SystemSoundManager : MonoBehaviour
         
     }
 
-    [SerializeField, Range(0f, 1f)] public float volume;
+    // [SerializeField, Range(0f, 1f)] public float volume;
     public void PlaySE(AudioClip sound){
         float part_volume = 1;
         if(sound == SE_back) part_volume = 0.5f;

@@ -6,13 +6,14 @@ public class GameMusicManager : MonoBehaviour
 {
     public AudioSource audioSource;
     public AudioClip bgm;
-    [SerializeField, Range(0f, 1f)] public float volume;
+    // [SerializeField, Range(0f, 1f)] public float volume;
+    float volume;
     
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        volume = StaticManager.volume_BGM * 0.2f;
     }
 
     // Update is called once per frame
