@@ -16,7 +16,7 @@ public class UIManager_Title : MonoBehaviour
     public GameObject[] choosingUI_title;
     public GameObject[] choosingUI_account;
 
-    public GameObject accountUI;
+    public GameObject accountUI, account_shadow;
     public GameObject popUpUI, popUp_backGround, popUp_statusText, popUp_messageText;
 
     // Start is called before the first frame update
@@ -45,7 +45,7 @@ public class UIManager_Title : MonoBehaviour
     }
 
     public void SetUserName(string name){
-        accountText.GetComponent<Text>().text = "User: " + name;
+        accountText.GetComponent<Text>().text = account_shadow.GetComponent<Text>().text = "User: " + name;
     }
 
     public void PopUp(bool isSuccess, string name){

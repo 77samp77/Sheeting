@@ -50,6 +50,7 @@ public class WordController : MonoBehaviour
     }
 
     public virtual void BeSetWord(int pos, float speed, string wordStr, bool isTop){
+        // Debug.Log(pos + ", " + speed + ", " + wordStr + ", " + isTop);
         textObject.GetComponent<Text>().text = wordStr;
         colWidth = 5 * wordStr.Length;
         mark.GetComponent<RectTransform>().sizeDelta = new Vector2(colWidth, 7);

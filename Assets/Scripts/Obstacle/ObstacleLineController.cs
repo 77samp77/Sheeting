@@ -32,4 +32,10 @@ public class ObstacleLineController : ObstacleController
             pcs.Damage();
         }
     }
+
+    public override void LateUpdate(){
+    }
+
+    public override void OnRenderObject(){
+    }
 }

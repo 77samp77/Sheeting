@@ -119,7 +119,7 @@ public class GameManagerScript : MonoBehaviour
     {
         gameIsStop = JudgeGameStop();
         if(!isStart){
-            if(pcs.readyToStart && Mathf.RoundToInt(bgcs.spr_pos[1].x + SW) % 18 == 10){
+            if(pcs.readyToStart && Mathf.RoundToInt(bgcs.spr_pos[1].x + SW) % 18 == 10 + (int)gameSpeed * 2){
                 gmms.PlayBGM(gmms.bgm);
                 isStart = true;
             }

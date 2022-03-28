@@ -30,7 +30,7 @@ public class StaticManager : MonoBehaviour
     void Start()
     {
         for(int i = 1; i < levelStatus.Length; i++){
-            if(i <= 5) levelStatus[i] = 1;
+            if(i <= 10) levelStatus[i] = 1;
             else levelStatus[i] = 0;
         }
     }

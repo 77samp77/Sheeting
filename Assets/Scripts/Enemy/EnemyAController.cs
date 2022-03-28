@@ -15,6 +15,8 @@ public class EnemyAController : EnemyController
     int shoot_con_count;
     public int shoot_con_max, shoot_interval_con;
 
+    int first_pos;
+
     public override void InitVariables()
     {
         base.InitVariables();
@@ -26,7 +28,8 @@ public class EnemyAController : EnemyController
 
     public override void BeSetEnemy(int _pos, bool isTop)
     {
-        transform.localPosition = new Vector2(SW / 2, _pos);
+        first_pos = _pos;
+        transform.localPosition = new Vector2(SW / 2, first_pos);
     }
     
     public override void Update(){
@@ -50,6 +53,7 @@ public class EnemyAController : EnemyController
     }
 
     void AppearMotion(){
+        pos.y = first_pos;
         if(!isStartShoot){
             if(pos.x > 90) pos.x -= 1;
             else{

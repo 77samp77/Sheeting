@@ -3153,6 +3153,7 @@ MonoBehaviour:
   - {fileID: 143153866}
   - {fileID: 1967664825}
   accountUI: {fileID: 730835244}
+  account_shadow: {fileID: 1763131209}
   popUpUI: {fileID: 1524990318}
   popUp_backGround: {fileID: 1215967797}
   popUp_statusText: {fileID: 621225617}
