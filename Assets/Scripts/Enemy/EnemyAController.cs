@@ -53,8 +53,8 @@ public class EnemyAController : EnemyController
     }
 
     void AppearMotion(){
-        pos.y = first_pos;
         if(!isStartShoot){
+            pos.y = first_pos;
             if(pos.x > 90) pos.x -= 1;
             else{
                 pos.x = 90;

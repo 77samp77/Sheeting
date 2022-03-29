@@ -54,7 +54,7 @@ public class TextManager : MonoBehaviour
     }
     
     public string resultLifeBonusText(int lifeBonus){
-        string lifeBonusText = "LIFE  +  ";
+        string lifeBonusText = "LIFE  + ";
         lifeBonus = Mathf.Max(lifeBonus, 0);
         string lifeBonusToString = lifeBonus.ToString();
         int digitCount = lifeBonusToString.Length;
