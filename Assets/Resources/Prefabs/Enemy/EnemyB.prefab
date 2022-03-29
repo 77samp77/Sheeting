@@ -347,7 +347,7 @@ MonoBehaviour:
   sprite: {fileID: 6092696274668526384}
   sprite_f: {fileID: 6092696274519686897}
   v: 0
-  score: 800
+  score: 3000
   shoot_interval: 95
   bc2D: {fileID: 6092696275138139966}
   sprite_b: {fileID: 6092696273957814517}

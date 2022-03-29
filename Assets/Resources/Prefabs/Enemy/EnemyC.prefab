@@ -266,7 +266,7 @@ MonoBehaviour:
   sprite: {fileID: 6869631263465971949}
   sprite_f: {fileID: 6869631262784438606}
   v: 0
-  score: 500
+  score: 1000
   shoot_interval: 0
   bc2D: {fileID: 6869631264353254662}
 --- !u!61 &6869631264353254662

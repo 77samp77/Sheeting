@@ -225,10 +225,10 @@ public class GameManagerScript : MonoBehaviour
         isFinish = true;
         isSuccess = judgeSuccess();
         total_score = score;
-        int lifeBonus = life * 1000;
+        int lifeBonus = life * 5000;
         if(isSuccess){
-            total_score += 15000 + lifeBonus;
-            if(life == life_max) total_score += 10000;
+            total_score += 30000 + lifeBonus;
+            if(life == life_max) total_score += 50000;
             if(total_score > StaticManager.hiscore[level]) isNewRecord = true;
             UpdateLevelStatus(level, total_score, isNewRecord);
             if(StaticManager.isSigningIn){

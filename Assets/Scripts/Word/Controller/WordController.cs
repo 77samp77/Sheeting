@@ -16,7 +16,7 @@ public class WordController : MonoBehaviour
     public float v;
     [System.NonSerialized] public float vy = 0;
     [System.NonSerialized] public Vector3 pos;
-    [System.NonSerialized] public int colWidth;
+    [System.NonSerialized] public int strLength, colWidth;
     public bool isMarked, isCovered;
 
     [System.NonSerialized] public GameObject sheet;
@@ -50,9 +50,9 @@ public class WordController : MonoBehaviour
     }
 
     public virtual void BeSetWord(int pos, float speed, string wordStr, bool isTop){
-        // Debug.Log(pos + ", " + speed + ", " + wordStr + ", " + isTop);
         textObject.GetComponent<Text>().text = wordStr;
-        colWidth = 5 * wordStr.Length;
+        strLength = wordStr.Length;
+        colWidth = 5 * strLength;
         mark.GetComponent<RectTransform>().sizeDelta = new Vector2(colWidth, 7);
         mark_c.GetComponent<RectTransform>().sizeDelta = new Vector2(colWidth, 7);
     }
@@ -118,7 +118,7 @@ public class WordController : MonoBehaviour
         gms.gain_combo++;
         gms.gain_words++;
         UIms.SetWordCountUI(gms.gain_words, gms.quota_words);
-        gms.IncreaseScore(Mathf.FloorToInt(100 * Mathf.Pow(2, Mathf.Min(gms.gain_combo - 1, 8))));
+        gms.IncreaseScore(Mathf.FloorToInt((int)(500 * Mathf.Pow(1.5f, Mathf.Min(gms.gain_combo - 1, 9)))) * 10);
 
         isGainAnimation = true;
         canvas.SetActive(false);

@@ -600,7 +600,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: LIFE  +  6000
+  m_Text: LIFE  +  30000
 --- !u!222 &139186329
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2125,7 +2125,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 573207131}
   bgm: {fileID: 8300000, guid: db999844ab4f2af48ba67fba9d7e15bb, type: 3}
-  volume: 0.1
 --- !u!1 &575160764
 GameObject:
   m_ObjectHideFlags: 0
@@ -3055,7 +3054,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: GAME CLEAR  + 15000
+  m_Text: GAME CLEAR  + 30000
 --- !u!222 &777652921
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3621,7 +3620,6 @@ MonoBehaviour:
   SE_sheet: {fileID: 8300000, guid: 3600b1d5a68fa114ca933a06038171cb, type: 3}
   SE_gain: {fileID: 8300000, guid: 3208a8c9028609e46abc08317d722426, type: 3}
   SE_damage: {fileID: 8300000, guid: 484631d29f5abaf4bb16c2703a1fc8f4, type: 3}
-  volume: 0.5
 --- !u!82 &929641411
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6403,7 +6401,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: NO DAMAGE!  + 10000
+  m_Text: NO DAMAGE!  + 50000
 --- !u!222 &1805628662
 CanvasRenderer:
   m_ObjectHideFlags: 0
